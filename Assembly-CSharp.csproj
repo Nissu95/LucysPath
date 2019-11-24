@@ -63,6 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\EyeLight.cs" />
+    <Compile Include="Assets\Scripts\Interactive.cs" />
+    <Compile Include="Assets\Scripts\Mirror.cs" />
+    <Compile Include="Assets\Scripts\PlayerInput.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/Testament/Desktop/juegogato/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

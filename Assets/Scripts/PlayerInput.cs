@@ -40,12 +40,7 @@ public class PlayerInput : MonoBehaviour
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit))
-        {
             if (hit.transform.CompareTag("Mirror"))
-            {
-                Debug.Log("Toca espejo");
                 hit.transform.GetComponent<Interactive>().Interact();
-            }
-        }
     }
 }

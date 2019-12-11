@@ -7,7 +7,7 @@ public class Pathfinding : MonoBehaviour
     [SerializeField] float speed = 5;
     [SerializeField] float distanceLimit = .01f;
 
-    FSM fsm = new FSM(2, 2);
+    FSM fsm = new FSM(3, 2);
 
     List<Vector3> nodes;
 
@@ -18,7 +18,7 @@ public class Pathfinding : MonoBehaviour
         fsm.SetState(State.Idle);
 
         fsm.SetRelation(State.Idle, Event.ToWalking, State.Walking);
-        fsm.SetRelation(State.Walking, Event.ToIdle, State.Idle);
+        fsm.SetRelation(State.Walking, Event.ToWin, State.Win);
     }
 
     private void Update()
@@ -47,7 +47,10 @@ public class Pathfinding : MonoBehaviour
                 }
 
                 if (nodeIndex >= nodes.Count)
-                    fsm.SetEvent(Event.ToIdle);
+                    fsm.SetEvent(Event.ToWin);
+                break;
+            case State.Win:
+                GameManager.singleton.LevelWin();
                 break;
         }
     }

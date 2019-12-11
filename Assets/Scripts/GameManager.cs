@@ -16,9 +16,11 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         else
             singleton = this;
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    private void Start()
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         winObj = FindInactiveObjectByName("Win");
     }
@@ -29,6 +31,7 @@ public class GameManager : MonoBehaviour
             winObj.SetActive(true);
     }
 
+    //Finds inactive GameObjects by name.
     public GameObject FindInactiveObjectByName(string name)
     {
         Transform[] objs = Resources.FindObjectsOfTypeAll<Transform>() as Transform[];
@@ -44,5 +47,4 @@ public class GameManager : MonoBehaviour
         }
         return null;
     }
-
 }

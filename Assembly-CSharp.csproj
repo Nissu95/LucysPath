@@ -62,6 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\ButtonsInteraction.cs" />
     <Compile Include="Assets\Scripts\EyeLight.cs" />
     <Compile Include="Assets\Scripts\FSM.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />

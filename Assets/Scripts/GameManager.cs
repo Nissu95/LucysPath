@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     
     GameObject winObj;
     int stars;
+    int maxStars = 0;
 
     void Awake()
     {
@@ -29,6 +30,9 @@ public class GameManager : MonoBehaviour
 
     public void LevelWin()
     {
+        if (stars > maxStars)
+            maxStars = stars;
+
         if (winObj)
             winObj.SetActive(true);
     }
@@ -41,6 +45,11 @@ public class GameManager : MonoBehaviour
     public int GetStars()
     {
         return stars;
+    }
+
+    public int GetMaxStars()
+    {
+        return maxStars;
     }
 
     //----------------------------------------------------------------------------

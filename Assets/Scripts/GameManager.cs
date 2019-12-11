@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public static GameManager singleton;
     
     GameObject winObj;
+    int stars;
+    int maxStars = 0;
 
     void Awake()
     {
@@ -23,15 +25,36 @@ public class GameManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         winObj = FindInactiveObjectByName("Win");
+        stars = 0;
     }
 
     public void LevelWin()
     {
+        if (stars > maxStars)
+            maxStars = stars;
+
         if (winObj)
             winObj.SetActive(true);
     }
 
+    public void StarsCount()
+    {
+        stars++;
+    }
+
+    public int GetStars()
+    {
+        return stars;
+    }
+
+    public int GetMaxStars()
+    {
+        return maxStars;
+    }
+
+    //----------------------------------------------------------------------------
     //Finds inactive GameObjects by name.
+    //----------------------------------------------------------------------------
     public GameObject FindInactiveObjectByName(string name)
     {
         Transform[] objs = Resources.FindObjectsOfTypeAll<Transform>() as Transform[];

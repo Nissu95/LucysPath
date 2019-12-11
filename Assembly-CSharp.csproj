@@ -69,7 +69,9 @@
     <Compile Include="Assets\Scripts\Interactive.cs" />
     <Compile Include="Assets\Scripts\Mirror.cs" />
     <Compile Include="Assets\Scripts\Pathfinding.cs" />
+    <Compile Include="Assets\Scripts\PickUpStar.cs" />
     <Compile Include="Assets\Scripts\PlayerInput.cs" />
+    <Compile Include="Assets\Scripts\StarsTextChange.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/nicos/Desktop/Other/JuegoGato/juegogato/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

@@ -39,7 +39,7 @@ public class EyeLight : MonoBehaviour
     {
         RaycastHit hit = new RaycastHit();
 
-        if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity))
+        if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, layers))
         {
             Debug.DrawRay(ray.origin, hit.point - ray.origin, Color.green);
 

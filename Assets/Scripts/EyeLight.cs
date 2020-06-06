@@ -1,15 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class EyeLight : MonoBehaviour
 {
     [SerializeField]
     LayerMask layers;
-    [SerializeField]
-    string mirrorTag = "Mirror";
-    [SerializeField]
-    string endTag = "End";
 
     bool inGame = true;
 
@@ -44,7 +41,7 @@ public class EyeLight : MonoBehaviour
             Debug.DrawRay(ray.origin, hit.point - ray.origin, Color.green);
 
             //If hits a mirror
-            if (hit.transform.CompareTag(mirrorTag))
+            if (hit.transform.CompareTag(Tags.mirror))
             {
                 // Find the line from where the ray started.
                 Vector3 incomingVec = hit.point - ray.origin;
@@ -58,7 +55,17 @@ public class EyeLight : MonoBehaviour
                 Raycast(new Ray(hit.point, reflectVec));
 
             }
-            else if (hit.transform.CompareTag(endTag))
+
+            else if (hit.transform.CompareTag(Tags.portal))
+            {
+                Portal portal = hit.transform.GetComponent<Portal>();
+                Transform connectionPortal = portal.GetConnectionTransform();
+                nodes.Add(portal.transform.position);
+
+                Raycast(new Ray(connectionPortal.position, connectionPortal.forward));
+            }
+
+            else if (hit.transform.CompareTag(Tags.end))
             {
                 if (inGame)
                 {
@@ -79,7 +86,7 @@ public class EyeLight : MonoBehaviour
         foreach (var item in nodes)
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(item, 1);
+            Gizmos.DrawSphere(item, .5f);
         }
     }
 

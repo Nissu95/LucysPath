@@ -8,6 +8,7 @@ TagManager:
   - End
   - BlackHole
   - Star
+  - Portal
   layers:
   - Default
   - TransparentFX

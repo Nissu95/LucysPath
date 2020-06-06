@@ -61,4 +61,9 @@ public class Pathfinding : MonoBehaviour
         nodes = _nodes;
         fsm.SetEvent(Event.ToWalking);
     }
+
+    public void NextNode()
+    {
+        nodeIndex++;
+    }
 }

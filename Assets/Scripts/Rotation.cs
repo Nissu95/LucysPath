@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mirror : Interactive
+public class Rotation : Interactive
 {
     public override void Interact()
     {

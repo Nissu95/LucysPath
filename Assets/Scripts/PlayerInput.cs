@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    
+    [SerializeField] LayerMask interactionLayers;
+
     void Update()
     {
 #if UNITY_EDITOR
@@ -39,8 +41,11 @@ public class PlayerInput : MonoBehaviour
 
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit))
-            if (hit.transform.CompareTag("Mirror"))
-                hit.transform.GetComponent<Interactive>().Interact();
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, interactionLayers))
+        {
+            Interactive interactive = hit.transform.GetComponent<Interactive>();
+            if (interactive != null)
+                interactive.Interact();
+        }
     }
 }

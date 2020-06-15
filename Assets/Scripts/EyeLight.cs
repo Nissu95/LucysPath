@@ -92,7 +92,6 @@ public class EyeLight : MonoBehaviour
 
     void Walk()
     {
-        Debug.Log("hola");
         pathfinding.StartWalking(nodes);
     }
 }

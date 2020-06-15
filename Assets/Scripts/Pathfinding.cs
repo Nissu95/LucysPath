@@ -32,8 +32,6 @@ public class Pathfinding : MonoBehaviour
                 if (nodes.Count <= 0)
                     return;
 
-                Debug.Log("Nodos: " + nodes.Count);
-
                 Vector3 diff = nodes[nodeIndex] - transform.position;
                 Vector3 dir = diff.normalized;
 

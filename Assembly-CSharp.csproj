@@ -67,12 +67,15 @@
     <Compile Include="Assets\Scripts\EyeLight.cs" />
     <Compile Include="Assets\Scripts\FSM.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\HandleTextFile.cs" />
     <Compile Include="Assets\Scripts\Interactive.cs" />
-    <Compile Include="Assets\Scripts\Mirror.cs" />
+    <Compile Include="Assets\Scripts\LevelButton.cs" />
+    <Compile Include="Assets\Scripts\LevelEditor.cs" />
     <Compile Include="Assets\Scripts\Pathfinding.cs" />
     <Compile Include="Assets\Scripts\PickUpStar.cs" />
     <Compile Include="Assets\Scripts\PlayerInput.cs" />
     <Compile Include="Assets\Scripts\Portal.cs" />
+    <Compile Include="Assets\Scripts\Rotation.cs" />
     <Compile Include="Assets\Scripts\StarsTextChange.cs" />
     <Compile Include="Assets\Scripts\Tags.cs" />
     <Reference Include="Unity.Timeline.Editor">

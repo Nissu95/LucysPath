@@ -19,6 +19,11 @@ public class LevelButton : MonoBehaviour
         button.onClick.AddListener(OnClick);
     }
 
+    private void Start()
+    {
+        UpdateText();
+    }
+
     void OnClick()
     {
         itemIndex++;
@@ -45,5 +50,10 @@ public class LevelButton : MonoBehaviour
     public int GetIndex()
     {
         return itemIndex;
+    }
+
+    public void SetIndex(int _index)
+    {
+        itemIndex = _index;
     }
 }

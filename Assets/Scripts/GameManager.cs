@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour
 
         if (winObj)
             winObj.SetActive(true);
+
+        LevelSelectionManager.singleton.LevelWon(stars);
     }
 
     public void StarsCount()

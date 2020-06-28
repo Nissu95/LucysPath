@@ -28,7 +28,7 @@ public class LevelButton : MonoBehaviour
     {
         itemIndex++;
 
-        if (itemIndex > levelEditor.items.Length)
+        if (itemIndex > LevelCreator.singleton.GetObstacles().Length)
             itemIndex = 0;
 
         UpdateText();
@@ -39,7 +39,7 @@ public class LevelButton : MonoBehaviour
         if (itemIndex == 0)
             text.text = "";
         else
-            text.text = levelEditor.items[itemIndex - 1].name;
+            text.text = LevelCreator.singleton.GetObstacles()[itemIndex - 1].name;
     }
 
     public void SetPosition(Vector2Int _position)

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.PlayerLoop;
 using UnityEngine.UI;
 
 public class LevelEditor : MonoBehaviour
@@ -155,7 +151,7 @@ public class LevelEditor : MonoBehaviour
 
     public void SaveLevel()
     {
-        LevelsLoader.SaveLevels(GetLevel(), ref LevelIndex);
+        LevelsLoader.SaveLevel(GetLevel(), ref LevelIndex);
         UpdateLevelText();
         UpdateTotalLevels();
     }
@@ -166,45 +162,3 @@ public class LevelEditor : MonoBehaviour
     }
 }
 
-[Serializable]
-public class Level
-{
-    int[,] items;
-    bool won = false;
-    int stars = 0;
-    public Level(LevelButton[,] levelButtons, int colums, int rows)
-    {
-        items = new int[colums, rows];
-
-        for (int i = 0; i < colums; i++)
-            for (int j = 0; j < rows; j++)
-            {
-                items[i, j] = levelButtons[i, j].GetIndex();
-            }
-    }
-
-    public int [,] GetItems()
-    {
-        return items;
-    }
-
-    public bool GetWon()
-    {
-        return won;
-    }
-
-    public void SetWon(bool _won)
-    {
-        won = _won;
-    }
-    public int GetColumns()
-    {
-        return items.GetLength(0);
-    }
-
-    public int GetRows()
-    {
-        return items.GetLength(1);
-    }
-
-}

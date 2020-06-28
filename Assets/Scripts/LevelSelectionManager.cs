@@ -21,11 +21,13 @@ public class LevelSelectionManager : MonoBehaviour
     }
 
     List<Level> levels;
+    List<LevelWon> levelsWon;
 
     bool lastWon = false;
     void Start()
     {
         levels = LevelsLoader.GetLevels();
+        levelsWon = LevelsLoader.GetLevelsWon();
 
         for (int i = 0; i < levels.Count; i++)
         {
@@ -35,7 +37,10 @@ public class LevelSelectionManager : MonoBehaviour
 
             Button buttonScript = buttonInstance.GetComponent<Button>();
 
-            bool won = levels[i].GetWon();
+            bool won = (levelsWon != null && i < levelsWon.Count);
+
+            if (won)
+                button.SetStars(levelsWon[i].GetStars());
 
             if (i > 0)
                 buttonScript.interactable = won;
@@ -55,8 +60,9 @@ public class LevelSelectionManager : MonoBehaviour
         currentLevel = index;
     }
 
-    public void LevelWon()
+    public void LevelWon(int stars)
     {
+        LevelsLoader.SaveLevelWon(stars, currentLevel);
         Level level = LevelsLoader.GetLevel(currentLevel);
         level.SetWon(true);
     }

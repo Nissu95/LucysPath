@@ -4,7 +4,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections.Generic;
 
-public class HandleTextFile
+public class LevelsLoader
 {
 
     static List<Level> levels;
@@ -43,7 +43,11 @@ public class HandleTextFile
     {
         FileStream file;
 
-        if (File.Exists(path)) file = File.OpenRead(path);
+        if (File.Exists(path))
+        {
+            file = File.OpenRead(path);
+            Debug.Log("File found");
+        }
         else
         {
             Debug.LogError("File not found");
@@ -67,5 +71,16 @@ public class HandleTextFile
     public static int GetLevelsCount()
     {
         return levels.Count;
+    }
+
+    public static List<Level> GetLevels()
+    {
+        if (levels == null)
+        {
+            Debug.LogError("Levels null buscando archivo");
+            ReadLevels();
+        }
+
+        return levels;
     }
 }

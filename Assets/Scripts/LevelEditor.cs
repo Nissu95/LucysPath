@@ -8,17 +8,16 @@ using UnityEngine.UI;
 
 public class LevelEditor : MonoBehaviour
 {
-    public GameObject[] items;
     [SerializeField] int columns;
     [SerializeField] int rows;
     [SerializeField] float verticalSpacing;
     [SerializeField] float horizontalSpacing;
     [SerializeField] Vector2 UIposition;
     [SerializeField] GameObject buttonPrefab;
-    [SerializeField] float itemsSpacing;
     [SerializeField] Transform canvas;
     [SerializeField] Text levelText;
     [SerializeField] Text totalLevels;
+    [SerializeField] LevelCreator levelCreator;
 
     LevelButton[,] buttons;
 
@@ -28,7 +27,7 @@ public class LevelEditor : MonoBehaviour
     private void Start()
     {
         ShowEditorUI();
-        HandleTextFile.ReadLevels();
+        LevelsLoader.ReadLevels();
         LoadLevel();
         UpdateTotalLevels();
     }
@@ -40,7 +39,7 @@ public class LevelEditor : MonoBehaviour
 
     void UpdateTotalLevels()
     {
-        totalLevels.text = "Niveles: " + HandleTextFile.GetLevelsCount();
+        totalLevels.text = "Niveles: " + LevelsLoader.GetLevelsCount();
     }
 
     public void LeftLevel()
@@ -53,7 +52,7 @@ public class LevelEditor : MonoBehaviour
 
     public void RightLevel()
     {
-        if (LevelIndex < HandleTextFile.GetLevelsCount())
+        if (LevelIndex < LevelsLoader.GetLevelsCount())
             LevelIndex++;
 
         UpdateLevelText();
@@ -121,7 +120,9 @@ public class LevelEditor : MonoBehaviour
 
     public void TestLevel()
     {
-        foreach (var obstacle in levelObstacles)
+        levelCreator.CreateLevel(GetLevel());
+
+        /*foreach (var obstacle in levelObstacles)
             Destroy(obstacle);
 
         levelObstacles.Clear();
@@ -139,12 +140,12 @@ public class LevelEditor : MonoBehaviour
 
                     levelObstacles.Add(item);
                 }
-            }
+            }*/
     }
 
     public void LoadLevel()
     {
-        Level level = HandleTextFile.GetLevel(LevelIndex);
+        Level level = LevelsLoader.GetLevel(LevelIndex);
 
         if (level == null)
             ShowEditorUI();
@@ -154,10 +155,14 @@ public class LevelEditor : MonoBehaviour
 
     public void SaveLevel()
     {
-        Level level = new Level(buttons, columns, rows);
-        HandleTextFile.SaveLevels(level,ref LevelIndex);
+        LevelsLoader.SaveLevels(GetLevel(), ref LevelIndex);
         UpdateLevelText();
         UpdateTotalLevels();
+    }
+
+    public Level GetLevel()
+    {
+        return new Level(buttons, columns, rows);
     }
 }
 
@@ -165,6 +170,8 @@ public class LevelEditor : MonoBehaviour
 public class Level
 {
     int[,] items;
+    bool won = false;
+    int stars = 0;
     public Level(LevelButton[,] levelButtons, int colums, int rows)
     {
         items = new int[colums, rows];
@@ -179,6 +186,25 @@ public class Level
     public int [,] GetItems()
     {
         return items;
+    }
+
+    public bool GetWon()
+    {
+        return won;
+    }
+
+    public void SetWon(bool _won)
+    {
+        won = _won;
+    }
+    public int GetColumns()
+    {
+        return items.GetLength(0);
+    }
+
+    public int GetRows()
+    {
+        return items.GetLength(1);
     }
 
 }

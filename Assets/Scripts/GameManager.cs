@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     GameObject mainMenu;
 
+    Pathfinding playerPath;
+
     //----------------------------------------------------------------------------
     //Level Selection Variables
 
@@ -44,6 +46,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         mainMenu.SetActive(true);
+        LevelSelectionStart();
         selectionPanel.gameObject.SetActive(false);
     }
 
@@ -64,6 +67,8 @@ public class GameManager : MonoBehaviour
         LevelsLoader.SaveLevelWon(stars, currentLevel);
         Level level = LevelsLoader.GetLevel(currentLevel);
         level.SetWon(true);
+
+        playerPath.GetFSM().SetEvent(Event.ToIdle);
     }
 
     public void StarsCount()
@@ -119,7 +124,7 @@ public class GameManager : MonoBehaviour
     {
         mainMenu.SetActive(false);
         selectionPanel.gameObject.SetActive(true);
-        LevelSelectionStart();
+        //LevelSelectionStart();
     }
 
     public void PlayLevel(int index)
@@ -128,12 +133,20 @@ public class GameManager : MonoBehaviour
         LevelCreator.singleton.CreateLevel(LevelsLoader.GetLevel(index));
 
         currentLevel = index;
+
+        playerPath = FindObjectOfType<Pathfinding>();
     }
 
     public void PlayAgain()
     {
         winObj.SetActive(false);
         PlayLevel(currentLevel);
+    }
+
+    public void BackToMenuButton()
+    {
+        winObj.SetActive(false);
+        mainMenu.SetActive(true);
     }
 
     public void CloseGame()

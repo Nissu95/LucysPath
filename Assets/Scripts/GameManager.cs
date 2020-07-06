@@ -132,7 +132,8 @@ public class GameManager : MonoBehaviour
 
     public void PlayAgain()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        winObj.SetActive(false);
+        PlayLevel(currentLevel);
     }
 
     public void CloseGame()

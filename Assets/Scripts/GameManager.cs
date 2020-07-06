@@ -143,6 +143,13 @@ public class GameManager : MonoBehaviour
         PlayLevel(currentLevel);
     }
 
+    public void NextLevelButton()
+    {
+        winObj.SetActive(false);
+        currentLevel++;
+        PlayLevel(currentLevel);
+    }
+
     public void BackToMenuButton()
     {
         winObj.SetActive(false);

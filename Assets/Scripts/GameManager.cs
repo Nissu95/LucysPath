@@ -151,6 +151,7 @@ public class GameManager : MonoBehaviour
     {
         winObj.SetActive(false);
         pauseGO.SetActive(false);
+        pauseButton.SetActive(true);
         PlayLevel(currentLevel);
     }
 

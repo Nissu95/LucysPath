@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public static GameManager singleton;
 
     [SerializeField] string mainMenuName;
+    [SerializeField] GameObject pauseGO;
+    [SerializeField] GameObject pauseButton;
 
     GameObject winObj;
     int stars;
@@ -48,6 +50,8 @@ public class GameManager : MonoBehaviour
         mainMenu.SetActive(true);
         LevelSelectionStart();
         selectionPanel.gameObject.SetActive(false);
+        pauseButton.SetActive(false);
+        pauseGO.SetActive(false);
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -63,6 +67,8 @@ public class GameManager : MonoBehaviour
 
         if (winObj)
             winObj.SetActive(true);
+
+        pauseButton.SetActive(false);
 
         LevelsLoader.SaveLevelWon(stars, currentLevel);
         Level level = LevelsLoader.GetLevel(currentLevel);
@@ -84,6 +90,11 @@ public class GameManager : MonoBehaviour
     public int GetMaxStars()
     {
         return maxStars;
+    }
+
+    public GameObject GetPauseButton()
+    {
+        return pauseButton;
     }
 
     //----------------------------------------------------------------------------
@@ -124,7 +135,6 @@ public class GameManager : MonoBehaviour
     {
         mainMenu.SetActive(false);
         selectionPanel.gameObject.SetActive(true);
-        //LevelSelectionStart();
     }
 
     public void PlayLevel(int index)
@@ -140,6 +150,7 @@ public class GameManager : MonoBehaviour
     public void PlayAgain()
     {
         winObj.SetActive(false);
+        pauseGO.SetActive(false);
         PlayLevel(currentLevel);
     }
 
@@ -154,6 +165,8 @@ public class GameManager : MonoBehaviour
     {
         winObj.SetActive(false);
         mainMenu.SetActive(true);
+        pauseGO.SetActive(false);
+        pauseButton.SetActive(false);
     }
 
     public void CloseGame()
@@ -164,6 +177,18 @@ public class GameManager : MonoBehaviour
     public void OptionsButton()
     {
 
+    }
+
+    public void PauseButton()
+    {
+        Time.timeScale = 0;
+        pauseGO.SetActive(true);
+    }
+
+    public void ContinueButton()
+    {
+        Time.timeScale = 1;
+        pauseGO.SetActive(false);
     }
 
     //----------------------------------------------------------------------------

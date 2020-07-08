@@ -29,5 +29,6 @@ public class LevelSelectionButton : MonoBehaviour
     void PlayLevel()
     {
         GameManager.singleton.PlayLevel(index);
+        GameManager.singleton.GetPauseButton().SetActive(true);
     }
 }

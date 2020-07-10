@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] string mainMenuName;
     [SerializeField] GameObject pauseGO;
     [SerializeField] GameObject pauseButton;
+    [SerializeField] GameObject quitWarning;
 
     GameObject winObj;
     int stars;
@@ -54,6 +55,28 @@ public class GameManager : MonoBehaviour
         pauseGO.SetActive(false);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (mainMenu.activeInHierarchy)
+                quitWarning.SetActive(true);
+            else
+            {
+                if (selectionPanel.gameObject.activeInHierarchy)
+                {
+                    mainMenu.SetActive(true);
+                    selectionPanel.gameObject.SetActive(false);
+                }
+                else
+                {
+                    if (pauseButton.activeInHierarchy)
+                        PauseButton();
+                }
+            }
+        }
+    }
+
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         winObj = FindInactiveObjectByName("Win");
@@ -95,6 +118,11 @@ public class GameManager : MonoBehaviour
     public GameObject GetPauseButton()
     {
         return pauseButton;
+    }
+
+    public GameObject GetQuitWarning()
+    {
+        return quitWarning;
     }
 
     //----------------------------------------------------------------------------
@@ -173,6 +201,11 @@ public class GameManager : MonoBehaviour
     public void CloseGame()
     {
         Application.Quit();
+    }
+
+    public void QuitWarningSetOff()
+    {
+        quitWarning.SetActive(false);
     }
 
     public void OptionsButton()

@@ -173,6 +173,8 @@ public class GameManager : MonoBehaviour
         currentLevel = index;
 
         playerPath = FindObjectOfType<Pathfinding>();
+
+        stars = 0;
     }
 
     public void PlayAgain()

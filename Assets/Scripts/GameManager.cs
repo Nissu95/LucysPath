@@ -192,9 +192,9 @@ public class GameManager : MonoBehaviour
 
     public void BackToMenuButton()
     {
+        ContinueButton();
         winObj.SetActive(false);
         mainMenu.SetActive(true);
-        pauseGO.SetActive(false);
         pauseButton.SetActive(false);
     }
 

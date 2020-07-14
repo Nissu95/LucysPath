@@ -222,6 +222,8 @@ public class GameManager : MonoBehaviour
         winObj.SetActive(false);
         mainMenu.SetActive(true);
         pauseButton.SetActive(false);
+
+        LevelCreator.singleton.DestroyLevel();
     }
 
     public void CloseGame()

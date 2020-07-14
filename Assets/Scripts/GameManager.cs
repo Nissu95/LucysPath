@@ -177,8 +177,8 @@ public class GameManager : MonoBehaviour
 
     public void PlayAgain()
     {
+        ContinueButton();
         winObj.SetActive(false);
-        pauseGO.SetActive(false);
         pauseButton.SetActive(true);
         PlayLevel(currentLevel);
     }

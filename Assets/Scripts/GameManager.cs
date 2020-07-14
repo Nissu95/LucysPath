@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 
     GameObject winObj;
     int stars;
-    int maxStars = 0;
+    int recordStars = 0;
 
     GameObject mainMenu;
 
@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
 
     List<Level> levels;
     List<LevelWon> levelsWon;
+    List<LevelSelectionButton> buttons = new List<LevelSelectionButton>();
     int currentLevel = 0;
     bool lastWon = false;
 
@@ -85,19 +86,21 @@ public class GameManager : MonoBehaviour
 
     public void LevelWin()
     {
-        if (stars > maxStars)
-            maxStars = stars;
+        if (stars > recordStars)
+            recordStars = stars;
 
         if (winObj)
             winObj.SetActive(true);
 
         pauseButton.SetActive(false);
 
-        LevelsLoader.SaveLevelWon(stars, currentLevel);
+        LevelsLoader.SaveLevelWon(recordStars, currentLevel);
         Level level = LevelsLoader.GetLevel(currentLevel);
         level.SetWon(true);
 
         playerPath.GetFSM().SetEvent(Event.ToIdle);
+
+        UpdateLevelSelection();
     }
 
     public void StarsCount()
@@ -112,7 +115,7 @@ public class GameManager : MonoBehaviour
 
     public int GetMaxStars()
     {
-        return maxStars;
+        return recordStars;
     }
 
     public GameObject GetPauseButton()
@@ -137,14 +140,26 @@ public class GameManager : MonoBehaviour
         {
             GameObject buttonInstance = Instantiate<GameObject>(levelSelectionButtonPrefab, selectionPanel);
             LevelSelectionButton button = buttonInstance.GetComponent<LevelSelectionButton>();
-            button.SetNumber(i);
+            buttons.Add(button);
 
-            Button buttonScript = buttonInstance.GetComponent<Button>();
+            button.SetNumber(i);
+        }
+
+        UpdateLevelSelection();
+    }
+
+    public void UpdateLevelSelection()
+    {
+        levelsWon = LevelsLoader.GetLevelsWon();
+
+        for (int i = 0; i < buttons.Count; i++)
+        {
+            Button buttonScript = buttons[i].GetComponent<Button>();
 
             bool won = (levelsWon != null && i < levelsWon.Count);
 
             if (won)
-                button.SetStars(levelsWon[i].GetStars());
+                buttons[i].SetStars(levelsWon[i].GetStars());
 
             if (i > 0)
                 buttonScript.interactable = won;
@@ -175,6 +190,15 @@ public class GameManager : MonoBehaviour
         playerPath = FindObjectOfType<Pathfinding>();
 
         stars = 0;
+
+        LevelWon levelWon = LevelsLoader.GetLevelWon(index);
+
+        if (levelWon != null)
+            recordStars = levelWon.GetStars();
+        else
+            recordStars = 0;
+
+
     }
 
     public void PlayAgain()

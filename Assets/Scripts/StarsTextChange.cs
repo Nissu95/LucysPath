@@ -12,7 +12,5 @@ public class StarsTextChange : MonoBehaviour
     {
         displayStarsTxt.text = "Current Playthrough: " + GameManager.singleton.GetStars();
         displayMaxStarsTxt.text = "Max Stars: " + GameManager.singleton.GetMaxStars();
-
-        Debug.Log("Estrellas " + GameManager.singleton.GetStars());
     }
 }

@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject pauseGO;
     [SerializeField] GameObject pauseButton;
     [SerializeField] GameObject quitWarning;
+    [SerializeField] GameObject optionsGO;
 
     GameObject winObj;
     int stars;
@@ -197,8 +198,6 @@ public class GameManager : MonoBehaviour
             recordStars = levelWon.GetStars();
         else
             recordStars = 0;
-
-
     }
 
     public void PlayAgain()
@@ -222,6 +221,7 @@ public class GameManager : MonoBehaviour
         winObj.SetActive(false);
         mainMenu.SetActive(true);
         pauseButton.SetActive(false);
+        optionsGO.SetActive(false);
 
         LevelCreator.singleton.DestroyLevel();
     }
@@ -238,7 +238,14 @@ public class GameManager : MonoBehaviour
 
     public void OptionsButton()
     {
+        optionsGO.SetActive(true);
+        mainMenu.SetActive(false);
+    }
 
+    public void MuteButton()
+    {
+        AudioListener.pause = !AudioListener.pause;
+        Debug.Log(AudioListener.pause);
     }
 
     public void PauseButton()

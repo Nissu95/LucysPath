@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum GameState { Play, MainMenu, Options, Pause, SelectionLevel, QuitWarning }
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager singleton;
@@ -19,8 +21,9 @@ public class GameManager : MonoBehaviour
     int recordStars = 0;
 
     GameObject mainMenu;
-
     Pathfinding playerPath;
+
+    GameState gs;
 
     //----------------------------------------------------------------------------
     //Level Selection Variables
@@ -46,6 +49,7 @@ public class GameManager : MonoBehaviour
 
         SceneManager.sceneLoaded += OnSceneLoaded;
         mainMenu = GameObject.Find(mainMenuName);
+        gs = GameState.MainMenu;
     }
 
     private void Start()
@@ -61,20 +65,32 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (mainMenu.activeInHierarchy)
-                quitWarning.SetActive(true);
-            else
+            switch (gs)
             {
-                if (selectionPanel.gameObject.activeInHierarchy)
-                {
+                case GameState.Play:
+                    PauseButton();
+                    break;
+                case GameState.MainMenu:
+                    quitWarning.SetActive(true);
+                    gs = GameState.QuitWarning;
+                    break;
+                case GameState.Options:
+                    optionsGO.SetActive(false);
                     mainMenu.SetActive(true);
+                    gs = GameState.MainMenu;
+                    break;
+                case GameState.Pause:
+                    ContinueButton();
+                    break;
+                case GameState.SelectionLevel:
                     selectionPanel.gameObject.SetActive(false);
-                }
-                else
-                {
-                    if (pauseButton.activeInHierarchy)
-                        PauseButton();
-                }
+                    mainMenu.SetActive(true);
+                    gs = GameState.MainMenu;
+                    break;
+                case GameState.QuitWarning:
+                    quitWarning.SetActive(false);
+                    gs = GameState.MainMenu;
+                    break;
             }
         }
     }
@@ -122,11 +138,6 @@ public class GameManager : MonoBehaviour
     public GameObject GetPauseButton()
     {
         return pauseButton;
-    }
-
-    public GameObject GetQuitWarning()
-    {
-        return quitWarning;
     }
 
     //----------------------------------------------------------------------------
@@ -179,6 +190,7 @@ public class GameManager : MonoBehaviour
     {
         mainMenu.SetActive(false);
         selectionPanel.gameObject.SetActive(true);
+        gs = GameState.SelectionLevel;
     }
 
     public void PlayLevel(int index)
@@ -198,6 +210,8 @@ public class GameManager : MonoBehaviour
             recordStars = levelWon.GetStars();
         else
             recordStars = 0;
+
+        gs = GameState.Play;
     }
 
     public void PlayAgain()
@@ -224,6 +238,7 @@ public class GameManager : MonoBehaviour
         optionsGO.SetActive(false);
 
         LevelCreator.singleton.DestroyLevel();
+        gs = GameState.MainMenu;
     }
 
     public void CloseGame()
@@ -234,12 +249,14 @@ public class GameManager : MonoBehaviour
     public void QuitWarningSetOff()
     {
         quitWarning.SetActive(false);
+        gs = GameState.MainMenu;
     }
 
     public void OptionsButton()
     {
         optionsGO.SetActive(true);
         mainMenu.SetActive(false);
+        gs = GameState.Options;
     }
 
     public void MuteButton()
@@ -252,12 +269,14 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         pauseGO.SetActive(true);
+        gs = GameState.Pause;
     }
 
     public void ContinueButton()
     {
         Time.timeScale = 1;
         pauseGO.SetActive(false);
+        gs = GameState.Play;
     }
 
     //----------------------------------------------------------------------------

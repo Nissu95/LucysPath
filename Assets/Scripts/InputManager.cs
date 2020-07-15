@@ -14,9 +14,4 @@ public class InputManager : MonoBehaviour
         else
             singleton = this;
     }
-
-    public void BackOnMenu()
-    {
-        GameManager.singleton.GetQuitWarning().SetActive(true);
-    }
 }

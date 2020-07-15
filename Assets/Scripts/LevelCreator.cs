@@ -53,4 +53,12 @@ public class LevelCreator : MonoBehaviour
                 }
             }
     }
+
+    public void DestroyLevel()
+    {
+        foreach (var obstacle in items)
+            Destroy(obstacle);
+
+        items.Clear();
+    }
 }

@@ -132,7 +132,7 @@ public class LevelsLoader
 
     public static LevelWon GetLevelWon(int index)
     {
-        if (index < levelsWon.Count)
+        if (levelsWon != null && index < levelsWon.Count)
             return levelsWon[index];
 
         return null;

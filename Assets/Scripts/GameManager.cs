@@ -279,6 +279,11 @@ public class GameManager : MonoBehaviour
         gs = GameState.Play;
     }
 
+    public void PrivacyPlicies()
+    {
+        Application.OpenURL("https://www.google.com/");
+    }
+
     //----------------------------------------------------------------------------
     //Finds inactive GameObjects by name.
 

@@ -4,28 +4,51 @@ using UnityEngine;
 
 public class Path : MonoBehaviour
 {
-    [SerializeField] GameObject nodePrefab;
-
     [SerializeField] bool[] nodesAvailable = new bool[Constants.nodesCount];
 
-    float nodeSpacing;
-    float nodeHeight;
-    int[] nodes = new int[Constants.nodesCount];
 
-    
+    Queue<uint> nodes = new Queue<uint>();
+
+    List<GameObject> nodos = new List<GameObject>();
+
+    bool locked = false;
+
 
     private void Start()
     {
-        nodeSpacing = transform.localScale.x / 2;
-        nodeHeight = transform.localScale.y / 2;
-
         for (int i = 0; i < nodesAvailable.Length; i++)
-            if (nodesAvailable[i] == true) nodes[i] = 1; else nodes[i] = 0;
+            if (nodesAvailable[i] == true) nodes.Enqueue(1); else nodes.Enqueue(0);
+
     }
 
-    public int[] GetNodes()
+    public uint[] GetNodes()
     {
-        return nodes;
+        uint[] nodesArray;
+
+        nodesArray = nodes.ToArray();
+
+        return nodesArray;
+    }
+
+    public void RotatePath()
+    {
+        for (int i = 0; i < 2; i++)
+            nodes.Enqueue(nodes.Dequeue());
+    }
+
+    public void Lock()
+    {
+        locked = true;
+    }
+
+    public void Unlock()
+    {
+        locked = false;
+    }
+
+    public bool IsLocked()
+    {
+        return locked;
     }
 }
 

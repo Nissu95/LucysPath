@@ -4,16 +4,26 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
-    [SerializeField] Path[,] paths = new Path[3,3];
+    [SerializeField] Path[,] paths = new Path[6,6];
     [SerializeField] GameObject[] pathPrefabs;
+    [SerializeField] GameObject firstPathPrefab;
 
-    [SerializeField] Vector2Int firstPath;
+    [SerializeField] GameObject player;
 
-    public Material materialRed;
-    public Material materialGreen;
-    public Material firstPathMaterial;
+    [SerializeField] Vector2Int firstPathPosition;
+    [SerializeField] Vector2Int lastPathPosition;
+
+    public Color firstPathColor;
+    public Color lastPathColor;
+    public Color intermidiatePathColor;
+
+    const float nodeSpacing = 0.5f;
+    const float nodeHeight = 0.1f;
+
+    readonly Vector2Int nullPosition = new Vector2Int(100,100);
 
     List<Node> nodes = new List<Node>();
+    List<Vector3> nodesPosition = new List<Vector3>();
 
     private void Start()
     {
@@ -21,24 +31,52 @@ public class Grid : MonoBehaviour
         {
             for (int j = 0; j < paths.GetLength(1); j++)
             {
-                GameObject prefab = pathPrefabs[0];
+                GameObject prefab = pathPrefabs[Random.Range(0, pathPrefabs.Length)];
+
+                if (i == firstPathPosition.x && j == firstPathPosition.y)
+                    prefab = firstPathPrefab;
 
                 paths[i, j] = Instantiate<GameObject>(prefab, new Vector3(i, 1, j), Quaternion.identity).GetComponent<Path>();
             }
         }
 
+        Path firstPathSquare = GetPath(firstPathPosition);
+        firstPathSquare.GetComponent<MeshRenderer>().material.color = firstPathColor;
+        firstPathSquare.Lock();
 
+        Path lastPathSquare = GetPath(lastPathPosition);
+        lastPathSquare.GetComponent<MeshRenderer>().material.color = lastPathColor;
     }
 
     public void FindPath()
     {
-        Path path = paths[firstPath.x, firstPath.y];
-        int[] nodes = path.GetNodes();
+        Vector2Int nextPathPosition = firstPathPosition;
 
-        path.GetComponent<MeshRenderer>().material = materialRed;
+        while (true)
+        {
+            nextPathPosition = FindNextPath(nextPathPosition);
 
-        Vector2Int currentPathPosition = firstPath;
-        Vector2Int nextPathPosition;
+            if (nextPathPosition == lastPathPosition || nextPathPosition == nullPosition)
+            {
+                player.GetComponent<Pathfinding>().StartWalking(nodesPosition);
+                return;
+            }
+
+            Path nextPath = GetPath(nextPathPosition);
+
+            nextPath.GetComponent<MeshRenderer>().material.color = intermidiatePathColor;
+            nextPath.Lock();
+        } 
+
+
+    }
+
+    Vector2Int FindNextPath(Vector2Int pathGridPosition)
+    {
+        uint[] nodes = GetPath(pathGridPosition).GetNodes();
+
+        Vector2Int currentPathGridPosition = pathGridPosition;
+        Vector2Int nextPathGridPosition;
 
         uint connectionNodeIndex;
 
@@ -51,26 +89,44 @@ public class Grid : MonoBehaviour
                 if (i < bias) connectionNodeIndex = (uint)i + bias; else connectionNodeIndex = (uint)i - bias;
                 //Debug.Log("Nodo actual " + i + " Nodo de conexion " + connectionNodeIndex);
 
-                nextPathPosition = currentPathPosition + Constants.pathsOrder[i];
+                nextPathGridPosition = currentPathGridPosition + Constants.pathsOrder[i];
 
-                if (nextPathPosition.x >= 0 && nextPathPosition.x < paths.GetLength(0) 
-                    && nextPathPosition.y >= 0 && nextPathPosition.y < paths.GetLength(1))
+                Path nextPath = paths[nextPathGridPosition.x, nextPathGridPosition.y];
+
+                if (!nextPath.IsLocked() && nextPathGridPosition.x >= 0 && nextPathGridPosition.x < paths.GetLength(0)
+                                         && nextPathGridPosition.y >= 0 && nextPathGridPosition.y < paths.GetLength(1))
                 {
-                    Path nextPath = paths[nextPathPosition.x, nextPathPosition.y];
 
-                    int[] nextPathNodes = nextPath.GetNodes();
+                    uint[] nextPathNodes = nextPath.GetNodes();
 
                     if (nextPathNodes[connectionNodeIndex] == 1)
                     {
-                        nextPath.GetComponent<MeshRenderer>().material = materialGreen;
+                        Vector3 pathPosition = nextPath.transform.position;
+                        Vector3 nodePosition = new Vector3(pathPosition.x + (Constants.pathsOrder[connectionNodeIndex].x) * nodeSpacing,
+                                                           pathPosition.y + nodeHeight,
+                                                           pathPosition.z + (Constants.pathsOrder[connectionNodeIndex].y) * nodeSpacing);
+
+                        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                        sphere.transform.localScale *= 0.2f;
+                        sphere.transform.position = nodePosition;
+
+                        nodesPosition.Add(nodePosition);
+
+                        return nextPathGridPosition;
                     }
-
                 }
-
             }
         }
+        return nullPosition;
     }
 
+    Path GetPath(Vector2Int pathPosition)
+    {
+        if (pathPosition != nullPosition)
+            return paths[pathPosition.x, pathPosition.y];
+        else
+            return null;
+    }
 }
 
 public static class Constants

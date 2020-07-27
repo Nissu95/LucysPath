@@ -41,7 +41,7 @@ public class LevelCreator : MonoBehaviour
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < columns; j++)
             {
-                int index = level.GetItems()[j, i];
+                int index = level.GetGrid()[j, i];
 
                 if (index > 0)
                 {

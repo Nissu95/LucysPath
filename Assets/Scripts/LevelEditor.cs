@@ -81,8 +81,8 @@ public class LevelEditor : MonoBehaviour
     {
         ClearButtons();
 
-        columns = level.GetItems().GetLength(0);
-        rows = level.GetItems().GetLength(1);
+        columns = level.GetGrid().GetLength(0);
+        rows = level.GetGrid().GetLength(1);
 
         buttons = new LevelButton[columns, rows];
 
@@ -96,7 +96,7 @@ public class LevelEditor : MonoBehaviour
 
                 LevelButton levelButton = button.GetComponent<LevelButton>();
                 levelButton.SetPosition(position);
-                levelButton.SetIndex(level.GetItems()[j, i]);
+                levelButton.SetIndex(level.GetGrid()[j, i]);
 
                 levelButton.levelEditor = this;
 

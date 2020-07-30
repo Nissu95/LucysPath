@@ -118,6 +118,8 @@ public class GameManager : MonoBehaviour
         playerPath.GetFSM().SetEvent(Event.ToIdle);
 
         UpdateLevelSelection();
+
+        AdmobScript.singleton.RequestInterstitial();
     }
 
     public void StarsCount()

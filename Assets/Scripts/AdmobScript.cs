@@ -24,6 +24,7 @@ public class AdmobScript : MonoBehaviour
     void Start()
     {
         MobileAds.Initialize(initStatus => { });
+        RequestInterstitial();
     }
 
     public void RequestInterstitial()
@@ -51,6 +52,7 @@ public class AdmobScript : MonoBehaviour
 
     public void ShowInterstitialAd()
     {
+        Debug.Log(interstitial.IsLoaded());
         if (this.interstitial.IsLoaded())
             this.interstitial.Show();
     }
@@ -69,11 +71,14 @@ public class AdmobScript : MonoBehaviour
 
     public void HandleOnAdOpened(object sender, EventArgs args)
     {
+        //Pausar todos los sonidos del juego.
         MonoBehaviour.print("HandleAdOpened event received");
     }
 
     public void HandleOnAdClosed(object sender, EventArgs args)
     {
+        //Reanudar todos los sonidos del juego.
+        RequestInterstitial();
         MonoBehaviour.print("HandleAdClosed event received");
     }
 

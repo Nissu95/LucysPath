@@ -119,7 +119,8 @@ public class GameManager : MonoBehaviour
 
         UpdateLevelSelection();
 
-        AdmobScript.singleton.RequestInterstitial();
+        //AdmobScript.singleton.RequestInterstitial();
+        AdmobScript.singleton.ShowInterstitialAd();
     }
 
     public void StarsCount()

@@ -54,11 +54,19 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        mainMenu.SetActive(true);
+        if (mainMenu)
+            mainMenu.SetActive(true);
+
         LevelSelectionStart();
-        selectionPanel.gameObject.SetActive(false);
-        pauseButton.SetActive(false);
-        pauseGO.SetActive(false);
+
+        if (selectionPanel)
+            selectionPanel.gameObject.SetActive(false);
+
+        if (pauseButton)
+            pauseButton.SetActive(false);
+
+        if (pauseGO)
+            pauseGO.SetActive(false);
     }
 
     private void Update()

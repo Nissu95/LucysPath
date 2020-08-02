@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7115821754679164169}
-  - component: {fileID: 7115821754679164168}
+  - component: {fileID: 763373960}
   m_Layer: 0
   m_Name: LevelCreator
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7115821754679164168
+--- !u!114 &763373960
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,14 +40,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 7115821754679164171}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71122ecf07edb7d4290ab7f7cb272736, type: 3}
+  m_Script: {fileID: 11500000, guid: 24439848da4913145b9f7b2fd838e673, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemsSpacing: 2
-  levelObstacles:
-  - {fileID: 7789827631522860049, guid: 371e0d371773e8a419e05382221a4f19, type: 3}
-  - {fileID: 4558114434200644644, guid: 7f8cd184461320a4da076446c88640e4, type: 3}
-  - {fileID: 4753304634525242347, guid: b1b5bf4696f1ab14daddab638d294307, type: 3}
-  - {fileID: 1195999072256333566, guid: b2230d30416ee434cba2b3d4d36314e0, type: 3}
-  - {fileID: 3799910880091709086, guid: 13ffe36de9f752b47abece08f6734966, type: 3}
-  - {fileID: 7128315730131212926, guid: 4390d4e05025c384189aa8268cc9b2dc, type: 3}
+  pathPrefabs:
+  - {fileID: 1379032843586764446, guid: 8d99834388e23c74fb424f9bc1c5fe0b, type: 3}
+  - {fileID: 8506024220322552873, guid: 6360ebb85203fc742bfb7f90132fe8e9, type: 3}
+  - {fileID: 3498777507387465566, guid: 242d824659e48a34f9f92ca40a066dc2, type: 3}
+  - {fileID: 7097945831625200422, guid: 9bff3fd396ada8243ac3f1cd28008b03, type: 3}
+  itemsSpacing: 1
+  firstPathColor: {r: 0.107794166, g: 1, b: 0, a: 0.53333336}
+  lastPathColor: {r: 1, g: 0, b: 0, a: 0.5019608}
+  intermidiatePathColor: {r: 0, g: 0, b: 0, a: 1}

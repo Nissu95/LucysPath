@@ -8,7 +8,9 @@ public class Rotation : Interactive
     {
         transform.Rotate(0, -90, 0, Space.Self);
 
-        if (gameObject.tag == "Path")
+        if (gameObject.CompareTag(Constants.PathTag) 
+            || gameObject.CompareTag(Constants.firstPathTag) 
+            || gameObject.CompareTag(Constants.lastPathTag))
             GetComponent<Path>().RotatePath();
     }
 }

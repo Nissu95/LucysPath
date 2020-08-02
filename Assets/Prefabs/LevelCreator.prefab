@@ -44,10 +44,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathPrefabs:
+  - {fileID: 7097945831625200422, guid: 9bff3fd396ada8243ac3f1cd28008b03, type: 3}
+  - {fileID: 3498777507387465566, guid: 242d824659e48a34f9f92ca40a066dc2, type: 3}
   - {fileID: 1379032843586764446, guid: 8d99834388e23c74fb424f9bc1c5fe0b, type: 3}
   - {fileID: 8506024220322552873, guid: 6360ebb85203fc742bfb7f90132fe8e9, type: 3}
-  - {fileID: 3498777507387465566, guid: 242d824659e48a34f9f92ca40a066dc2, type: 3}
-  - {fileID: 7097945831625200422, guid: 9bff3fd396ada8243ac3f1cd28008b03, type: 3}
+  - {fileID: 1688789759424880563, guid: 3dad5d9a0fd8b4d499cc384e9dd030ef, type: 3}
+  - {fileID: 7410285037583331967, guid: 7fd7e39cdde076d4b9e7b0ea7ead5824, type: 3}
+  - {fileID: 6828744148629061739, guid: 487eed04f4be6694e91b89b07975509a, type: 3}
   itemsSpacing: 1
   firstPathColor: {r: 0.107794166, g: 1, b: 0, a: 0.53333336}
   lastPathColor: {r: 1, g: 0, b: 0, a: 0.5019608}

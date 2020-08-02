@@ -11,6 +11,9 @@ public class Rotation : Interactive
         if (gameObject.CompareTag(Constants.PathTag) 
             || gameObject.CompareTag(Constants.firstPathTag) 
             || gameObject.CompareTag(Constants.lastPathTag))
+        {
             GetComponent<Path>().RotatePath();
+            LevelCreator.singleton.FindPath();
+        }
     }
 }

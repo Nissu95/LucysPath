@@ -9,7 +9,7 @@ public class LevelCreator : MonoBehaviour
 
     Pathfinding playerPathfinding;
 
-    Vector2Int firstPathPosition;
+    public Vector2Int firstPathPosition;
     Vector2Int lastPathPosition;
 
     [SerializeField] float itemsSpacing;
@@ -42,23 +42,44 @@ public class LevelCreator : MonoBehaviour
 
     public void FindPath()
     {
+        nodesPosition.Clear();
+
         Vector2Int nextPathPosition = firstPathPosition;
+
+
+        for (int i = 0; i < items.Count; i++)
+            items[i].GetComponent<Path>().Unlock();
+
+        Path firstPathSquare = GetPath(firstPathPosition);
+        firstPathSquare.Lock();
 
         playerPathfinding = GetPath(firstPathPosition).GetComponentInChildren<Pathfinding>();
 
+
         while (true)
         {
+
             nextPathPosition = FindNextPath(nextPathPosition);
 
-            if (nextPathPosition == lastPathPosition || nextPathPosition == nullPosition)
+            if (nextPathPosition == nullPosition)
+                return;
+
+            Path nextPath = GetPath(nextPathPosition);
+            nodesPosition.Add(nextPath.transform.position + (Vector3.up * nodeHeight));
+
+            if (nextPathPosition == lastPathPosition)
             {
+                /*for (int i = 0; i < nodesPosition.Count; i++)
+                {
+                    GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                    sphere.transform.localScale *= 0.2f;
+                    sphere.transform.position = nodesPosition[i];
+                }*/
+
                 playerPathfinding.StartWalking(nodesPosition);
                 return;
             }
 
-            Path nextPath = GetPath(nextPathPosition);
-
-            nextPath.GetComponent<MeshRenderer>().material.color = intermidiatePathColor;
             nextPath.Lock();
         }
     }
@@ -83,30 +104,32 @@ public class LevelCreator : MonoBehaviour
 
                 nextPathGridPosition = currentPathGridPosition + Constants.pathsOrder[i];
 
-                Path nextPath = paths[nextPathGridPosition.x, nextPathGridPosition.y];
-
-                if (!nextPath.IsLocked() && nextPathGridPosition.x >= 0 && nextPathGridPosition.x < paths.GetLength(0)
-                                         && nextPathGridPosition.y >= 0 && nextPathGridPosition.y < paths.GetLength(1))
+                if (nextPathGridPosition.x >= 0 && nextPathGridPosition.x < paths.GetLength(0)
+                    && nextPathGridPosition.y >= 0 && nextPathGridPosition.y < paths.GetLength(1))
                 {
+                    Path nextPath = paths[nextPathGridPosition.x, nextPathGridPosition.y];
 
-                    uint[] nextPathNodes = nextPath.GetNodes();
-
-                    if (nextPathNodes[connectionNodeIndex] == 1)
+                    if (!nextPath.IsLocked())
                     {
-                        Vector3 pathPosition = nextPath.transform.position;
-                        Vector3 nodePosition = new Vector3(pathPosition.x + (Constants.pathsOrder[connectionNodeIndex].x) * nodeSpacing,
-                                                           pathPosition.y + nodeHeight,
-                                                           pathPosition.z + (Constants.pathsOrder[connectionNodeIndex].y) * nodeSpacing);
 
-                        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                        sphere.transform.localScale *= 0.2f;
-                        sphere.transform.position = nodePosition;
+                        uint[] nextPathNodes = nextPath.GetNodes();
 
-                        nodesPosition.Add(nodePosition);
+                        if (nextPathNodes[connectionNodeIndex] == 1)
+                        {
+                            Vector3 pathPosition = nextPath.transform.position;
+                            Vector3 nodePosition = new Vector3(pathPosition.x + (Constants.pathsOrder[connectionNodeIndex].x) * nodeSpacing,
+                                                               pathPosition.y + nodeHeight,
+                                                               pathPosition.z + (Constants.pathsOrder[connectionNodeIndex].y) * nodeSpacing);
 
-                        return nextPathGridPosition;
+
+                            nodesPosition.Add(nodePosition);
+
+                            return nextPathGridPosition;
+                        }
                     }
+
                 }
+                else return nullPosition;
             }
         }
         return nullPosition;
@@ -146,13 +169,15 @@ public class LevelCreator : MonoBehaviour
                 else if (prefab.CompareTag(Constants.lastPathTag))
                     lastPathPosition = new Vector2Int(i, j);
 
-                paths[i, j] = Instantiate<GameObject>(prefab, new Vector3(i, 1, j), Quaternion.identity).GetComponent<Path>();
+                GameObject pathItem = Instantiate<GameObject>(prefab, new Vector3(i, 1, j), Quaternion.identity);
+                items.Add(pathItem);
+
+                paths[i, j] = pathItem.GetComponent<Path>();
             }
         }
 
         Path firstPathSquare = GetPath(firstPathPosition);
         firstPathSquare.GetComponent<MeshRenderer>().material.color = firstPathColor;
-        firstPathSquare.Lock();
 
         Path lastPathSquare = GetPath(lastPathPosition);
         lastPathSquare.GetComponent<MeshRenderer>().material.color = lastPathColor;

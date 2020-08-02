@@ -158,23 +158,23 @@ public class LevelsLoader
 [Serializable]
 public class Level
 {
-    int[,] items;
+    int[,] grid;
     bool won = false;
     int stars = 0;
     public Level(LevelButton[,] levelButtons, int colums, int rows)
     {
-        items = new int[colums, rows];
+        grid = new int[colums, rows];
 
         for (int i = 0; i < colums; i++)
             for (int j = 0; j < rows; j++)
             {
-                items[i, j] = levelButtons[i, j].GetIndex();
+                grid[i, j] = levelButtons[i, j].GetIndex();
             }
     }
 
-    public int[,] GetItems()
+    public int[,] GetGrid()
     {
-        return items;
+        return grid;
     }
 
     public bool GetWon()
@@ -188,12 +188,12 @@ public class Level
     }
     public int GetColumns()
     {
-        return items.GetLength(0);
+        return grid.GetLength(0);
     }
 
     public int GetRows()
     {
-        return items.GetLength(1);
+        return grid.GetLength(1);
     }
 }
 

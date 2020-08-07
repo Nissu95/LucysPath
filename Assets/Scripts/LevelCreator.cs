@@ -143,6 +143,11 @@ public class LevelCreator : MonoBehaviour
             return null;
     }
 
+    public Vector2Int GetMaxPosition()
+    {
+        return new Vector2Int(paths.GetLength(0), paths.GetLength(1));
+    }
+
 
     public void CreateLevel(Level level)
     {
@@ -162,17 +167,20 @@ public class LevelCreator : MonoBehaviour
             {
                 int index = level.GetGrid()[j, i];
 
-                GameObject prefab = pathPrefabs[index - 1];
+                if (index > 0)
+                {
+                    GameObject prefab = pathPrefabs[index - 1];
 
-                if (prefab.CompareTag(Constants.firstPathTag))
-                    firstPathPosition = new Vector2Int(i, j);
-                else if (prefab.CompareTag(Constants.lastPathTag))
-                    lastPathPosition = new Vector2Int(i, j);
+                    if (prefab.CompareTag(Constants.firstPathTag))
+                        firstPathPosition = new Vector2Int(i, j);
+                    else if (prefab.CompareTag(Constants.lastPathTag))
+                        lastPathPosition = new Vector2Int(i, j);
 
-                GameObject pathItem = Instantiate<GameObject>(prefab, new Vector3(i, 1, j), Quaternion.identity);
-                items.Add(pathItem);
+                    GameObject pathItem = Instantiate<GameObject>(prefab, new Vector3(i, 1, j), Quaternion.identity);
+                    items.Add(pathItem);
 
-                paths[i, j] = pathItem.GetComponent<Path>();
+                    paths[i, j] = pathItem.GetComponent<Path>();
+                }
             }
         }
 

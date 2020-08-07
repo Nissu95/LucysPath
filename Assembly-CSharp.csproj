@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\LevelEditor.cs" />
     <Compile Include="Assets\Scripts\LevelSelectionButton.cs" />
     <Compile Include="Assets\Scripts\LevelsLoader.cs" />
+    <Compile Include="Assets\Scripts\MouseDrag.cs" />
     <Compile Include="Assets\Scripts\Pathfinding.cs" />
     <Compile Include="Assets\Scripts\Pathfinding\Node.cs" />
     <Compile Include="Assets\Scripts\Pathfinding\Path.cs" />

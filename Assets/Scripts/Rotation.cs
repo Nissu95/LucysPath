@@ -6,7 +6,7 @@ public class Rotation : Interactive
 {
     public override void Interact()
     {
-        transform.Rotate(0, -90, 0, Space.Self);
+        /*transform.Rotate(0, -90, 0, Space.Self);
 
         if (gameObject.CompareTag(Constants.PathTag) 
             || gameObject.CompareTag(Constants.firstPathTag) 
@@ -14,6 +14,6 @@ public class Rotation : Interactive
         {
             GetComponent<Path>().RotatePath();
             LevelCreator.singleton.FindPath();
-        }
+        }*/
     }
 }

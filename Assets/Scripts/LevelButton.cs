@@ -10,11 +10,14 @@ public class LevelButton : MonoBehaviour
     int itemIndex = 0;
     Button button;
     Vector2Int position;
-    Text text;
+    Image buttonImage;
+    Toggle toggle;
+
     private void Awake()
     {
         button = GetComponent<Button>();
-        text = button.GetComponentInChildren<Text>();
+        buttonImage = GetComponent<Image>();
+        toggle = GetComponentInChildren<Toggle>();
 
         button.onClick.AddListener(OnClick);
     }
@@ -37,9 +40,9 @@ public class LevelButton : MonoBehaviour
     void UpdateText()
     {
         if (itemIndex == 0)
-            text.text = "";
+            buttonImage.sprite = null;
         else
-            text.text = LevelCreator.singleton.GetObstacles()[itemIndex - 1].name;
+            buttonImage.sprite = LevelCreator.singleton.GetObstacles()[itemIndex - 1].texture;
     }
 
     public void SetPosition(Vector2Int _position)
@@ -55,5 +58,15 @@ public class LevelButton : MonoBehaviour
     public void SetIndex(int _index)
     {
         itemIndex = _index;
+    }
+
+    public bool IsLocked()
+    {
+        return toggle.isOn;
+    }
+
+    public void SetLocked(bool locked)
+    {
+        toggle.isOn = locked;
     }
 }

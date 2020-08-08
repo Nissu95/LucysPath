@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelCreator : MonoBehaviour
 {
     [SerializeField] Path[,] paths;
-    [SerializeField] GameObject[] pathPrefabs;
+    [SerializeField] ScriptablePaths[] pathPrefabs;
 
     Pathfinding playerPathfinding;
 
@@ -181,11 +181,12 @@ public class LevelCreator : MonoBehaviour
         {
             for (int j = 0; j < paths.GetLength(1); j++)
             {
-                int index = level.GetGrid()[j, i];
+                int index = level.GetGrid()[j, i].Index;
+                bool locked = level.GetGrid()[j, i].Locked;
 
                 if (index > 0)
                 {
-                    GameObject prefab = pathPrefabs[index - 1];
+                    GameObject prefab = pathPrefabs[index - 1].prefab;
 
                     if (prefab.CompareTag(Constants.firstPathTag))
                         firstPathPosition = new Vector2Int(i, j);
@@ -196,6 +197,9 @@ public class LevelCreator : MonoBehaviour
                     items.Add(pathItem);
 
                     paths[i, j] = pathItem.GetComponent<Path>();
+
+                    if (locked)
+                        pathItem.GetComponent<MouseDrag>().Lock();
                 }
             }
         }
@@ -215,7 +219,7 @@ public class LevelCreator : MonoBehaviour
         items.Clear();
     }
 
-    public GameObject[] GetObstacles()
+    public ScriptablePaths[] GetObstacles()
     {
         return pathPrefabs;
     }

@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\PlayerInput.cs" />
     <Compile Include="Assets\Scripts\Portal.cs" />
     <Compile Include="Assets\Scripts\Rotation.cs" />
+    <Compile Include="Assets\Scripts\ScriptablePaths.cs" />
     <Compile Include="Assets\Scripts\StarsTextChange.cs" />
     <Compile Include="Assets\Scripts\Tags.cs" />
     <Reference Include="Unity.Timeline.Editor">

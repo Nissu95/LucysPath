@@ -57,7 +57,18 @@ public class MouseDrag : MonoBehaviour
             && curPosition.x >= 0
             && curPosition.z >= 0)
         {
-            transform.position = curPosition;
+            Vector2Int pathIndex = LevelCreator.singleton.GetPath(GetComponent<Path>());
+            Debug.Log(pathIndex);
+            Debug.Log(curPosition);
+
+            if (pathIndex != LevelCreator.singleton.nullPosition)
+            {
+                bool movementCorrect = LevelCreator.singleton.MovePath(pathIndex, new Vector2Int((int)curPosition.x, (int)curPosition.z));
+
+                if (movementCorrect)
+                    transform.position = curPosition;
+                else transform.position = scanPos;
+            }
         }
         else transform.position = scanPos;
 

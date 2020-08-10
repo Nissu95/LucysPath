@@ -5,6 +5,7 @@ using UnityEngine;
 public class Path : MonoBehaviour
 {
     [SerializeField] bool[] nodesAvailable = new bool[Constants.nodesCount];
+    [SerializeField] GameObject star;
 
 
     Queue<uint> nodes = new Queue<uint>();
@@ -49,6 +50,13 @@ public class Path : MonoBehaviour
     public bool IsLocked()
     {
         return locked;
+    }
+
+    public void HasStar()
+    {
+
+        if (star)
+            star.SetActive(true);
     }
 }
 

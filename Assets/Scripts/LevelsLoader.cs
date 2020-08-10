@@ -171,6 +171,7 @@ public class Level
                 grid[i, j] = new GridObject();
                 grid[i, j].Index = levelButtons[i, j].GetIndex();
                 grid[i, j].Locked = levelButtons[i, j].IsLocked();
+                grid[i, j].Star = levelButtons[i, j].HasStar();
             }
     }
 
@@ -204,6 +205,7 @@ public class GridObject
 {
     int index;
     bool locked;
+    bool star;
 
     public int Index
     {
@@ -215,6 +217,12 @@ public class GridObject
     {
         get { return locked; }
         set { locked = value; }
+    }
+
+    public bool Star
+    {
+        get { return star; }
+        set { star = value; }
     }
 }
 

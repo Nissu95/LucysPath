@@ -71,8 +71,6 @@ public class LevelEditor : MonoBehaviour
                 LevelButton levelButton = button.GetComponent<LevelButton>();
                 levelButton.SetPosition(position);
 
-                levelButton.levelEditor = this;
-
                 buttons[j, i] = levelButton;
             }
     }
@@ -98,8 +96,7 @@ public class LevelEditor : MonoBehaviour
                 levelButton.SetPosition(position);
                 levelButton.SetIndex(level.GetGrid()[j, i].Index);
                 levelButton.SetLocked(level.GetGrid()[j, i].Locked);
-
-                levelButton.levelEditor = this;
+                levelButton.SetStar(level.GetGrid()[j, i].Star);
 
                 buttons[j, i] = levelButton;
             }

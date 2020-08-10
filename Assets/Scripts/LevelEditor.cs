@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.PlayerLoop;
 using UnityEngine.UI;
 
 public class LevelEditor : MonoBehaviour
 {
-    public GameObject[] items;
     [SerializeField] int columns;
     [SerializeField] int rows;
     [SerializeField] float verticalSpacing;
     [SerializeField] float horizontalSpacing;
     [SerializeField] Vector2 UIposition;
     [SerializeField] GameObject buttonPrefab;
-    [SerializeField] float itemsSpacing;
     [SerializeField] Transform canvas;
     [SerializeField] Text levelText;
     [SerializeField] Text totalLevels;
+    [SerializeField] LevelCreator levelCreator;
 
     LevelButton[,] buttons;
 
@@ -28,7 +23,7 @@ public class LevelEditor : MonoBehaviour
     private void Start()
     {
         ShowEditorUI();
-        HandleTextFile.ReadLevels();
+        LevelsLoader.ReadLevels();
         LoadLevel();
         UpdateTotalLevels();
     }
@@ -40,7 +35,7 @@ public class LevelEditor : MonoBehaviour
 
     void UpdateTotalLevels()
     {
-        totalLevels.text = "Niveles: " + HandleTextFile.GetLevelsCount();
+        totalLevels.text = "Niveles: " + LevelsLoader.GetLevelsCount();
     }
 
     public void LeftLevel()
@@ -53,7 +48,7 @@ public class LevelEditor : MonoBehaviour
 
     public void RightLevel()
     {
-        if (LevelIndex < HandleTextFile.GetLevelsCount())
+        if (LevelIndex < LevelsLoader.GetLevelsCount())
             LevelIndex++;
 
         UpdateLevelText();
@@ -86,8 +81,8 @@ public class LevelEditor : MonoBehaviour
     {
         ClearButtons();
 
-        columns = level.GetItems().GetLength(0);
-        rows = level.GetItems().GetLength(1);
+        columns = level.GetGrid().GetLength(0);
+        rows = level.GetGrid().GetLength(1);
 
         buttons = new LevelButton[columns, rows];
 
@@ -101,7 +96,8 @@ public class LevelEditor : MonoBehaviour
 
                 LevelButton levelButton = button.GetComponent<LevelButton>();
                 levelButton.SetPosition(position);
-                levelButton.SetIndex(level.GetItems()[j, i]);
+                levelButton.SetIndex(level.GetGrid()[j, i].Index);
+                levelButton.SetLocked(level.GetGrid()[j, i].Locked);
 
                 levelButton.levelEditor = this;
 
@@ -121,30 +117,14 @@ public class LevelEditor : MonoBehaviour
 
     public void TestLevel()
     {
-        foreach (var obstacle in levelObstacles)
-            Destroy(obstacle);
+        levelCreator.DestroyLevel();
 
-        levelObstacles.Clear();
-
-        for (int i = 0; i < rows; i++)
-            for (int j = 0; j < columns; j++)
-            {
-                int index = buttons[j, i].GetIndex();
-
-                if (index > 0)
-                {
-                    GameObject item = Instantiate<GameObject>(items[index - 1], 
-                    new Vector3(itemsSpacing * i, 0,
-                    -itemsSpacing * j), Quaternion.identity);
-
-                    levelObstacles.Add(item);
-                }
-            }
+        levelCreator.CreateLevel(GetLevel());
     }
 
     public void LoadLevel()
     {
-        Level level = HandleTextFile.GetLevel(LevelIndex);
+        Level level = LevelsLoader.GetLevel(LevelIndex);
 
         if (level == null)
             ShowEditorUI();
@@ -154,31 +134,14 @@ public class LevelEditor : MonoBehaviour
 
     public void SaveLevel()
     {
-        Level level = new Level(buttons, columns, rows);
-        HandleTextFile.SaveLevels(level,ref LevelIndex);
+        LevelsLoader.SaveLevel(GetLevel(), ref LevelIndex);
         UpdateLevelText();
         UpdateTotalLevels();
     }
+
+    public Level GetLevel()
+    {
+        return new Level(buttons, columns, rows);
+    }
 }
 
-[Serializable]
-public class Level
-{
-    int[,] items;
-    public Level(LevelButton[,] levelButtons, int colums, int rows)
-    {
-        items = new int[colums, rows];
-
-        for (int i = 0; i < colums; i++)
-            for (int j = 0; j < rows; j++)
-            {
-                items[i, j] = levelButtons[i, j].GetIndex();
-            }
-    }
-
-    public int [,] GetItems()
-    {
-        return items;
-    }
-
-}

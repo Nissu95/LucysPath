@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7115821754679164169}
-  - component: {fileID: 763373960}
+  - component: {fileID: 630501286}
   m_Layer: 0
   m_Name: LevelCreator
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &763373960
+--- !u!114 &630501286
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,7 +40,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7115821754679164171}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24439848da4913145b9f7b2fd838e673, type: 3}
+  m_Script: {fileID: 11500000, guid: 71122ecf07edb7d4290ab7f7cb272736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pathPrefabs:
@@ -52,7 +52,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 67cabcf22fa6251499f90ceb1d732730, type: 2}
   - {fileID: 11400000, guid: f397d98764b330141bc11b68f8eec180, type: 2}
   firstPathPosition: {x: 0, y: 0}
-  itemsSpacing: 1
-  firstPathColor: {r: 0.107794166, g: 1, b: 0, a: 0.53333336}
-  lastPathColor: {r: 1, g: 0, b: 0, a: 0.5019608}
-  intermidiatePathColor: {r: 0, g: 0, b: 0, a: 1}
+  itemsSpacing: 0
+  firstPathColor: {r: 0.43115234, g: 1, b: 0, a: 0.50980395}
+  lastPathColor: {r: 1, g: 0, b: 0.11599016, a: 0.5019608}
+  intermidiatePathColor: {r: 0, g: 0, b: 0, a: 0.27450982}

@@ -96,7 +96,8 @@ public class LevelEditor : MonoBehaviour
 
                 LevelButton levelButton = button.GetComponent<LevelButton>();
                 levelButton.SetPosition(position);
-                levelButton.SetIndex(level.GetGrid()[j, i]);
+                levelButton.SetIndex(level.GetGrid()[j, i].Index);
+                levelButton.SetLocked(level.GetGrid()[j, i].Locked);
 
                 levelButton.levelEditor = this;
 

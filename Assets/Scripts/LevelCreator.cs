@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelCreator : MonoBehaviour
 {
     [SerializeField] Path[,] paths;
-    [SerializeField] GameObject[] pathPrefabs;
+    [SerializeField] ScriptablePaths[] pathPrefabs;
 
     Pathfinding playerPathfinding;
 
@@ -23,7 +23,7 @@ public class LevelCreator : MonoBehaviour
 
     List<GameObject> items = new List<GameObject>();
 
-    readonly Vector2Int nullPosition = new Vector2Int(100, 100);
+    public readonly Vector2Int nullPosition = new Vector2Int(100, 100);
 
     List<Node> nodes = new List<Node>();
     List<Vector3> nodesPosition = new List<Vector3>();
@@ -109,7 +109,7 @@ public class LevelCreator : MonoBehaviour
                 {
                     Path nextPath = paths[nextPathGridPosition.x, nextPathGridPosition.y];
 
-                    if (!nextPath.IsLocked())
+                    if (nextPath && !nextPath.IsLocked())
                     {
 
                         uint[] nextPathNodes = nextPath.GetNodes();
@@ -143,6 +143,27 @@ public class LevelCreator : MonoBehaviour
             return null;
     }
 
+    public Vector2Int GetPath(Path path)
+    {
+        for (int i = 0; i < paths.GetLength(0); i++)
+        {
+            for (int j = 0; j < paths.GetLength(1); j++)
+            {
+                if (path == paths[i,j])
+                {
+                    return new Vector2Int(i, j);
+                }
+            }
+        }
+
+        return nullPosition;
+    }
+
+    public Vector2Int GetMaxPosition()
+    {
+        return new Vector2Int(paths.GetLength(0), paths.GetLength(1));
+    }
+
 
     public void CreateLevel(Level level)
     {
@@ -160,19 +181,26 @@ public class LevelCreator : MonoBehaviour
         {
             for (int j = 0; j < paths.GetLength(1); j++)
             {
-                int index = level.GetGrid()[j, i];
+                int index = level.GetGrid()[j, i].Index;
+                bool locked = level.GetGrid()[j, i].Locked;
 
-                GameObject prefab = pathPrefabs[index - 1];
+                if (index > 0)
+                {
+                    GameObject prefab = pathPrefabs[index - 1].prefab;
 
-                if (prefab.CompareTag(Constants.firstPathTag))
-                    firstPathPosition = new Vector2Int(i, j);
-                else if (prefab.CompareTag(Constants.lastPathTag))
-                    lastPathPosition = new Vector2Int(i, j);
+                    if (prefab.CompareTag(Constants.firstPathTag))
+                        firstPathPosition = new Vector2Int(i, j);
+                    else if (prefab.CompareTag(Constants.lastPathTag))
+                        lastPathPosition = new Vector2Int(i, j);
 
-                GameObject pathItem = Instantiate<GameObject>(prefab, new Vector3(i, 1, j), Quaternion.identity);
-                items.Add(pathItem);
+                    GameObject pathItem = Instantiate<GameObject>(prefab, new Vector3(i, 1, j), Quaternion.identity);
+                    items.Add(pathItem);
 
-                paths[i, j] = pathItem.GetComponent<Path>();
+                    paths[i, j] = pathItem.GetComponent<Path>();
+
+                    if (locked)
+                        pathItem.GetComponent<MouseDrag>().Lock();
+                }
             }
         }
 
@@ -191,9 +219,25 @@ public class LevelCreator : MonoBehaviour
         items.Clear();
     }
 
-    public GameObject[] GetObstacles()
+    public ScriptablePaths[] GetObstacles()
     {
         return pathPrefabs;
+    }
+
+    public bool MovePath(Vector2Int origin, Vector2Int destiny)
+    {
+        Path destinyPath = GetPath(destiny);
+
+        if (!destinyPath)
+        {
+            Path originPath = GetPath(origin);
+            paths[destiny.x, destiny.y] = originPath;
+            paths[origin.x, origin.y] = null;
+
+            return true;
+        }
+        else
+            return false;
     }
 }
 

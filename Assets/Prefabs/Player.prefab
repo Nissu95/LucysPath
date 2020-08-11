@@ -15,7 +15,8 @@ GameObject:
   - component: {fileID: 97015154}
   - component: {fileID: 9152692523435891751}
   - component: {fileID: 5664620934989057230}
-  m_Layer: 8
+  - component: {fileID: -1039126432418097482}
+  m_Layer: 0
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -141,6 +142,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starTag: Star
+--- !u!65 &-1039126432418097482
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195999072256333566}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0000002, y: 1, z: 1.0000002}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8635533295552576369
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,7 +166,7 @@ GameObject:
   - component: {fileID: 6218899530018135630}
   - component: {fileID: 3391756633377666448}
   - component: {fileID: 2934626246382119218}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

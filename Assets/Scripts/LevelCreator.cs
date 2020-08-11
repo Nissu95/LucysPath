@@ -183,6 +183,7 @@ public class LevelCreator : MonoBehaviour
             {
                 int index = level.GetGrid()[j, i].Index;
                 bool locked = level.GetGrid()[j, i].Locked;
+                bool hasStar = level.GetGrid()[j, i].Star;
 
                 if (index > 0)
                 {
@@ -196,10 +197,15 @@ public class LevelCreator : MonoBehaviour
                     GameObject pathItem = Instantiate<GameObject>(prefab, new Vector3(i, 1, j), Quaternion.identity);
                     items.Add(pathItem);
 
-                    paths[i, j] = pathItem.GetComponent<Path>();
+                    Path pathScript = pathItem.GetComponent<Path>();
+
+                    paths[i, j] = pathScript;
 
                     if (locked)
                         pathItem.GetComponent<MouseDrag>().Lock();
+
+                    if (hasStar)
+                        pathScript.HasStar();
                 }
             }
         }

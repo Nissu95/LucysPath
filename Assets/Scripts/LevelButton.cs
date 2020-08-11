@@ -5,19 +5,18 @@ using UnityEngine.UI;
 
 public class LevelButton : MonoBehaviour
 {
-    public LevelEditor levelEditor;
+    [SerializeField] Toggle lockedToggle;
+    [SerializeField] Toggle starToggle;
 
     int itemIndex = 0;
     Button button;
     Vector2Int position;
     Image buttonImage;
-    Toggle toggle;
 
     private void Awake()
     {
         button = GetComponent<Button>();
         buttonImage = GetComponent<Image>();
-        toggle = GetComponentInChildren<Toggle>();
 
         button.onClick.AddListener(OnClick);
     }
@@ -62,11 +61,21 @@ public class LevelButton : MonoBehaviour
 
     public bool IsLocked()
     {
-        return toggle.isOn;
+        return lockedToggle.isOn;
     }
 
     public void SetLocked(bool locked)
     {
-        toggle.isOn = locked;
+        lockedToggle.isOn = locked;
+    }
+
+    public bool HasStar()
+    {
+        return starToggle.isOn;
+    }
+
+    public void SetStar(bool value)
+    {
+        starToggle.isOn = value;
     }
 }

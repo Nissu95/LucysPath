@@ -9,6 +9,9 @@ TagManager:
   - BlackHole
   - Star
   - Portal
+  - Path
+  - FirstPath
+  - LastPath
   layers:
   - Default
   - TransparentFX

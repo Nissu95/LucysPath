@@ -71,8 +71,6 @@ public class LevelEditor : MonoBehaviour
                 LevelButton levelButton = button.GetComponent<LevelButton>();
                 levelButton.SetPosition(position);
 
-                levelButton.levelEditor = this;
-
                 buttons[j, i] = levelButton;
             }
     }
@@ -81,8 +79,8 @@ public class LevelEditor : MonoBehaviour
     {
         ClearButtons();
 
-        columns = level.GetItems().GetLength(0);
-        rows = level.GetItems().GetLength(1);
+        columns = level.GetGrid().GetLength(0);
+        rows = level.GetGrid().GetLength(1);
 
         buttons = new LevelButton[columns, rows];
 
@@ -96,9 +94,9 @@ public class LevelEditor : MonoBehaviour
 
                 LevelButton levelButton = button.GetComponent<LevelButton>();
                 levelButton.SetPosition(position);
-                levelButton.SetIndex(level.GetItems()[j, i]);
-
-                levelButton.levelEditor = this;
+                levelButton.SetIndex(level.GetGrid()[j, i].Index);
+                levelButton.SetLocked(level.GetGrid()[j, i].Locked);
+                levelButton.SetStar(level.GetGrid()[j, i].Star);
 
                 buttons[j, i] = levelButton;
             }
@@ -116,27 +114,9 @@ public class LevelEditor : MonoBehaviour
 
     public void TestLevel()
     {
+        levelCreator.DestroyLevel();
+
         levelCreator.CreateLevel(GetLevel());
-
-        /*foreach (var obstacle in levelObstacles)
-            Destroy(obstacle);
-
-        levelObstacles.Clear();
-
-        for (int i = 0; i < rows; i++)
-            for (int j = 0; j < columns; j++)
-            {
-                int index = buttons[j, i].GetIndex();
-
-                if (index > 0)
-                {
-                    GameObject item = Instantiate<GameObject>(items[index - 1], 
-                    new Vector3(itemsSpacing * i, 0,
-                    -itemsSpacing * j), Quaternion.identity);
-
-                    levelObstacles.Add(item);
-                }
-            }*/
     }
 
     public void LoadLevel()

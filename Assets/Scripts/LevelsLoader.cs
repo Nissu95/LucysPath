@@ -158,23 +158,26 @@ public class LevelsLoader
 [Serializable]
 public class Level
 {
-    int[,] items;
+    GridObject[,] grid;
     bool won = false;
     int stars = 0;
     public Level(LevelButton[,] levelButtons, int colums, int rows)
     {
-        items = new int[colums, rows];
+        grid = new GridObject[colums, rows];
 
         for (int i = 0; i < colums; i++)
             for (int j = 0; j < rows; j++)
             {
-                items[i, j] = levelButtons[i, j].GetIndex();
+                grid[i, j] = new GridObject();
+                grid[i, j].Index = levelButtons[i, j].GetIndex();
+                grid[i, j].Locked = levelButtons[i, j].IsLocked();
+                grid[i, j].Star = levelButtons[i, j].HasStar();
             }
     }
 
-    public int[,] GetItems()
+    public GridObject[,] GetGrid()
     {
-        return items;
+        return grid;
     }
 
     public bool GetWon()
@@ -188,19 +191,45 @@ public class Level
     }
     public int GetColumns()
     {
-        return items.GetLength(0);
+        return grid.GetLength(0);
     }
 
     public int GetRows()
     {
-        return items.GetLength(1);
+        return grid.GetLength(1);
+    }
+}
+
+[Serializable]
+public class GridObject
+{
+    int index;
+    bool locked;
+    bool star;
+
+    public int Index
+    {
+        get { return index; }
+        set { index = value; }
+    }
+
+    public bool Locked
+    {
+        get { return locked; }
+        set { locked = value; }
+    }
+
+    public bool Star
+    {
+        get { return star; }
+        set { star = value; }
     }
 }
 
 
 
 
-[Serializable]
+    [Serializable]
 public class LevelWon
 {
     int m_Stars;

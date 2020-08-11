@@ -5,16 +5,18 @@ using UnityEngine.UI;
 
 public class LevelButton : MonoBehaviour
 {
-    public LevelEditor levelEditor;
+    [SerializeField] Toggle lockedToggle;
+    [SerializeField] Toggle starToggle;
 
     int itemIndex = 0;
     Button button;
     Vector2Int position;
-    Text text;
+    Image buttonImage;
+
     private void Awake()
     {
         button = GetComponent<Button>();
-        text = button.GetComponentInChildren<Text>();
+        buttonImage = GetComponent<Image>();
 
         button.onClick.AddListener(OnClick);
     }
@@ -37,9 +39,9 @@ public class LevelButton : MonoBehaviour
     void UpdateText()
     {
         if (itemIndex == 0)
-            text.text = "";
+            buttonImage.sprite = null;
         else
-            text.text = LevelCreator.singleton.GetObstacles()[itemIndex - 1].name;
+            buttonImage.sprite = LevelCreator.singleton.GetObstacles()[itemIndex - 1].texture;
     }
 
     public void SetPosition(Vector2Int _position)
@@ -55,5 +57,25 @@ public class LevelButton : MonoBehaviour
     public void SetIndex(int _index)
     {
         itemIndex = _index;
+    }
+
+    public bool IsLocked()
+    {
+        return lockedToggle.isOn;
+    }
+
+    public void SetLocked(bool locked)
+    {
+        lockedToggle.isOn = locked;
+    }
+
+    public bool HasStar()
+    {
+        return starToggle.isOn;
+    }
+
+    public void SetStar(bool value)
+    {
+        starToggle.isOn = value;
     }
 }

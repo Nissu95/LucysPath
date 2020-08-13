@@ -14,8 +14,23 @@ PluginImporter:
   isPreloaded: 0
   isOverridable: 0
   platformData:
-    Editor:
-      enabled: 1
+  - first:
+      Any:
+    second:
+      enabled: 0
+      settings: {}
+  - first:
+      Editor: Editor
+    second:
+      enabled: 0
+      settings:
+        DefaultValueInitialized: true
+  - first:
+      Windows Store Apps: WindowsStoreApps
+    second:
+      enabled: 0
+      settings:
+        CPU: AnyCPU
   userData:
   assetBundleName:
   assetBundleVariant:

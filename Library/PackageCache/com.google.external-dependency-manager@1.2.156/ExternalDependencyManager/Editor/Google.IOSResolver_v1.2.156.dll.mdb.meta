@@ -11,3 +11,7 @@ DefaultImporter:
   userData:
   assetBundleName:
   assetBundleVariant:
+PluginImporter:
+  platformData:
+    Editor:
+      enabled: 1

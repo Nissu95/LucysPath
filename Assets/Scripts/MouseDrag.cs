@@ -15,7 +15,8 @@ public class MouseDrag : MonoBehaviour
             curScreenPoint;
 
 
-    float gridSize = 1f;
+    const float gridSize = 1f;
+    const float minMovementSquare = 0.5f;
 
     Vector2Int maxPosition;
 
@@ -51,7 +52,11 @@ public class MouseDrag : MonoBehaviour
 
     private void OnMouseUp()
     {
-        rotate = (scanPos == curPosition);
+        Vector3 diff = scanPos - curPosition;
+
+        rotate = (diff.magnitude < minMovementSquare);
+
+        //rotate = (scanPos == curPosition);
 
         if (!movementLock)
         {

@@ -11,12 +11,13 @@ public class LevelsLoader
     static List<Level> levels;
     static List<LevelWon> levelsWon;
 
-    static string path = "Assets/Resources/levels";
+    static string editorPath = "Assets/StreamingAssets/resources/levels";
+    static string inGamePath = "resources/levels";
     static string levelsWonPath = Application.persistentDataPath + "/levelsWon";
 
     public static void SaveLevel(Level level, ref int index)
     {
-
+#if UNITY_EDITOR
         if (levels == null)
             levels = new List<Level>();
 
@@ -30,8 +31,8 @@ public class LevelsLoader
 
         FileStream file;
 
-        if (File.Exists(path)) file = File.OpenWrite(path);
-        else file = File.Create(path);
+        if (File.Exists(editorPath)) file = File.OpenWrite(editorPath);
+        else file = File.Create(editorPath);
 
 
         BinaryFormatter bf = new BinaryFormatter();
@@ -39,15 +40,18 @@ public class LevelsLoader
         file.Close();
 
         //Re-import the file to update the reference in the editor
-        AssetDatabase.ImportAsset(path);
+        AssetDatabase.ImportAsset(editorPath);
+#endif
     }
     public static void ReadLevels()
     {
-        FileStream file;
+        Stream file;
 
-        if (File.Exists(path))
+        BetterStreamingAssets.Initialize();
+
+        if (BetterStreamingAssets.FileExists(inGamePath))
         {
-            file = File.OpenRead(path);
+            file = BetterStreamingAssets.OpenRead(inGamePath);
             Debug.Log("File found");
         }
         else

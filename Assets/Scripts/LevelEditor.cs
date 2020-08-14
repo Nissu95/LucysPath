@@ -61,10 +61,10 @@ public class LevelEditor : MonoBehaviour
         buttons = new LevelButton[columns, rows];
 
         for (int i = 0; i < rows; i++)
-            for (int j = 0; j < columns; j++)
+            for (int j = 0, xPosition = columns; j < columns; j++, xPosition--)
             {
                 GameObject button = Instantiate<GameObject>(buttonPrefab, canvas);
-                Vector2Int position = new Vector2Int(j, i);
+                Vector2Int position = new Vector2Int(xPosition, i);
                 button.transform.position = new Vector2(position.x * horizontalSpacing + UIposition.x,
                                                         position.y * verticalSpacing + UIposition.y);
 
@@ -85,10 +85,10 @@ public class LevelEditor : MonoBehaviour
         buttons = new LevelButton[columns, rows];
 
         for (int i = 0; i < rows; i++)
-            for (int j = 0; j < columns; j++)
+            for (int j = 0, xPosition = columns; j < columns; j++, xPosition--)
             {
                 GameObject button = Instantiate<GameObject>(buttonPrefab, canvas);
-                Vector2Int position = new Vector2Int(j, i);
+                Vector2Int position = new Vector2Int(xPosition, i);
                 button.transform.position = new Vector2(position.x * horizontalSpacing + UIposition.x,
                                                         position.y * verticalSpacing + UIposition.y);
 
@@ -97,6 +97,8 @@ public class LevelEditor : MonoBehaviour
                 levelButton.SetIndex(level.GetGrid()[j, i].Index);
                 levelButton.SetLocked(level.GetGrid()[j, i].Locked);
                 levelButton.SetStar(level.GetGrid()[j, i].Star);
+                levelButton.SetRotation(level.GetGrid()[j, i].Rotation);
+
 
                 buttons[j, i] = levelButton;
             }

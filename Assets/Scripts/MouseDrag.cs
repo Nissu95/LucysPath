@@ -56,8 +56,6 @@ public class MouseDrag : MonoBehaviour
 
         rotate = (diff.magnitude < minMovementSquare);
 
-        //rotate = (scanPos == curPosition);
-
         if (!movementLock)
         {
             curPosition.x = (float)Math.Round(curPosition.x);
@@ -83,15 +81,14 @@ public class MouseDrag : MonoBehaviour
             }
             else transform.position = scanPos;
 
-        }
+            if (rotate)
+            {
+                transform.Rotate(0, -90, 0, Space.Self);
+                GetComponent<Path>().RotatePath();
+            }
 
-        if (rotate)
-        {
-            transform.Rotate(0, -90, 0, Space.Self);
-            GetComponent<Path>().RotatePath();
+            LevelCreator.singleton.FindPath();
         }
-
-        LevelCreator.singleton.FindPath();
     }
 
     public void Lock()

@@ -14,12 +14,18 @@ public class Path : MonoBehaviour
 
     bool locked = false;
 
+    int rotation = 0;
 
     private void Start()
     {
         for (int i = 0; i < nodesAvailable.Length; i++)
             if (nodesAvailable[i] == true) nodes.Enqueue(1); else nodes.Enqueue(0);
 
+        for (int i = 0; i < rotation; i++)
+        {
+            RotatePath();
+            transform.rotation = Quaternion.Euler(0, -90 * rotation, 0);
+        }
     }
 
     public uint[] GetNodes()
@@ -54,9 +60,13 @@ public class Path : MonoBehaviour
 
     public void HasStar()
     {
-
         if (star)
             star.SetActive(true);
+    }
+
+    public void SetRotation(int _rotation)
+    {
+        rotation = _rotation;
     }
 }
 

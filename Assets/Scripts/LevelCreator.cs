@@ -182,6 +182,7 @@ public class LevelCreator : MonoBehaviour
             for (int j = 0; j < paths.GetLength(1); j++)
             {
                 int index = level.GetGrid()[j, i].Index;
+                int rotation = level.GetGrid()[j, i].Rotation;
                 bool locked = level.GetGrid()[j, i].Locked;
                 bool hasStar = level.GetGrid()[j, i].Star;
 
@@ -198,6 +199,7 @@ public class LevelCreator : MonoBehaviour
                     items.Add(pathItem);
 
                     Path pathScript = pathItem.GetComponent<Path>();
+                    pathScript.SetRotation(rotation);
 
                     paths[i, j] = pathScript;
 
@@ -264,6 +266,7 @@ public static class Constants
     };
 
     public const uint nodesCount = 8;
+    public const uint maxRotation = 3;
 
     public const string firstPathTag = "FirstPath";
     public const string lastPathTag = "LastPath";

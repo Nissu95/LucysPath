@@ -5,20 +5,23 @@ using UnityEngine.UI;
 
 public class LevelButton : MonoBehaviour
 {
+    [SerializeField] Button mainButton;
+    [SerializeField] Button rotationButton;
     [SerializeField] Toggle lockedToggle;
     [SerializeField] Toggle starToggle;
 
     int itemIndex = 0;
-    Button button;
+    int rotation = 0;
     Vector2Int position;
     Image buttonImage;
 
     private void Awake()
     {
-        button = GetComponent<Button>();
-        buttonImage = GetComponent<Image>();
+        buttonImage = mainButton.GetComponent<Image>();
 
-        button.onClick.AddListener(OnClick);
+        mainButton.onClick.AddListener(OnClick);
+        rotationButton.onClick.AddListener(Rotate);
+        
     }
 
     private void Start()
@@ -77,5 +80,26 @@ public class LevelButton : MonoBehaviour
     public void SetStar(bool value)
     {
         starToggle.isOn = value;
+    }
+
+    void Rotate()
+    {
+        rotation++;
+
+        if (rotation > Constants.maxRotation)
+            rotation = 0;
+
+        mainButton.GetComponent<RectTransform>().Rotate(0, 0, 90);
+    }
+
+    public void SetRotation(int _rotation)
+    {
+        rotation = _rotation;
+        mainButton.GetComponent<RectTransform>().Rotate(0, 0, rotation * 90);
+    }
+
+    public int GetRotation()
+    {
+        return rotation;
     }
 }

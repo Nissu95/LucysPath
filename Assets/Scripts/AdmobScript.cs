@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GoogleMobileAds.Api;
+//using GoogleMobileAds.Api;
 using System;
 
 public class AdmobScript : MonoBehaviour
 {
     public static AdmobScript singleton;
 
+    //APP  ID: ca-app-pub-7605693134218621~3300360926
+
     string adUnitId = "ca-app-pub-3940256099942544/1033173712";
 
-    InterstitialAd interstitial;
+    //InterstitialAd interstitial;
 
     private void Awake()
     {
@@ -23,12 +25,12 @@ public class AdmobScript : MonoBehaviour
 
     void Start()
     {
-        MobileAds.Initialize(initStatus => { });
+        //MobileAds.Initialize(initStatus => { });
         RequestInterstitial();
     }
 
     public void RequestInterstitial()
-    {
+    {/*
         // Initialize an InterstitialAd.
         this.interstitial = new InterstitialAd(adUnitId);
 
@@ -47,14 +49,14 @@ public class AdmobScript : MonoBehaviour
         AdRequest request = new AdRequest.Builder().Build();
 
         // Load the interstitial with the request.
-        this.interstitial.LoadAd(request);
+        this.interstitial.LoadAd(request);*/
     }
 
     public void ShowInterstitialAd()
     {
-        Debug.Log(interstitial.IsLoaded());
+       /* Debug.Log(interstitial.IsLoaded());
         if (this.interstitial.IsLoaded())
-            this.interstitial.Show();
+            this.interstitial.Show();*/
     }
 
     //For events and delegates for ADS
@@ -63,11 +65,11 @@ public class AdmobScript : MonoBehaviour
         MonoBehaviour.print("HandleAdLoaded event received");
     }
 
-    public void HandleOnAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+    /*public void HandleOnAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
     {
         MonoBehaviour.print("HandleFailedToReceiveAd event received with message: "
                             + args.Message);
-    }
+    }*/
 
     public void HandleOnAdOpened(object sender, EventArgs args)
     {

@@ -645,14 +645,6 @@
       <Project>{AEB07650-EFC8-13B5-7DA3-9211ADDAEA3D}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
-    <ProjectReference Include="GoogleMobileAds.csproj">
-      <Project>{AFAA6CA2-DDA6-E84F-8ADC-747B43B705F5}</Project>
-      <Name>GoogleMobileAds</Name>
-    </ProjectReference>
-    <ProjectReference Include="GoogleMobileAds.Editor.csproj">
-      <Project>{5E2420E6-0A1B-6784-CE55-F01650F78B86}</Project>
-      <Name>GoogleMobileAds.Editor</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

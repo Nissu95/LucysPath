@@ -1,7 +1,11 @@
 ScriptsOnlyBuild:
   usedScripts:
+    Assembly-CSharp-Editor.dll:
+    - GoogleMobileAds.Editor.GoogleMobileAdsSettings
+    - GoogleMobileAds.Editor.GoogleMobileAdsSettingsEditor
     Assembly-CSharp.dll:
     - AdmobScript
+    - Ads
     - Console
     - GameManager
     - LevelCreator
@@ -62,49 +66,53 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9816}
+      Script: {instanceID: 9674}
     - Class: 114
-      Script: {instanceID: 9846}
+      Script: {instanceID: 9698}
     - Class: 114
-      Script: {instanceID: 9928}
+      Script: {instanceID: 9770}
     - Class: 114
-      Script: {instanceID: 10002}
+      Script: {instanceID: 9832}
     - Class: 114
-      Script: {instanceID: 10044}
+      Script: {instanceID: 9872}
     - Class: 114
-      Script: {instanceID: 10120}
+      Script: {instanceID: 9924}
     - Class: 114
-      Script: {instanceID: 10198}
+      Script: {instanceID: 9998}
     - Class: 114
-      Script: {instanceID: 10476}
+      Script: {instanceID: 10228}
     - Class: 114
-      Script: {instanceID: 10500}
+      Script: {instanceID: 10248}
     - Class: 114
-      Script: {instanceID: 10964}
+      Script: {instanceID: 10588}
+    - Class: 114
+      Script: {instanceID: 10682}
+    - Class: 114
+      Script: {instanceID: 10780}
+    - Class: 114
+      Script: {instanceID: 10878}
+    - Class: 114
+      Script: {instanceID: 10904}
+    - Class: 114
+      Script: {instanceID: 10922}
+    - Class: 114
+      Script: {instanceID: 11038}
     - Class: 114
       Script: {instanceID: 11070}
     - Class: 114
-      Script: {instanceID: 11180}
+      Script: {instanceID: 11290}
     - Class: 114
-      Script: {instanceID: 11320}
+      Script: {instanceID: 11338}
     - Class: 114
-      Script: {instanceID: 11350}
+      Script: {instanceID: 11392}
     - Class: 114
-      Script: {instanceID: 11370}
+      Script: {instanceID: 11438}
     - Class: 114
-      Script: {instanceID: 11514}
+      Script: {instanceID: 11442}
     - Class: 114
-      Script: {instanceID: 11548}
+      Script: {instanceID: 14408}
     - Class: 114
-      Script: {instanceID: 11800}
-    - Class: 114
-      Script: {instanceID: 11856}
-    - Class: 114
-      Script: {instanceID: 11926}
-    - Class: 114
-      Script: {instanceID: 11980}
-    - Class: 114
-      Script: {instanceID: 11984}
+      Script: {instanceID: 17168}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -652,7 +660,25 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 6fb512c6733e02f441372611e6f94f11
+    assemblyName: Assembly-CSharp-Editor.dll
+    namespaceName: GoogleMobileAds.Editor
+    className: GoogleMobileAdsSettings
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: GoogleMobileAds.Common
+    className: MobileAdsEventExecutor
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Ads
   platform: 13
   scenePathNames:
   - Assets/Scenes/MainScene.unity
-  playerPath: C:/Users/nicos/Desktop/JuegoGatoAPK.apk
+  playerPath: C:/Users/pehue/Desktop/JuegoGato.apk

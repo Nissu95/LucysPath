@@ -6,6 +6,8 @@ ScriptsOnlyBuild:
     - AdmobScript
     - Console
     - GameManager
+    - GoogleMobileAds.Common.MobileAdsEventExecutor
+    - LevelButton
     - LevelCreator
     - LevelSelectionButton
     - MouseDrag
@@ -18,6 +20,7 @@ ScriptsOnlyBuild:
     - StarsTextChange
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
+    - UnityEditor.TestTools.TestRunner.TestListCacheData
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.StandaloneInputModule
@@ -28,6 +31,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Image
     - UnityEngine.UI.Outline
     - UnityEngine.UI.Text
+    - UnityEngine.UI.Toggle
   sceneClasses:
     Assets/Scenes/MainScene.unity:
     - Class: 1
@@ -393,7 +397,7 @@ ScriptsOnlyBuild:
     className: TMP_SpriteAnimator
   - hash:
       serializedVersion: 2
-      Hash: f4a8b2d42cb8dd7219844ead0ea3ad5c
+      Hash: b3c30b7578cf98f50327756b4ac8c56e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: LevelButton
@@ -670,4 +674,4 @@ ScriptsOnlyBuild:
   platform: 13
   scenePathNames:
   - Assets/Scenes/MainScene.unity
-  playerPath: C:/Users/nicos/Desktop/JuegoGato.apk
+  playerPath: C:/Users/pehue/Desktop/JuegoGato.apk

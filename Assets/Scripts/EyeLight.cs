@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class EyeLight : MonoBehaviour
@@ -92,7 +91,6 @@ public class EyeLight : MonoBehaviour
 
     void Walk()
     {
-        Debug.Log("hola");
         pathfinding.StartWalking(nodes);
     }
 }

@@ -7,7 +7,7 @@ public class Pathfinding : MonoBehaviour
     [SerializeField] float speed = 5;
     [SerializeField] float distanceLimit = .01f;
 
-    FSM fsm = new FSM(3, 2);
+    FSM fsm = new FSM(3, 3);
 
     List<Vector3> nodes;
 
@@ -19,6 +19,7 @@ public class Pathfinding : MonoBehaviour
 
         fsm.SetRelation(State.Idle, Event.ToWalking, State.Walking);
         fsm.SetRelation(State.Walking, Event.ToWin, State.Win);
+        fsm.SetRelation(State.Win, Event.ToIdle, State.Idle);
     }
 
     private void Update()
@@ -31,8 +32,6 @@ public class Pathfinding : MonoBehaviour
                 
                 if (nodes.Count <= 0)
                     return;
-
-                Debug.Log("Nodos: " + nodes.Count);
 
                 Vector3 diff = nodes[nodeIndex] - transform.position;
                 Vector3 dir = diff.normalized;
@@ -50,6 +49,7 @@ public class Pathfinding : MonoBehaviour
                     fsm.SetEvent(Event.ToWin);
                 break;
             case State.Win:
+                Debug.Log("Win");
                 GameManager.singleton.LevelWin();
                 break;
         }
@@ -65,5 +65,10 @@ public class Pathfinding : MonoBehaviour
     public void NextNode()
     {
         nodeIndex++;
+    }
+
+    public FSM GetFSM()
+    {
+        return fsm;
     }
 }

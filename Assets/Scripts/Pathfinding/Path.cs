@@ -7,7 +7,6 @@ public class Path : MonoBehaviour
     [SerializeField] bool[] nodesAvailable = new bool[Constants.nodesCount];
     [SerializeField] GameObject star;
 
-
     Queue<uint> nodes = new Queue<uint>();
 
     List<GameObject> nodos = new List<GameObject>();

@@ -18,11 +18,17 @@ public class MouseDrag : MonoBehaviour
     const float gridSize = 1f;
     const float minMovementSquare = 0.5f;
 
+    Path path;
     Vector2Int maxPosition;
 
     bool rotate = false;
 
     bool movementLock = false;
+
+    private void Start()
+    {
+        path = GetComponent<Path>();
+    }
 
     void OnMouseDown()
     {
@@ -67,8 +73,6 @@ public class MouseDrag : MonoBehaviour
                 && curPosition.z >= 0)
             {
                 Vector2Int pathIndex = LevelCreator.singleton.GetPath(GetComponent<Path>());
-                Debug.Log(pathIndex);
-                Debug.Log(curPosition);
 
                 if (pathIndex != LevelCreator.singleton.nullPosition)
                 {
@@ -84,7 +88,7 @@ public class MouseDrag : MonoBehaviour
             if (rotate)
             {
                 transform.Rotate(0, -90, 0, Space.Self);
-                GetComponent<Path>().RotatePath();
+                path.RotatePath();
             }
 
             LevelCreator.singleton.FindPath();

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class Portal : MonoBehaviour
@@ -12,7 +13,9 @@ public class Portal : MonoBehaviour
 
     private void Start()
     {
-        connectionTransform = connection.transform;
+        Time.timeScale = 0.5f;
+
+        //connectionTransform = connection.transform;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -45,6 +48,8 @@ public class Portal : MonoBehaviour
 
     public Transform GetConnectionTransform()
     {
+        connectionTransform = connection.transform;
+
         return connectionTransform;
     }
 }

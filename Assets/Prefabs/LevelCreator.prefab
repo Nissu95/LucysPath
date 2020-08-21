@@ -52,6 +52,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 67cabcf22fa6251499f90ceb1d732730, type: 2}
   - {fileID: 11400000, guid: f397d98764b330141bc11b68f8eec180, type: 2}
   - {fileID: 11400000, guid: 85c182fc74894ab42ae7eeefbc70d714, type: 2}
+  - {fileID: 11400000, guid: 925445b46787253498e582c27e177406, type: 2}
   firstPathPosition: {x: 0, y: 0}
   itemsSpacing: 0
   firstPathColor: {r: 0.43115234, g: 1, b: 0, a: 0.50980395}

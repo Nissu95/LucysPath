@@ -10,6 +10,7 @@ public class Portal : MonoBehaviour
     Transform connectionTransform;
 
     private bool active = true;
+    bool portalActive = false;
 
     private void Start()
     {
@@ -51,5 +52,36 @@ public class Portal : MonoBehaviour
         connectionTransform = connection.transform;
 
         return connectionTransform;
+    }
+
+    public bool GetActive()
+    {
+        return portalActive;
+    }
+
+    public void PortalTouch()
+    {
+        portalActive = !portalActive;
+
+        if (portalActive == false)
+        {
+            connection = null;
+            GameManager.singleton.RemovePortalActive(this);
+        }
+        else
+        {
+            GameManager.singleton.AddPortalActive(this);
+            GameManager.singleton.ConnectPortals();
+        }
+    }
+
+    public void SetConnection(Portal _connection)
+    {
+        connection = _connection;
+    }
+
+    public Portal GetConnection()
+    {
+        return connection;
     }
 }

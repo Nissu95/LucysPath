@@ -37,6 +37,9 @@ public class MouseDrag : MonoBehaviour
         scanPos = gameObject.transform.position;
         screenPoint = Camera.main.WorldToScreenPoint(scanPos);
         offset = scanPos - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+
+        if (tag == Tags.portal)
+            GetComponent<Portal>().PortalTouch();
     }
 
 

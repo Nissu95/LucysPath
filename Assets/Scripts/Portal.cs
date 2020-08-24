@@ -49,7 +49,8 @@ public class Portal : MonoBehaviour
 
     public Transform GetConnectionTransform()
     {
-        connectionTransform = connection.transform;
+        if (connection)
+            connectionTransform = connection.transform;
 
         return connectionTransform;
     }
@@ -65,7 +66,12 @@ public class Portal : MonoBehaviour
 
         if (portalActive == false)
         {
-            connection = null;
+            if (connection)
+            {
+                connection.SetConnection(null);
+                connection = null;
+            }
+
             GameManager.singleton.RemovePortalActive(this);
         }
         else

@@ -127,8 +127,7 @@ public class GameManager : MonoBehaviour
 
     public void RemovePortalActive(Portal portal)
     {
-        if (portalsActive.Equals(portal))
-            portalsActive.Remove(portal);
+        portalsActive.Remove(portal);
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)

@@ -15,7 +15,8 @@ public class MouseDrag : MonoBehaviour
             curScreenPoint;
 
 
-    float gridSize = 1f;
+    const float gridSize = 1f;
+    const float minMovementSquare = 0.5f;
 
     Vector2Int maxPosition;
 
@@ -51,7 +52,9 @@ public class MouseDrag : MonoBehaviour
 
     private void OnMouseUp()
     {
-        rotate = (scanPos == curPosition);
+        Vector3 diff = scanPos - curPosition;
+
+        rotate = (diff.magnitude < minMovementSquare);
 
         if (!movementLock)
         {
@@ -78,15 +81,14 @@ public class MouseDrag : MonoBehaviour
             }
             else transform.position = scanPos;
 
-        }
+            if (rotate)
+            {
+                transform.Rotate(0, -90, 0, Space.Self);
+                GetComponent<Path>().RotatePath();
+            }
 
-        if (rotate)
-        {
-            transform.Rotate(0, -90, 0, Space.Self);
-            GetComponent<Path>().RotatePath();
+            LevelCreator.singleton.FindPath();
         }
-
-        LevelCreator.singleton.FindPath();
     }
 
     public void Lock()

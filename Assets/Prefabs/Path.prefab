@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 7382470164519369971}
   - component: {fileID: 8867062829246827074}
   - component: {fileID: 2500627291452202180}
-  - component: {fileID: 5094482058629793352}
   - component: {fileID: -8790498140168663474}
   m_Layer: 8
   m_Name: Path
@@ -110,18 +109,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodesAvailable: 0001000000010000
   star: {fileID: 581160914909638057}
---- !u!114 &5094482058629793352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1379032843586764446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 033f1c5ed85c19a47961ac7770e79575, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-8790498140168663474
 MonoBehaviour:
   m_ObjectHideFlags: 0

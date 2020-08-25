@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class LevelButton : MonoBehaviour
 {
+#pragma warning disable 649
     [SerializeField] Button mainButton;
     [SerializeField] Button rotationButton;
     [SerializeField] Toggle lockedToggle;

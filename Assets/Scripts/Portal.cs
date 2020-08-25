@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Portal : MonoBehaviour
 {
+#pragma warning disable 649
     [SerializeField] Portal connection;
 
     Transform connectionTransform;
@@ -17,7 +18,7 @@ public class Portal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (active && other.CompareTag(Tags.player))
+        if (active && other.CompareTag(Constants.playerTag))
         {
             DeactivateConnectedPortal();
             other.GetComponent<Pathfinding>().NextNode();
@@ -27,10 +28,8 @@ public class Portal : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag(Tags.player))
-        {
+        if (other.CompareTag(Constants.playerTag))
             active = true;
-        }
     }
 
     private void DeactivateConnectedPortal()

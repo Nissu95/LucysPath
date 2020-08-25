@@ -5,6 +5,7 @@ using UnityEngine;
 public class Path : MonoBehaviour
 {
     [SerializeField] bool[] nodesAvailable = new bool[Constants.nodesCount];
+#pragma warning disable 649
     [SerializeField] GameObject star;
 
 

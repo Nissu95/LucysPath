@@ -43,12 +43,16 @@ public class Console : MonoBehaviour
 
 	void OnEnable()
 	{
+#pragma warning disable CS0618 // El tipo o el miembro están obsoletos
 		Application.RegisterLogCallback(HandleLog);
+#pragma warning restore CS0618 // El tipo o el miembro están obsoletos
 	}
 
 	void OnDisable()
 	{
+#pragma warning disable CS0618 // El tipo o el miembro están obsoletos
 		Application.RegisterLogCallback(null);
+#pragma warning restore CS0618 // El tipo o el miembro están obsoletos
 	}
 
 	void Update()

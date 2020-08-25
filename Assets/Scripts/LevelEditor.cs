@@ -6,8 +6,10 @@ public class LevelEditor : MonoBehaviour
 {
     [SerializeField] int columns;
     [SerializeField] int rows;
+#pragma warning disable 649
     [SerializeField] float verticalSpacing;
     [SerializeField] float horizontalSpacing;
+#pragma warning disable 649
     [SerializeField] Vector2 UIposition;
     [SerializeField] GameObject buttonPrefab;
     [SerializeField] Transform canvas;

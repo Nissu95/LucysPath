@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class LevelSelectionButton : MonoBehaviour
 {
+#pragma warning disable 649
     [SerializeField] Text levelText;
     [SerializeField] Text starsText;
 

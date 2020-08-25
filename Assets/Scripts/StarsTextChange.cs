@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class StarsTextChange : MonoBehaviour
 {
+#pragma warning disable 649
     [SerializeField] Text displayStarsTxt;
     [SerializeField] Text displayMaxStarsTxt;
 

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PickUpStar : MonoBehaviour
 {
+#pragma warning disable 649
     [SerializeField] string starTag;
 
     private void OnTriggerEnter(Collider other)

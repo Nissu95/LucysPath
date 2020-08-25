@@ -6,6 +6,7 @@ using UnityEngine;
 public class LevelCreator : MonoBehaviour
 {
     [SerializeField] Path[,] paths;
+#pragma warning disable 649
     [SerializeField] ScriptablePaths[] pathPrefabs;
 
     Pathfinding playerPathfinding;
@@ -293,6 +294,7 @@ public static class Constants
     public const string lastPathTag = "LastPath";
     public const string PathTag = "Path";
     public const string PortalTag = "Portal";
+    public const string playerTag = "Player";
 }
 
 

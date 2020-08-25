@@ -117,7 +117,6 @@
     <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\Utils.cs" />
     <Compile Include="Assets\Scripts\AdmobScript.cs" />
     <Compile Include="Assets\Scripts\Console.cs" />
-    <Compile Include="Assets\Scripts\EyeLight.cs" />
     <Compile Include="Assets\Scripts\FSM.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Interactive.cs" />
@@ -133,10 +132,8 @@
     <Compile Include="Assets\Scripts\PickUpStar.cs" />
     <Compile Include="Assets\Scripts\PlayerInput.cs" />
     <Compile Include="Assets\Scripts\Portal.cs" />
-    <Compile Include="Assets\Scripts\Rotation.cs" />
     <Compile Include="Assets\Scripts\ScriptablePaths.cs" />
     <Compile Include="Assets\Scripts\StarsTextChange.cs" />
-    <Compile Include="Assets\Scripts\Tags.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/nicos/Desktop/Other/JuegoGato/juegogato/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

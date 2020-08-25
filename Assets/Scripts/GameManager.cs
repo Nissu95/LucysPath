@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager singleton;
 
+#pragma warning disable 649
     [SerializeField] string mainMenuName;
     [SerializeField] GameObject pauseGO;
     [SerializeField] GameObject pauseButton;
@@ -31,7 +32,8 @@ public class GameManager : MonoBehaviour
     //Level Selection Variables
 
     [SerializeField] GameObject levelSelectionButtonPrefab;
-    [SerializeField] Transform selectionPanel;
+#pragma warning disable 649
+    [SerializeField] private Transform selectionPanel;
 
     List<Level> levels;
     List<LevelWon> levelsWon;

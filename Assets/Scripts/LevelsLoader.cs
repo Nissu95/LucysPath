@@ -164,7 +164,6 @@ public class Level
 {
     GridObject[,] grid;
     bool won = false;
-    int stars = 0;
     public Level(LevelButton[,] levelButtons, int colums, int rows)
     {
         grid = new GridObject[colums, rows];

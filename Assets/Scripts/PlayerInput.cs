@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
+#pragma warning disable 649
     [SerializeField] LayerMask interactionLayers;
 
     void Update()

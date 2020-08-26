@@ -21,18 +21,6 @@
     _interstitialClient = interstitialClient;
     _interstitial = [[GADInterstitial alloc] initWithAdUnitID:adUnitID];
     _interstitial.delegate = self;
-
-    __weak GADUInterstitial *weakSelf = self;
-    _interstitial.paidEventHandler = ^void(GADAdValue *_Nonnull adValue) {
-      GADUInterstitial *strongSelf = weakSelf;
-      if (strongSelf.paidEventCallback) {
-        int64_t valueInMicros =
-            [adValue.value decimalNumberByMultiplyingByPowerOf10:6].longLongValue;
-        strongSelf.paidEventCallback(
-            strongSelf.interstitialClient, (int)adValue.precision, valueInMicros,
-            [adValue.currencyCode cStringUsingEncoding:NSUTF8StringEncoding]);
-      }
-    };
   }
   return self;
 }
@@ -62,10 +50,6 @@
   return self.interstitial.responseInfo.adNetworkClassName;
 }
 
-- (GADResponseInfo *)responseInfo {
-  return self.interstitial.responseInfo;
-}
-
 #pragma mark GADInterstitialDelegate implementation
 
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad {
@@ -76,7 +60,7 @@
 - (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error {
   if (self.adFailedCallback) {
     NSString *errorMsg = [NSString
-        stringWithFormat:@"Failed to receive ad with error: %@", [error localizedDescription]];
+        stringWithFormat:@"Failed to receive ad with error: %@", [error localizedFailureReason]];
     self.adFailedCallback(self.interstitialClient,
                           [errorMsg cStringUsingEncoding:NSUTF8StringEncoding]);
   }

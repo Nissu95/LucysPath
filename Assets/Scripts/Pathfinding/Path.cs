@@ -5,8 +5,9 @@ using UnityEngine;
 public class Path : MonoBehaviour
 {
     [SerializeField] bool[] nodesAvailable = new bool[Constants.nodesCount];
+#pragma warning disable 649
     [SerializeField] GameObject star;
-
+    [SerializeField] bool alwaysLocked;
 
     Queue<uint> nodes = new Queue<uint>();
 
@@ -26,6 +27,9 @@ public class Path : MonoBehaviour
             RotatePath();
             transform.rotation = Quaternion.Euler(0, -90 * rotation, 0);
         }
+
+        if (alwaysLocked)
+            GetComponent<MouseDrag>().Lock();
     }
 
     public uint[] GetNodes()

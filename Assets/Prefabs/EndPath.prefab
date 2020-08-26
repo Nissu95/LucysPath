@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5034642903154662707}
   - component: {fileID: 6387030207608580994}
   - component: {fileID: 79213002351901956}
-  - component: {fileID: 7286354685611206536}
   - component: {fileID: -5502007780453077707}
   m_Layer: 8
   m_Name: EndPath
@@ -108,18 +107,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nodesAvailable: 0000000000010000
---- !u!114 &7286354685611206536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3498777507387465566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 033f1c5ed85c19a47961ac7770e79575, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  star: {fileID: 0}
+  alwaysLocked: 1
 --- !u!114 &-5502007780453077707
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5823296145121483007}
   - component: {fileID: 5597252869634223694}
   - component: {fileID: 1447711808728168648}
-  - component: {fileID: 8075078433697980996}
   - component: {fileID: 3504554768398117442}
   m_Layer: 8
   m_Name: BlockedPath
@@ -108,18 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nodesAvailable: 0000000000000000
---- !u!114 &8075078433697980996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2702162444021881490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 033f1c5ed85c19a47961ac7770e79575, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  star: {fileID: 0}
 --- !u!114 &3504554768398117442
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -52,7 +52,6 @@ public class AdmobScript : MonoBehaviour
 
     public void ShowInterstitialAd()
     {
-        Debug.Log(interstitial.IsLoaded());
         if (this.interstitial.IsLoaded())
             this.interstitial.Show();
     }

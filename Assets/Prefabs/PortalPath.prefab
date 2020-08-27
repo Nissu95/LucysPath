@@ -137,6 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connection: {fileID: 0}
+  portal: {fileID: 5523854942819318253}
 --- !u!65 &1033186270285732565
 BoxCollider:
   m_ObjectHideFlags: 0

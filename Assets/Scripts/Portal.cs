@@ -7,6 +7,7 @@ public class Portal : MonoBehaviour
 {
 #pragma warning disable 649
     [SerializeField] Portal connection;
+    [SerializeField] GameObject portal;
 
     Transform connectionTransform;
 
@@ -16,7 +17,7 @@ public class Portal : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 0.5f;
-
+        
         //connectionTransform = connection.transform;
     }
 
@@ -72,11 +73,13 @@ public class Portal : MonoBehaviour
             }
 
             GameManager.singleton.RemovePortalActive(this);
+            portal.GetComponent<MeshRenderer>().material.color = Color.white;
         }
         else
         {
             GameManager.singleton.AddPortalActive(this);
             GameManager.singleton.ConnectPortals();
+            portal.GetComponent<MeshRenderer>().material.color = Color.blue;
         }
     }
 

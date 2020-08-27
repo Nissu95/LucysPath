@@ -7,9 +7,11 @@ public class Portal : MonoBehaviour
 {
 #pragma warning disable 649
     [SerializeField] Portal connection;
-    [SerializeField] GameObject portal;
+    [SerializeField] MeshRenderer portalMesh;
+    [SerializeField] Color activeColor;
 
     Transform connectionTransform;
+    Color deactiveColor = Color.white;
 
     private bool active = true;
     bool portalActive = false;
@@ -68,24 +70,35 @@ public class Portal : MonoBehaviour
         {
             if (connection)
             {
+                connection.SetActiveColor(connection.GetActiveColor());
                 connection.SetConnection(null);
                 connection = null;
             }
 
             GameManager.singleton.RemovePortalActive(this);
-            portal.GetComponent<MeshRenderer>().material.color = Color.white;
+            portalMesh.material.color = deactiveColor;
         }
         else
         {
             GameManager.singleton.AddPortalActive(this);
+            portalMesh.material.color = activeColor;
             GameManager.singleton.ConnectPortals();
-            portal.GetComponent<MeshRenderer>().material.color = Color.blue;
         }
     }
 
     public void SetConnection(Portal _connection)
     {
         connection = _connection;
+    }
+
+    public void SetActiveColor(Color color)
+    {
+        portalMesh.material.color = color;
+    }
+
+    public Color GetActiveColor()
+    {
+        return activeColor;
     }
 
     public Portal GetConnection()

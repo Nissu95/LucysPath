@@ -111,12 +111,15 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < portalsActive.Count; i++)
         {
+            Color activeColor = portalsActive[i].GetActiveColor();
+
             for (int j = 0; j < portalsActive.Count; j++)
             {
                 if (portalsActive[i] != portalsActive[j] && !portalsActive[i].GetConnection() && !portalsActive[j].GetConnection())
                 {
                     portalsActive[i].SetConnection(portalsActive[j]);
                     portalsActive[j].SetConnection(portalsActive[i]);
+                    portalsActive[j].SetActiveColor(activeColor);
                     break;
                 }
             }

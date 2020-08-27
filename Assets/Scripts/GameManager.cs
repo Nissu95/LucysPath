@@ -113,9 +113,10 @@ public class GameManager : MonoBehaviour
         {
             for (int j = 0; j < portalsActive.Count; j++)
             {
-                if (portalsActive[i] != portalsActive[j] && !portalsActive[i].GetConnection())
+                if (portalsActive[i] != portalsActive[j] && !portalsActive[i].GetConnection() && !portalsActive[j].GetConnection())
                 {
                     portalsActive[i].SetConnection(portalsActive[j]);
+                    portalsActive[j].SetConnection(portalsActive[i]);
                     break;
                 }
             }

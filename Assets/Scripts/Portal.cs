@@ -85,6 +85,8 @@ public class Portal : MonoBehaviour
             portalMesh.material.color = activeColor;
             GameManager.singleton.ConnectPortals();
         }
+
+        LevelCreator.singleton.FindPath();
     }
 
     public void SetConnection(Portal _connection)

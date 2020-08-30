@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject pauseButton;
     [SerializeField] GameObject quitWarning;
     [SerializeField] GameObject optionsGO;
+    [SerializeField] Color[] portalColors;
 
     GameObject winObj;
     int stars;
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
     Pathfinding playerPath;
 
     List<Portal> portalsActive = new List<Portal>();
+    Portal[] portals;
 
     GameState gs;
 
@@ -118,7 +120,7 @@ public class GameManager : MonoBehaviour
                 {
                     portalsActive[i].SetConnection(portalsActive[j]);
                     portalsActive[j].SetConnection(portalsActive[i]);
-                    portalsActive[j].SetActiveColor(activeColor);
+                    portalsActive[j].SetMeshMaterialColor(activeColor);
                     break;
                 }
             }
@@ -133,6 +135,15 @@ public class GameManager : MonoBehaviour
     public void RemovePortalActive(Portal portal)
     {
         portalsActive.Remove(portal);
+        ConnectPortals();
+    }
+
+    public void ResetPortals()
+    {
+        portals = FindObjectsOfType<Portal>();
+
+        for (int i = 0; i < portals.Length; i++)
+            portals[i].SetActiveColor(portalColors[i]);
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)

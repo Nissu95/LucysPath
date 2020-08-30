@@ -71,7 +71,7 @@ public class Portal : MonoBehaviour
         {
             if (connection)
             {
-                connection.SetActiveColor(connection.GetActiveColor());
+                connection.SetMeshMaterialColor(connection.GetActiveColor());
                 connection.SetConnection(null);
                 connection = null;
             }
@@ -97,6 +97,11 @@ public class Portal : MonoBehaviour
     public void SetActiveColor(Color color)
     {
         activeColor = color;
+    }
+
+    public void SetMeshMaterialColor(Color color)
+    {
+        portalMesh.material.color = color;
     }
 
     public Color GetActiveColor()

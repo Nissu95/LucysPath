@@ -71,14 +71,9 @@ public class LevelCreator : MonoBehaviour
 
             if (nextPathPosition == lastPathPosition)
             {
-                /*for (int i = 0; i < nodesPosition.Count; i++)
-                {
-                    GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                    sphere.transform.localScale *= 0.2f;
-                    sphere.transform.position = nodesPosition[i];
-                }*/
-
                 playerPathfinding.StartWalking(nodesPosition);
+                GameManager.singleton.PathFound = true;
+
                 return;
             }
 
@@ -240,6 +235,7 @@ public class LevelCreator : MonoBehaviour
         Path lastPathSquare = GetPath(lastPathPosition);
         lastPathSquare.GetComponent<MeshRenderer>().material.color = lastPathColor;
 
+        GameManager.singleton.PathFound = false;
         PortalsManager.singleton.ResetManager();
     }
 

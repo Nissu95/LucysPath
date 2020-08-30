@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
     GameObject winObj;
     int stars;
     int recordStars = 0;
-
     GameObject mainMenu;
     Pathfinding playerPath;
 
@@ -351,4 +350,6 @@ public class GameManager : MonoBehaviour
         return null;
     }
     //----------------------------------------------------------------------------
+
+    public bool PathFound { get; set; } = false;
 }

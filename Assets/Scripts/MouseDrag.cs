@@ -32,6 +32,9 @@ public class MouseDrag : MonoBehaviour
 
     void OnMouseDown()
     {
+        if (GameManager.singleton.PathFound)
+            return;
+
         maxPosition = LevelCreator.singleton.GetMaxPosition();
 
         scanPos = gameObject.transform.position;
@@ -46,6 +49,9 @@ public class MouseDrag : MonoBehaviour
 
     void OnMouseDrag()
     {
+        if (GameManager.singleton.PathFound)
+            return;
+
         curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
         curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
 
@@ -61,6 +67,9 @@ public class MouseDrag : MonoBehaviour
 
     private void OnMouseUp()
     {
+        if (GameManager.singleton.PathFound)
+            return;
+
         Vector3 diff = scanPos - curPosition;
 
         rotate = (diff.magnitude < minMovementSquare);

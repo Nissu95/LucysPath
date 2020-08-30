@@ -8,7 +8,8 @@ public class Portal : MonoBehaviour
 #pragma warning disable 649
     [SerializeField] Portal connection;
     [SerializeField] MeshRenderer portalMesh;
-    [SerializeField] Color activeColor;
+
+    Color activeColor;
 
     Transform connectionTransform;
     Color deactiveColor = Color.white;
@@ -93,7 +94,7 @@ public class Portal : MonoBehaviour
 
     public void SetActiveColor(Color color)
     {
-        portalMesh.material.color = color;
+        activeColor = color;
     }
 
     public Color GetActiveColor()

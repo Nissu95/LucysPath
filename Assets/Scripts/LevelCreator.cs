@@ -236,6 +236,7 @@ public class LevelCreator : MonoBehaviour
         lastPathSquare.GetComponent<MeshRenderer>().material.color = lastPathColor;
 
         GameManager.singleton.PathFound = false;
+        PortalsManager.singleton.ResetManager();
     }
 
     public void DestroyLevel()

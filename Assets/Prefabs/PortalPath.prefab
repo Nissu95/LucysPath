@@ -137,6 +137,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connection: {fileID: 0}
+  portalMesh: {fileID: 187508603924005792}
+  activeColor: {r: 0.12494135, g: 0, b: 1, a: 0}
 --- !u!65 &1033186270285732565
 BoxCollider:
   m_ObjectHideFlags: 0

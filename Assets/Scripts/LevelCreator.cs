@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class LevelCreator : MonoBehaviour
@@ -70,14 +71,9 @@ public class LevelCreator : MonoBehaviour
 
             if (nextPathPosition == lastPathPosition)
             {
-                /*for (int i = 0; i < nodesPosition.Count; i++)
-                {
-                    GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                    sphere.transform.localScale *= 0.2f;
-                    sphere.transform.position = nodesPosition[i];
-                }*/
-
                 playerPathfinding.StartWalking(nodesPosition);
+                GameManager.singleton.PathFound = true;
+
                 return;
             }
 
@@ -93,6 +89,7 @@ public class LevelCreator : MonoBehaviour
         Vector2Int nextPathGridPosition;
 
         uint connectionNodeIndex;
+        
 
         for (int i = 0; i < nodes.Length; i++)
         {
@@ -112,18 +109,37 @@ public class LevelCreator : MonoBehaviour
 
                     if (nextPath && !nextPath.IsLocked())
                     {
-
                         uint[] nextPathNodes = nextPath.GetNodes();
 
                         if (nextPathNodes[connectionNodeIndex] == 1)
                         {
+
                             Vector3 pathPosition = nextPath.transform.position;
                             Vector3 nodePosition = new Vector3(pathPosition.x + (Constants.pathsOrder[connectionNodeIndex].x) * nodeSpacing,
                                                                pathPosition.y + nodeHeight,
                                                                pathPosition.z + (Constants.pathsOrder[connectionNodeIndex].y) * nodeSpacing);
 
-
                             nodesPosition.Add(nodePosition);
+
+                            if (nextPath.gameObject.CompareTag(Constants.PortalTag))
+                            {
+                                Debug.Log("Es portal");
+
+                                Transform connectionTransform = nextPath.GetComponent<Portal>().GetConnectionTransform();
+
+                                if (connectionTransform)
+                                {
+                                    Debug.Log("Portal conectado");
+
+                                    nodePosition = nextPath.transform.position;
+                                    nodesPosition.Add(nodePosition);
+
+                                    Path connectionPath = connectionTransform.GetComponent<Path>();
+                                        return GetPath(connectionPath);
+                                }
+                                else
+                                    return nullPosition;
+                            }
 
                             return nextPathGridPosition;
                         }
@@ -218,6 +234,8 @@ public class LevelCreator : MonoBehaviour
 
         Path lastPathSquare = GetPath(lastPathPosition);
         lastPathSquare.GetComponent<MeshRenderer>().material.color = lastPathColor;
+
+        GameManager.singleton.PathFound = false;
     }
 
     public void DestroyLevel()
@@ -272,6 +290,7 @@ public static class Constants
     public const string firstPathTag = "FirstPath";
     public const string lastPathTag = "LastPath";
     public const string PathTag = "Path";
+    public const string PortalTag = "Portal";
     public const string playerTag = "Player";
 }
 

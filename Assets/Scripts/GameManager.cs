@@ -20,9 +20,10 @@ public class GameManager : MonoBehaviour
     GameObject winObj;
     int stars;
     int recordStars = 0;
-
     GameObject mainMenu;
     Pathfinding playerPath;
+
+    List<Portal> portalsActive = new List<Portal>();
 
     GameState gs;
 
@@ -103,6 +104,31 @@ public class GameManager : MonoBehaviour
                     break;
             }
         }
+    }
+
+    public void ConnectPortals()
+    {
+        for (int i = 0; i < portalsActive.Count; i++)
+        {
+            for (int j = 0; j < portalsActive.Count; j++)
+            {
+                if (portalsActive[i] != portalsActive[j] && !portalsActive[i].GetConnection())
+                {
+                    portalsActive[i].SetConnection(portalsActive[j]);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void AddPortalActive(Portal portal)
+    {
+        portalsActive.Add(portal);
+    }
+
+    public void RemovePortalActive(Portal portal)
+    {
+        portalsActive.Remove(portal);
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -203,6 +229,7 @@ public class GameManager : MonoBehaviour
     {
         mainMenu.SetActive(false);
         selectionPanel.gameObject.SetActive(true);
+        portalsActive.Clear();
         gs = GameState.SelectionLevel;
     }
 
@@ -232,18 +259,21 @@ public class GameManager : MonoBehaviour
         ContinueButton();
         winObj.SetActive(false);
         pauseButton.SetActive(true);
+        portalsActive.Clear();
         PlayLevel(currentLevel);
     }
 
     public void NextLevelButton()
     {
         winObj.SetActive(false);
+        portalsActive.Clear();
         currentLevel++;
         PlayLevel(currentLevel);
     }
 
     public void BackToMenuButton()
     {
+        portalsActive.Clear();
         ContinueButton();
         winObj.SetActive(false);
         mainMenu.SetActive(true);
@@ -316,4 +346,6 @@ public class GameManager : MonoBehaviour
         return null;
     }
     //----------------------------------------------------------------------------
+
+    public bool PathFound { get; set; } = false;
 }

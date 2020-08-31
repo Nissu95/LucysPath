@@ -6,21 +6,24 @@ using UnityEngine;
 public class Portal : MonoBehaviour
 {
 #pragma warning disable 649
+    public enum SelectPortal { Active, Deactive, Connect}
+
     [SerializeField] Portal connection;
     [SerializeField] MeshRenderer portalMesh;
 
     Color activeColor;
 
+    SelectPortal selectPortal = SelectPortal.Deactive;
+
     Transform connectionTransform;
     Color deactiveColor = Color.white;
 
     private bool active = true;
-    bool portalActive = false;
 
     private void Start()
     {
         Time.timeScale = 0.5f;
-        
+
         //connectionTransform = connection.transform;
     }
 
@@ -58,35 +61,69 @@ public class Portal : MonoBehaviour
         return connectionTransform;
     }
 
-    public bool GetActive()
-    {
-        return portalActive;
-    }
-
     public void PortalTouch()
     {
-        portalActive = !portalActive;
 
-        if (portalActive == false)
+        switch (selectPortal)
         {
-            if (connection)
-            {
-                connection.SetActiveColor(connection.GetActiveColor());
-                connection.SetConnection(null);
-                connection = null;
-            }
+            case SelectPortal.Active:
+                selectPortal = SelectPortal.Deactive;
 
-            GameManager.singleton.RemovePortalActive(this);
-            portalMesh.material.color = deactiveColor;
-        }
-        else
-        {
-            GameManager.singleton.AddPortalActive(this);
-            portalMesh.material.color = activeColor;
-            GameManager.singleton.ConnectPortals();
+                GameManager.singleton.RemovePortalActive(this);
+                portalMesh.material.color = deactiveColor;
+                break;
+            case SelectPortal.Deactive:
+
+                if (GameManager.singleton.IsPortalConnect())
+                {
+                    GameManager.singleton.AddPortalActive(this);
+                    GameManager.singleton.ConnectPortals();
+                    selectPortal = SelectPortal.Connect;
+                    connection.SetPortalSelect(SelectPortal.Connect);
+                }
+                else
+                {
+                    GameManager.singleton.AddPortalActive(this);
+                    selectPortal = SelectPortal.Active;
+                    portalMesh.material.color = activeColor;
+                }
+                break;
+            case SelectPortal.Connect:
+                if (!GameManager.singleton.IsPortalConnect())
+                {
+                    connection.SetMeshMaterialColor(connection.GetActiveColor());
+                    GameManager.singleton.AddPortalActive(connection);
+                    connection.SetConnection(null);
+                    connection.SetPortalSelect(SelectPortal.Active);
+
+                    connection = null;
+                    selectPortal = SelectPortal.Deactive;
+                    portalMesh.material.color = deactiveColor;
+                }
+                else
+                {
+                    connection.SetMeshMaterialColor(deactiveColor);
+                    connection.SetConnection(null);
+                    connection.SetPortalSelect(SelectPortal.Deactive);
+
+                    connection = null;
+                    GameManager.singleton.AddPortalActive(this);
+                    GameManager.singleton.ConnectPortals();
+                    selectPortal = SelectPortal.Connect;
+                    connection.SetPortalSelect(SelectPortal.Connect);
+                }
+                
+                break;
+            default:
+                break;
         }
 
         LevelCreator.singleton.FindPath();
+    }
+
+    public void SetPortalSelect(SelectPortal _selectPortal)
+    {
+        selectPortal = _selectPortal;
     }
 
     public void SetConnection(Portal _connection)
@@ -97,6 +134,11 @@ public class Portal : MonoBehaviour
     public void SetActiveColor(Color color)
     {
         activeColor = color;
+    }
+
+    public void SetMeshMaterialColor(Color color)
+    {
+        portalMesh.material.color = color;
     }
 
     public Color GetActiveColor()

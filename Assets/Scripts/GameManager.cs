@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject pauseButton;
     [SerializeField] GameObject quitWarning;
     [SerializeField] GameObject optionsGO;
+    [SerializeField] Color[] portalColors;
 
     GameObject winObj;
     int stars;
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
     Pathfinding playerPath;
 
     List<Portal> portalsActive = new List<Portal>();
+    Portal[] portals;
 
     GameState gs;
 
@@ -110,7 +112,6 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < portalsActive.Count; i++)
         {
-            Color activeColor = portalsActive[i].GetActiveColor();
 
             for (int j = 0; j < portalsActive.Count; j++)
             {
@@ -118,8 +119,9 @@ public class GameManager : MonoBehaviour
                 {
                     portalsActive[i].SetConnection(portalsActive[j]);
                     portalsActive[j].SetConnection(portalsActive[i]);
-                    portalsActive[j].SetActiveColor(activeColor);
-                    break;
+                    portalsActive[j].SetMeshMaterialColor(portalsActive[i].GetActiveColor());
+                    portalsActive.Clear();
+                    return;
                 }
             }
         }
@@ -130,9 +132,25 @@ public class GameManager : MonoBehaviour
         portalsActive.Add(portal);
     }
 
+    public bool IsPortalConnect()
+    {
+        if (portalsActive.Count >= 1)
+            return true;
+        else
+            return false;
+    }
+
     public void RemovePortalActive(Portal portal)
     {
         portalsActive.Remove(portal);
+    }
+
+    public void ResetPortals()
+    {
+        portals = FindObjectsOfType<Portal>();
+
+        for (int i = 0; i < portals.Length; i++)
+            portals[i].SetActiveColor(portalColors[i]);
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)

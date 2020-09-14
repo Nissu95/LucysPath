@@ -34,6 +34,7 @@ public class Portal : MonoBehaviour
             DeactivateConnectedPortal();
             other.GetComponent<Pathfinding>().NextNode();
             other.transform.position = connectionTransform.position;
+            other.transform.rotation = connectionTransform.rotation;
         }
     }
 

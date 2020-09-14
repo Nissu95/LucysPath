@@ -11,6 +11,9 @@ public class Pathfinding : MonoBehaviour
     Animator animator;
     List<Vector3> nodes;
 
+    Vector3 diff;
+    Vector3 dir;
+
     int nodeIndex = 0;
     
     void Start()
@@ -36,12 +39,16 @@ public class Pathfinding : MonoBehaviour
                 if (nodes.Count <= 0)
                     return;
 
-                Vector3 diff = nodes[nodeIndex] - transform.position;
-                Vector3 dir = diff.normalized;
+                diff = nodes[nodeIndex] - transform.position;
+                dir = diff.normalized;
 
                 if (diff.magnitude > distanceLimit)
                 {
                     transform.position += dir * speed * Time.deltaTime;
+
+                    transform.rotation = Quaternion.Lerp(transform.rotation,
+                                                         Quaternion.LookRotation(dir),
+                                                         Time.deltaTime * speed * 4);
                 }
                 else
                 {

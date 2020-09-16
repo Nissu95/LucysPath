@@ -618,7 +618,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 86209648}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3803315bae714f7409fdc51a8a4cb64b, type: 3}
   m_Name: 
@@ -669,6 +669,29 @@ MonoBehaviour:
   - {r: 0.12941177, g: 0.3529412, b: 0.30588236, a: 1}
   - {r: 0.9490197, g: 0.87843144, b: 0.7411765, a: 1}
   - {r: 0.9490197, g: 0.7960785, b: 0.027450982, a: 1}
+  english: {fileID: 11400000, guid: c633c435a8779e047b7d72b157722f7d, type: 2}
+  spanish: {fileID: 11400000, guid: 1ae761b2bd709a445bb8028c26517331, type: 2}
+  playText: {fileID: 767629}
+  optionsText: {fileID: 652455707}
+  exitTest: {fileID: 674141395}
+  winText: {fileID: 609782047}
+  nextLevel: {fileID: 729576279}
+  playAgain: {fileID: 1404135524}
+  backToMenu: {fileID: 1523826700}
+  starText: {fileID: 167019105}
+  maxStarsText: {fileID: 2044912164}
+  pauseTitle: {fileID: 1890809589}
+  continueText: {fileID: 1162604570}
+  restartText: {fileID: 856757508}
+  backToMenuPause: {fileID: 1771912408}
+  pauseButtonText: {fileID: 1108452980}
+  quitWarningTitle: {fileID: 1183923763}
+  yesText: {fileID: 2066383284}
+  noText: {fileID: 1129038452}
+  optionsTitle: {fileID: 1400150163}
+  privacyPoliciesText: {fileID: 1699140053}
+  muteText: {fileID: 1825661150}
+  backToMenuOM: {fileID: 1076453793}
   levelSelectionButtonPrefab: {fileID: 6846629431064013899, guid: 2608bfa25d37ee642bfb8439363f30d4,
     type: 3}
   selectionPanel: {fileID: 1458402426}

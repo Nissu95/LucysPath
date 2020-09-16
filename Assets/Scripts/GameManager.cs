@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public enum GameState { Play, MainMenu, Options, Pause, SelectionLevel, QuitWarning }
+public enum Languages { English, Spanish }
 
 public class GameManager : MonoBehaviour
 {
@@ -28,6 +29,45 @@ public class GameManager : MonoBehaviour
     Portal[] portals;
 
     GameState gs;
+
+    //----------------------------------------------------------------------------
+    //Language Variables
+
+    [SerializeField] ScriptableLanguages english;
+    [SerializeField] ScriptableLanguages spanish;
+
+    //Main Menu
+    [SerializeField] Text playText;
+    [SerializeField] Text optionsText;
+    [SerializeField] Text exitTest;
+
+    //Win
+    [SerializeField] Text winText;
+    [SerializeField] Text nextLevel;
+    [SerializeField] Text playAgain;
+    [SerializeField] Text backToMenu;
+    [SerializeField] Text starText;
+    [SerializeField] Text maxStarsText;
+
+    //Pause
+    [SerializeField] Text pauseTitle;
+    [SerializeField] Text continueText;
+    [SerializeField] Text restartText;
+    [SerializeField] Text backToMenuPause;
+    [SerializeField] Text pauseButtonText;
+
+    //Quit Warning
+    [SerializeField] Text quitWarningTitle;
+    [SerializeField] Text yesText;
+    [SerializeField] Text noText;
+
+    //Options Menu
+    [SerializeField] Text optionsTitle;
+    [SerializeField] Text privacyPoliciesText;
+    [SerializeField] Text muteText;
+    [SerializeField] Text backToMenuOM;
+
+    Languages language;
 
     //----------------------------------------------------------------------------
     //Level Selection Variables
@@ -55,6 +95,8 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
         mainMenu = GameObject.Find(mainMenuName);
         gs = GameState.MainMenu;
+
+        language = Languages.English;
     }
 
     private void Start()
@@ -72,6 +114,8 @@ public class GameManager : MonoBehaviour
 
         if (pauseGO)
             pauseGO.SetActive(false);
+
+        ChangeLanguge();
     }
 
     private void Update()
@@ -105,6 +149,47 @@ public class GameManager : MonoBehaviour
                     gs = GameState.MainMenu;
                     break;
             }
+        }
+    }
+
+    public void ChangeLanguge()
+    {
+        switch (language)
+        {
+            case Languages.English:
+                playText.text = english.GetPlayText();
+                optionsText.text = english.GetOptionsText();
+                exitTest.text = english.GetExitText();
+
+                winText.text = english.GetWinText();
+                nextLevel.text = english.GetNextLevelText();
+                playAgain.text = english.GetPlayAgainText();
+                backToMenu.text = english.GetBackToMenuText();
+                starText.text = english.GetStarsText() + stars;
+                maxStarsText.text = english.GetMaxStarsText() + recordStars;
+
+                pauseTitle.text = english.GetPauseTitle();
+                continueText.text = english.GetContinueText();
+                restartText.text = english.GetRestartText();
+                backToMenuPause.text = english.GetBackToMenuText();
+                pauseButtonText.text = english.GetPauseTitle();
+
+                quitWarningTitle.text = english.GetQuitWarningTitle();
+                yesText.text = english.GetYes();
+                noText.text = english.GetNo();
+
+                optionsTitle.text = english.GetOptionsText();
+                privacyPoliciesText.text = english.GetPrivacyPoliciesText();
+                muteText.text = english.GetMuteText();
+                backToMenuOM.text = english.GetBackToMenuText();
+                break;
+            case Languages.Spanish:
+                playText.text = spanish.GetPlayText();
+                optionsText.text = spanish.GetOptionsText();
+                exitTest.text = spanish.GetExitText();
+                break;
+            default:
+                break;
         }
     }
 
@@ -184,16 +269,6 @@ public class GameManager : MonoBehaviour
     public void StarsCount()
     {
         stars++;
-    }
-
-    public int GetStars()
-    {
-        return stars;
-    }
-
-    public int GetMaxStars()
-    {
-        return recordStars;
     }
 
     public GameObject GetPauseButton()

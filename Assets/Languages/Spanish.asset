@@ -15,3 +15,17 @@ MonoBehaviour:
   playText: Jugar
   optionsText: Opciones
   exitText: Salir
+  winText: Ganaste!
+  nextLevel: Siguiente nivel
+  playAgain: Jugar de nuevo
+  backToMenu: Volver al menu
+  starText: 'Estrellas: '
+  maxStarsText: 'Estrellas maximas: '
+  pauseTitle: Pausa
+  continueText: Continuar
+  restartText: Reiniciar
+  quitWarningTitle: Quieres salir?
+  yesText: Si
+  noText: No
+  privacyPoliciesText: Politicas de privacidad
+  muteText: Silenciar

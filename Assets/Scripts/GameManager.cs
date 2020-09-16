@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
         mainMenu = GameObject.Find(mainMenuName);
         gs = GameState.MainMenu;
 
-        language = Languages.English;
+        language = Languages.Spanish;
     }
 
     private void Start()
@@ -187,6 +187,28 @@ public class GameManager : MonoBehaviour
                 playText.text = spanish.GetPlayText();
                 optionsText.text = spanish.GetOptionsText();
                 exitTest.text = spanish.GetExitText();
+
+                winText.text = spanish.GetWinText();
+                nextLevel.text = spanish.GetNextLevelText();
+                playAgain.text = spanish.GetPlayAgainText();
+                backToMenu.text = spanish.GetBackToMenuText();
+                starText.text = spanish.GetStarsText() + stars;
+                maxStarsText.text = spanish.GetMaxStarsText() + recordStars;
+
+                pauseTitle.text = spanish.GetPauseTitle();
+                continueText.text = spanish.GetContinueText();
+                restartText.text = spanish.GetRestartText();
+                backToMenuPause.text = spanish.GetBackToMenuText();
+                pauseButtonText.text = spanish.GetPauseTitle();
+
+                quitWarningTitle.text = spanish.GetQuitWarningTitle();
+                yesText.text = spanish.GetYes();
+                noText.text = spanish.GetNo();
+
+                optionsTitle.text = spanish.GetOptionsText();
+                privacyPoliciesText.text = spanish.GetPrivacyPoliciesText();
+                muteText.text = spanish.GetMuteText();
+                backToMenuOM.text = spanish.GetBackToMenuText();
                 break;
             default:
                 break;

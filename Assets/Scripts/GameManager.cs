@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
         mainMenu = GameObject.Find(mainMenuName);
         gs = GameState.MainMenu;
 
-        language = Languages.Spanish;
+        language = Languages.English;
     }
 
     private void Start()
@@ -213,6 +213,11 @@ public class GameManager : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public Languages GetLanguage()
+    {
+        return language;
     }
 
     public void ConnectPortals()

@@ -20,7 +20,17 @@ public class LevelSelectionButton : MonoBehaviour
     public void SetStars(int _stars)
     {
         stars = _stars;
-        starsText.text = "Estrellas: " + stars;
+        switch (GameManager.singleton.GetLanguage())
+        {
+            case Languages.English:
+                starsText.text = "Stars: " + stars;
+                break;
+            case Languages.Spanish:
+                starsText.text = "Estrellas: " + stars;
+                break;
+            default:
+                break;
+        }
     }
     private void Awake()
     {

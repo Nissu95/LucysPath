@@ -229,9 +229,6 @@ public class LevelCreator : MonoBehaviour
             }
         }
 
-        Path firstPathSquare = GetPath(firstPathPosition);
-        firstPathSquare.GetComponent<MeshRenderer>().material.color = firstPathColor;
-
         Path lastPathSquare = GetPath(lastPathPosition);
         lastPathSquare.GetComponent<MeshRenderer>().material.color = lastPathColor;
 

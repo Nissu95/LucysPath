@@ -3,7 +3,6 @@ using System.Collections;
 using System;
 
 [RequireComponent(typeof(BoxCollider))]
-[RequireComponent(typeof(MeshRenderer))]
 
 
 public class MouseDrag : MonoBehaviour

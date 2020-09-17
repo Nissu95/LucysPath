@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public enum GameState { Play, MainMenu, Options, Pause, SelectionLevel, QuitWarning }
-public enum Languages { Spanish, English }
+//public enum Languages { Spanish, English }
 
 public class GameManager : MonoBehaviour
 {
@@ -71,7 +71,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text backToMenuOM;
     [SerializeField] Dropdown languagesDropdown;
 
-    Languages language;
+    SystemLanguage language;
+    int dropdownValue = 0;
 
     //----------------------------------------------------------------------------
     //Level Selection Variables
@@ -100,7 +101,21 @@ public class GameManager : MonoBehaviour
         mainMenu = GameObject.Find(mainMenuName);
         gs = GameState.MainMenu;
 
-        language = Languages.English;
+        switch (Application.systemLanguage)
+        {
+            case SystemLanguage.Spanish:
+                language = SystemLanguage.Spanish;
+                dropdownValue = 0;
+                break;
+            case SystemLanguage.English:
+                language = SystemLanguage.English;
+                dropdownValue = 1;
+                break;
+            default:
+                language = SystemLanguage.English;
+                dropdownValue = 1;
+                break;
+        }
     }
 
     private void Start()
@@ -119,8 +134,8 @@ public class GameManager : MonoBehaviour
         if (pauseGO)
             pauseGO.SetActive(false);
 
+        languagesDropdown.value = dropdownValue;
         ChangeLanguge();
-        languagesDropdown.value = (int)language;
     }
 
     private void Update()
@@ -161,7 +176,7 @@ public class GameManager : MonoBehaviour
     {
         switch (language)
         {
-            case Languages.English:
+            case SystemLanguage.English:
                 playText.text = english.GetPlayText();
                 optionsText.text = english.GetOptionsText();
                 exitTest.text = english.GetExitText();
@@ -199,7 +214,7 @@ public class GameManager : MonoBehaviour
 
                 break;
 
-            case Languages.Spanish:
+            case SystemLanguage.Spanish:
                 playText.text = spanish.GetPlayText();
                 optionsText.text = spanish.GetOptionsText();
                 exitTest.text = spanish.GetExitText();
@@ -244,18 +259,13 @@ public class GameManager : MonoBehaviour
         switch (languagesDropdown.value)
         {
             case 0:
-                language = Languages.Spanish;
+                language = SystemLanguage.Spanish;
                 break;
             case 1:
-                language = Languages.English;
+                language = SystemLanguage.English;
                 break;
         }
         ChangeLanguge();
-    }
-
-    public Languages GetLanguage()
-    {
-        return language;
     }
 
     public void ConnectPortals()

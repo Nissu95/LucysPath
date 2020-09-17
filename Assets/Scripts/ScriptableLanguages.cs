@@ -26,6 +26,12 @@ public class ScriptableLanguages : ScriptableObject
     
     [SerializeField] string privacyPoliciesText;
     [SerializeField] string muteText;
+    [SerializeField] string[] languagesDropdownTxt;
+
+    public string[] GetLanguagesDropdownTxt()
+    {
+        return languagesDropdownTxt;
+    }
 
     public string GetPrivacyPoliciesText()
     {

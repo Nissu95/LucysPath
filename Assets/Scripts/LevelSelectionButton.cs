@@ -20,18 +20,13 @@ public class LevelSelectionButton : MonoBehaviour
     public void SetStars(int _stars)
     {
         stars = _stars;
-        switch (GameManager.singleton.GetLanguage())
-        {
-            case Languages.English:
-                starsText.text = "Stars: " + stars;
-                break;
-            case Languages.Spanish:
-                starsText.text = "Estrellas: " + stars;
-                break;
-            default:
-                break;
-        }
     }
+
+    public void SetText(string text)
+    {
+        starsText.text = text + stars;
+    }
+
     private void Awake()
     {
         GetComponent<Button>().onClick.AddListener(PlayLevel);
@@ -42,4 +37,5 @@ public class LevelSelectionButton : MonoBehaviour
         GameManager.singleton.PlayLevel(index);
         GameManager.singleton.GetPauseButton().SetActive(true);
     }
+
 }

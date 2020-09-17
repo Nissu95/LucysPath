@@ -29,3 +29,6 @@ MonoBehaviour:
   noText: no
   privacyPoliciesText: Privacy policies
   muteText: Mute
+  languagesDropdownTxt:
+  - Spanish
+  - English

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public enum GameState { Play, MainMenu, Options, Pause, SelectionLevel, QuitWarning }
-public enum Languages { English, Spanish }
+public enum Languages { Spanish, English }
 
 public class GameManager : MonoBehaviour
 {
@@ -49,6 +49,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text starText;
     [SerializeField] Text maxStarsText;
 
+    //Level Selection Panel
+    string starString;
+
     //Pause
     [SerializeField] Text pauseTitle;
     [SerializeField] Text continueText;
@@ -66,6 +69,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text privacyPoliciesText;
     [SerializeField] Text muteText;
     [SerializeField] Text backToMenuOM;
+    [SerializeField] Dropdown languagesDropdown;
 
     Languages language;
 
@@ -116,6 +120,7 @@ public class GameManager : MonoBehaviour
             pauseGO.SetActive(false);
 
         ChangeLanguge();
+        languagesDropdown.value = (int)language;
     }
 
     private void Update()
@@ -168,6 +173,10 @@ public class GameManager : MonoBehaviour
                 starText.text = english.GetStarsText() + stars;
                 maxStarsText.text = english.GetMaxStarsText() + recordStars;
 
+                starString = english.GetStarsText();
+                for (int i = 0; i < buttons.Count; i++)
+                    buttons[i].SetText(starString);
+
                 pauseTitle.text = english.GetPauseTitle();
                 continueText.text = english.GetContinueText();
                 restartText.text = english.GetRestartText();
@@ -182,7 +191,14 @@ public class GameManager : MonoBehaviour
                 privacyPoliciesText.text = english.GetPrivacyPoliciesText();
                 muteText.text = english.GetMuteText();
                 backToMenuOM.text = english.GetBackToMenuText();
+
+                for (int i = 0; i < languagesDropdown.options.Count; i++)
+                    languagesDropdown.options[i].text = english.GetLanguagesDropdownTxt()[i];
+
+                languagesDropdown.captionText.text = english.GetLanguagesDropdownTxt()[1];
+
                 break;
+
             case Languages.Spanish:
                 playText.text = spanish.GetPlayText();
                 optionsText.text = spanish.GetOptionsText();
@@ -194,6 +210,10 @@ public class GameManager : MonoBehaviour
                 backToMenu.text = spanish.GetBackToMenuText();
                 starText.text = spanish.GetStarsText() + stars;
                 maxStarsText.text = spanish.GetMaxStarsText() + recordStars;
+
+                starString = spanish.GetStarsText();
+                for (int i = 0; i < buttons.Count; i++)
+                    buttons[i].SetText(starString);
 
                 pauseTitle.text = spanish.GetPauseTitle();
                 continueText.text = spanish.GetContinueText();
@@ -209,10 +229,28 @@ public class GameManager : MonoBehaviour
                 privacyPoliciesText.text = spanish.GetPrivacyPoliciesText();
                 muteText.text = spanish.GetMuteText();
                 backToMenuOM.text = spanish.GetBackToMenuText();
-                break;
-            default:
+
+                for (int i = 0; i < languagesDropdown.options.Count; i++)
+                    languagesDropdown.options[i].text = spanish.GetLanguagesDropdownTxt()[i];
+
+                languagesDropdown.captionText.text = spanish.GetLanguagesDropdownTxt()[0];
+
                 break;
         }
+    }
+
+    public void HandleInputDataDropdown()
+    {
+        switch (languagesDropdown.value)
+        {
+            case 0:
+                language = Languages.Spanish;
+                break;
+            case 1:
+                language = Languages.English;
+                break;
+        }
+        ChangeLanguge();
     }
 
     public Languages GetLanguage()
@@ -334,7 +372,10 @@ public class GameManager : MonoBehaviour
             bool won = (levelsWon != null && i < levelsWon.Count);
 
             if (won)
+            {
                 buttons[i].SetStars(levelsWon[i].GetStars());
+                buttons[i].SetText(starString);
+            }
 
             if (i > 0)
                 buttonScript.interactable = won;

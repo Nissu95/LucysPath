@@ -29,3 +29,6 @@ MonoBehaviour:
   noText: No
   privacyPoliciesText: Politicas de privacidad
   muteText: Silenciar
+  languagesDropdownTxt:
+  - "Espa\xF1ol"
+  - Ingles

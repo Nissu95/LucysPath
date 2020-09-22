@@ -3,7 +3,6 @@ using System.Collections;
 using System;
 
 [RequireComponent(typeof(BoxCollider))]
-[RequireComponent(typeof(MeshRenderer))]
 
 
 public class MouseDrag : MonoBehaviour
@@ -99,7 +98,7 @@ public class MouseDrag : MonoBehaviour
 
             if (rotate)
             {
-                transform.Rotate(0, -90, 0, Space.Self);
+                path.RotateSquare();
                 path.RotatePath();
             }
 

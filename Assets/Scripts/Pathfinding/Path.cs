@@ -9,6 +9,8 @@ public class Path : MonoBehaviour
     [SerializeField] GameObject star;
     [SerializeField] bool alwaysLocked;
 
+    [SerializeField] Transform square;
+
     Queue<uint> nodes = new Queue<uint>();
 
     List<GameObject> nodos = new List<GameObject>();
@@ -25,11 +27,16 @@ public class Path : MonoBehaviour
         for (int i = 0; i < rotation; i++)
         {
             RotatePath();
-            transform.rotation = Quaternion.Euler(0, -90 * rotation, 0);
+            RotateSquare();
         }
 
         if (alwaysLocked)
             GetComponent<MouseDrag>().Lock();
+    }
+
+    public void RotateSquare()
+    {
+        square.Rotate(0, -90, 0, Space.Self);
     }
 
     public uint[] GetNodes()

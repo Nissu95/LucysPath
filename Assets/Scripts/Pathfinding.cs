@@ -8,8 +8,11 @@ public class Pathfinding : MonoBehaviour
     [SerializeField] float distanceLimit = .01f;
 
     FSM fsm = new FSM(3, 3);
-
+    Animator animator;
     List<Vector3> nodes;
+
+    Vector3 diff;
+    Vector3 dir;
 
     int nodeIndex = 0;
     
@@ -20,6 +23,8 @@ public class Pathfinding : MonoBehaviour
         fsm.SetRelation(State.Idle, Event.ToWalking, State.Walking);
         fsm.SetRelation(State.Walking, Event.ToWin, State.Win);
         fsm.SetRelation(State.Win, Event.ToIdle, State.Idle);
+
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -27,18 +32,23 @@ public class Pathfinding : MonoBehaviour
         switch (fsm.GetState())
         {
             case State.Idle:
+                animator.SetBool("isWalking", false);
                 break;
             case State.Walking:
                 
                 if (nodes.Count <= 0)
                     return;
 
-                Vector3 diff = nodes[nodeIndex] - transform.position;
-                Vector3 dir = diff.normalized;
+                diff = nodes[nodeIndex] - transform.position;
+                dir = diff.normalized;
 
                 if (diff.magnitude > distanceLimit)
                 {
                     transform.position += dir * speed * Time.deltaTime;
+
+                    transform.rotation = Quaternion.Lerp(transform.rotation,
+                                                         Quaternion.LookRotation(dir),
+                                                         Time.deltaTime * speed * 4);
                 }
                 else
                 {
@@ -47,9 +57,12 @@ public class Pathfinding : MonoBehaviour
 
                 if (nodeIndex >= nodes.Count)
                     fsm.SetEvent(Event.ToWin);
+
+                animator.SetBool("isWalking", true);
                 break;
             case State.Win:
                 Debug.Log("Win");
+                animator.SetBool("isWalking", false);
                 GameManager.singleton.LevelWin();
                 break;
         }

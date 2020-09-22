@@ -11,6 +11,8 @@ public class Portal : MonoBehaviour
     [SerializeField] Portal connection;
     [SerializeField] MeshRenderer portalMesh;
 
+    string materialColorReference = "Color_ECE82552";
+
     Color activeColor;
 
     SelectPortal selectPortal = SelectPortal.Deactive;
@@ -71,7 +73,7 @@ public class Portal : MonoBehaviour
                 selectPortal = SelectPortal.Deactive;
 
                 GameManager.singleton.RemovePortalActive(this);
-                portalMesh.material.color = deactiveColor;
+                portalMesh.material.SetColor(materialColorReference, deactiveColor);
                 break;
             case SelectPortal.Deactive:
 
@@ -86,7 +88,7 @@ public class Portal : MonoBehaviour
                 {
                     GameManager.singleton.AddPortalActive(this);
                     selectPortal = SelectPortal.Active;
-                    portalMesh.material.color = activeColor;
+                    portalMesh.material.SetColor(materialColorReference, activeColor);
                 }
                 break;
             case SelectPortal.Connect:
@@ -99,7 +101,7 @@ public class Portal : MonoBehaviour
 
                     connection = null;
                     selectPortal = SelectPortal.Deactive;
-                    portalMesh.material.color = deactiveColor;
+                    portalMesh.material.SetColor(materialColorReference, deactiveColor);
                 }
                 else
                 {
@@ -139,7 +141,7 @@ public class Portal : MonoBehaviour
 
     public void SetMeshMaterialColor(Color color)
     {
-        portalMesh.material.color = color;
+        portalMesh.material.SetColor(materialColorReference, color);
     }
 
     public Color GetActiveColor()

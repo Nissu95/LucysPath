@@ -63,6 +63,7 @@ MonoBehaviour:
   nodesAvailable: 0001000000010000
   star: {fileID: 581160914909638057}
   alwaysLocked: 0
+  square: {fileID: 1148890334994497088}
 --- !u!114 &-8790498140168663474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,11 +165,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Star
-      objectReference: {fileID: 0}
-    - target: {fileID: 7128315730131212926, guid: 4390d4e05025c384189aa8268cc9b2dc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7128315730131212922, guid: 4390d4e05025c384189aa8268cc9b2dc,
         type: 3}

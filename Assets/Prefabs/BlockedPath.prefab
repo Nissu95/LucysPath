@@ -108,6 +108,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodesAvailable: 0000000000000000
   star: {fileID: 0}
+  alwaysLocked: 1
+  square: {fileID: 8674759004681788904}
 --- !u!114 &3504554768398117442
 MonoBehaviour:
   m_ObjectHideFlags: 0

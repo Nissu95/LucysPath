@@ -63,6 +63,7 @@ MonoBehaviour:
   nodesAvailable: 0100000000010000
   star: {fileID: 4986245182613573852}
   alwaysLocked: 0
+  square: {fileID: 3436761168900281928}
 --- !u!114 &-3802526005953059150
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -98,7 +98,7 @@ public class MouseDrag : MonoBehaviour
 
             if (rotate)
             {
-                transform.Rotate(0, -90, 0, Space.Self);
+                path.RotateSquare();
                 path.RotatePath();
             }
 

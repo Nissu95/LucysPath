@@ -98,10 +98,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1195999072256333538}
     m_Modifications:
-    - target: {fileID: 100002, guid: 56e8e1c5d58e46a488d3cd31ad4f01c8, type: 3}
-      propertyPath: m_Name
-      value: Catson_LiteVersion
-      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 56e8e1c5d58e46a488d3cd31ad4f01c8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -157,6 +153,10 @@ PrefabInstance:
     - target: {fileID: 400002, guid: 56e8e1c5d58e46a488d3cd31ad4f01c8, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 56e8e1c5d58e46a488d3cd31ad4f01c8, type: 3}
+      propertyPath: m_Name
+      value: Catson_LiteVersion
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: 56e8e1c5d58e46a488d3cd31ad4f01c8, type: 3}
       propertyPath: m_Controller

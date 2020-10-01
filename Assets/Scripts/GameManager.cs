@@ -337,7 +337,6 @@ public class GameManager : MonoBehaviour
 
         UpdateLevelSelection();
 
-        //AdmobScript.singleton.RequestInterstitial();
         AdmobScript.singleton.ShowInterstitialAd();
     }
 
@@ -426,6 +425,7 @@ public class GameManager : MonoBehaviour
         else
             recordStars = 0;
 
+        SoundManager.singleton.ChangeToGame();
         gs = GameState.Play;
     }
 
@@ -456,6 +456,7 @@ public class GameManager : MonoBehaviour
         optionsGO.SetActive(false);
 
         LevelCreator.singleton.DestroyLevel();
+        SoundManager.singleton.ChangeToMenu();
         gs = GameState.MainMenu;
     }
 

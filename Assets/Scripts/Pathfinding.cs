@@ -58,10 +58,10 @@ public class Pathfinding : MonoBehaviour
                 if (nodeIndex >= nodes.Count)
                     fsm.SetEvent(Event.ToWin);
 
+                animator.SetFloat("Rotation", Vector3.Cross(transform.TransformDirection(Vector3.forward), diff).y);
                 animator.SetBool("isWalking", true);
                 break;
             case State.Win:
-                Debug.Log("Win");
                 animator.SetBool("isWalking", false);
                 GameManager.singleton.LevelWin();
                 break;

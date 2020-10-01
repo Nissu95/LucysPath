@@ -480,7 +480,6 @@ public class GameManager : MonoBehaviour
     public void MuteButton()
     {
         AudioListener.pause = !AudioListener.pause;
-        Debug.Log(AudioListener.pause);
     }
 
     public void PauseButton()

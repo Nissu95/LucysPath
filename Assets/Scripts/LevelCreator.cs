@@ -230,7 +230,6 @@ public class LevelCreator : MonoBehaviour
         }
 
         Path lastPathSquare = GetPath(lastPathPosition);
-        lastPathSquare.GetComponent<MeshRenderer>().material.color = lastPathColor;
 
         GameManager.singleton.PathFound = false;
         GameManager.singleton.ResetPortals();

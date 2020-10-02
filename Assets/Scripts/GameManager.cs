@@ -404,11 +404,14 @@ public class GameManager : MonoBehaviour
         mainMenu.SetActive(false);
         selectionPanel.gameObject.SetActive(true);
         portalsActive.Clear();
+        SoundManager.singleton.Nyan();
         gs = GameState.SelectionLevel;
     }
 
     public void PlayLevel(int index)
     {
+        SoundManager.singleton.Nyan();
+
         selectionPanel.gameObject.SetActive(false);
         LevelCreator.singleton.CreateLevel(LevelsLoader.GetLevel(index));
 
@@ -431,7 +434,10 @@ public class GameManager : MonoBehaviour
 
     public void PlayAgain()
     {
-        ContinueButton();
+        Time.timeScale = 1;
+        pauseGO.SetActive(false);
+        gs = GameState.Play;
+
         winObj.SetActive(false);
         pauseButton.SetActive(true);
         portalsActive.Clear();
@@ -449,12 +455,17 @@ public class GameManager : MonoBehaviour
     public void BackToMenuButton()
     {
         portalsActive.Clear();
-        ContinueButton();
+
+        Time.timeScale = 1;
+        pauseGO.SetActive(false);
+        gs = GameState.Play;
+
         winObj.SetActive(false);
         mainMenu.SetActive(true);
         pauseButton.SetActive(false);
         optionsGO.SetActive(false);
 
+        SoundManager.singleton.Nyan();
         LevelCreator.singleton.DestroyLevel();
         SoundManager.singleton.ChangeToMenu();
         gs = GameState.MainMenu;
@@ -462,11 +473,13 @@ public class GameManager : MonoBehaviour
 
     public void CloseGame()
     {
+        SoundManager.singleton.Nyan();
         Application.Quit();
     }
 
     public void QuitWarningSetOff()
     {
+        SoundManager.singleton.Nyan();
         quitWarning.SetActive(false);
         gs = GameState.MainMenu;
     }
@@ -475,6 +488,7 @@ public class GameManager : MonoBehaviour
     {
         optionsGO.SetActive(true);
         mainMenu.SetActive(false);
+        SoundManager.singleton.Nyan();
         gs = GameState.Options;
     }
 
@@ -487,6 +501,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         pauseGO.SetActive(true);
+        SoundManager.singleton.Nyan();
         gs = GameState.Pause;
     }
 
@@ -494,11 +509,13 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         pauseGO.SetActive(false);
+        SoundManager.singleton.Nyan();
         gs = GameState.Play;
     }
 
     public void PrivacyPlicies()
     {
+        SoundManager.singleton.Nyan();
         Application.OpenURL("https://www.google.com/");
     }
 

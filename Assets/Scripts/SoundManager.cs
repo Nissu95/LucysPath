@@ -11,6 +11,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioClip mainMenuClip;
     [SerializeField] AudioClip onGameClip;
 
+    [SerializeField] AudioClip[] nyanClips;
+
     void Awake()
     {
         DontDestroyOnLoad(this);
@@ -39,5 +41,10 @@ public class SoundManager : MonoBehaviour
             audioSource.clip = mainMenuClip;
             audioSource.Play();
         }
+    }
+
+    public void Nyan()
+    {
+        audioSource.PlayOneShot(nyanClips[Random.Range(0, nyanClips.Length)]);
     }
 }

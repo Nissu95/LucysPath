@@ -582,7 +582,7 @@ MonoBehaviour:
   canvas: {fileID: 2045606198}
   levelText: {fileID: 1110043902}
   totalLevels: {fileID: 1383848855}
-  levelCreator: {fileID: 1519938618}
+  levelCreator: {fileID: 1546593284}
 --- !u!4 &544132028
 Transform:
   m_ObjectHideFlags: 0
@@ -765,7 +765,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: -0.5000001, y: -0.4999999, z: 0.4999999, w: -0.5000001}
-  m_LocalPosition: {x: 5.4, y: 17.09, z: 7.42}
+  m_LocalPosition: {x: 1.88, y: 7.02, z: 1.36}
   m_LocalScale: {x: 2.2611482, y: 1, z: 1.2119}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1561,9 +1561,9 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1519938618 stripped
+--- !u!114 &1546593284 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7115821754679164168, guid: e87b46d006098f3408ff72a2e27d0145,
+  m_CorrespondingSourceObject: {fileID: 630501286, guid: e87b46d006098f3408ff72a2e27d0145,
     type: 3}
   m_PrefabInstance: {fileID: 7115821754034786610}
   m_PrefabAsset: {fileID: 0}
@@ -1756,6 +1756,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ca1e03b595e6f343af3801cf52dada8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainMenuName: 
+  pauseGO: {fileID: 0}
+  pauseButton: {fileID: 0}
+  quitWarning: {fileID: 0}
+  optionsGO: {fileID: 0}
+  levelSelectionButtonPrefab: {fileID: 6846629431064013899, guid: 2608bfa25d37ee642bfb8439363f30d4,
+    type: 3}
+  selectionPanel: {fileID: 0}
 --- !u!4 &1949885794
 Transform:
   m_ObjectHideFlags: 0

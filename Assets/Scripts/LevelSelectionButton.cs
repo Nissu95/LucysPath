@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class LevelSelectionButton : MonoBehaviour
 {
+#pragma warning disable 649
     [SerializeField] Text levelText;
     [SerializeField] Text starsText;
 
@@ -19,8 +20,13 @@ public class LevelSelectionButton : MonoBehaviour
     public void SetStars(int _stars)
     {
         stars = _stars;
-        starsText.text = "Estrellas: " + stars;
     }
+
+    public void SetText(string text)
+    {
+        starsText.text = text + stars;
+    }
+
     private void Awake()
     {
         GetComponent<Button>().onClick.AddListener(PlayLevel);
@@ -31,4 +37,5 @@ public class LevelSelectionButton : MonoBehaviour
         GameManager.singleton.PlayLevel(index);
         GameManager.singleton.GetPauseButton().SetActive(true);
     }
+
 }

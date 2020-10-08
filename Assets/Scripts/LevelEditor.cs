@@ -6,8 +6,10 @@ public class LevelEditor : MonoBehaviour
 {
     [SerializeField] int columns;
     [SerializeField] int rows;
+#pragma warning disable 649
     [SerializeField] float verticalSpacing;
     [SerializeField] float horizontalSpacing;
+#pragma warning disable 649
     [SerializeField] Vector2 UIposition;
     [SerializeField] GameObject buttonPrefab;
     [SerializeField] Transform canvas;
@@ -61,17 +63,15 @@ public class LevelEditor : MonoBehaviour
         buttons = new LevelButton[columns, rows];
 
         for (int i = 0; i < rows; i++)
-            for (int j = 0; j < columns; j++)
+            for (int j = 0, xPosition = columns; j < columns; j++, xPosition--)
             {
                 GameObject button = Instantiate<GameObject>(buttonPrefab, canvas);
-                Vector2Int position = new Vector2Int(j, i);
+                Vector2Int position = new Vector2Int(xPosition, i);
                 button.transform.position = new Vector2(position.x * horizontalSpacing + UIposition.x,
                                                         position.y * verticalSpacing + UIposition.y);
 
                 LevelButton levelButton = button.GetComponent<LevelButton>();
                 levelButton.SetPosition(position);
-
-                levelButton.levelEditor = this;
 
                 buttons[j, i] = levelButton;
             }
@@ -81,24 +81,26 @@ public class LevelEditor : MonoBehaviour
     {
         ClearButtons();
 
-        columns = level.GetItems().GetLength(0);
-        rows = level.GetItems().GetLength(1);
+        columns = level.GetGrid().GetLength(0);
+        rows = level.GetGrid().GetLength(1);
 
         buttons = new LevelButton[columns, rows];
 
         for (int i = 0; i < rows; i++)
-            for (int j = 0; j < columns; j++)
+            for (int j = 0, xPosition = columns; j < columns; j++, xPosition--)
             {
                 GameObject button = Instantiate<GameObject>(buttonPrefab, canvas);
-                Vector2Int position = new Vector2Int(j, i);
+                Vector2Int position = new Vector2Int(xPosition, i);
                 button.transform.position = new Vector2(position.x * horizontalSpacing + UIposition.x,
                                                         position.y * verticalSpacing + UIposition.y);
 
                 LevelButton levelButton = button.GetComponent<LevelButton>();
                 levelButton.SetPosition(position);
-                levelButton.SetIndex(level.GetItems()[j, i]);
+                levelButton.SetIndex(level.GetGrid()[j, i].Index);
+                levelButton.SetLocked(level.GetGrid()[j, i].Locked);
+                levelButton.SetStar(level.GetGrid()[j, i].Star);
+                levelButton.SetRotation(level.GetGrid()[j, i].Rotation);
 
-                levelButton.levelEditor = this;
 
                 buttons[j, i] = levelButton;
             }
@@ -116,27 +118,9 @@ public class LevelEditor : MonoBehaviour
 
     public void TestLevel()
     {
+        levelCreator.DestroyLevel();
+
         levelCreator.CreateLevel(GetLevel());
-
-        /*foreach (var obstacle in levelObstacles)
-            Destroy(obstacle);
-
-        levelObstacles.Clear();
-
-        for (int i = 0; i < rows; i++)
-            for (int j = 0; j < columns; j++)
-            {
-                int index = buttons[j, i].GetIndex();
-
-                if (index > 0)
-                {
-                    GameObject item = Instantiate<GameObject>(items[index - 1], 
-                    new Vector3(itemsSpacing * i, 0,
-                    -itemsSpacing * j), Quaternion.identity);
-
-                    levelObstacles.Add(item);
-                }
-            }*/
     }
 
     public void LoadLevel()

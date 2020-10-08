@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public enum GameState { Play, MainMenu, Options, Pause, SelectionLevel, QuitWarning }
+//public enum Languages { Spanish, English }
 
 public class GameManager : MonoBehaviour
 {
@@ -16,15 +17,62 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject pauseButton;
     [SerializeField] GameObject quitWarning;
     [SerializeField] GameObject optionsGO;
+    [SerializeField] Color[] portalColors;
 
     GameObject winObj;
     int stars;
     int recordStars = 0;
-
     GameObject mainMenu;
     Pathfinding playerPath;
 
+    List<Portal> portalsActive = new List<Portal>();
+    Portal[] portals;
+
     GameState gs;
+
+    //----------------------------------------------------------------------------
+    //Language Variables
+
+    [SerializeField] ScriptableLanguages english;
+    [SerializeField] ScriptableLanguages spanish;
+
+    //Main Menu
+    [SerializeField] Text playText;
+    [SerializeField] Text optionsText;
+    [SerializeField] Text exitTest;
+
+    //Win
+    [SerializeField] Text winText;
+    [SerializeField] Text nextLevel;
+    [SerializeField] Text playAgain;
+    [SerializeField] Text backToMenu;
+    [SerializeField] Text starText;
+    [SerializeField] Text maxStarsText;
+
+    //Level Selection Panel
+    string starString;
+
+    //Pause
+    [SerializeField] Text pauseTitle;
+    [SerializeField] Text continueText;
+    [SerializeField] Text restartText;
+    [SerializeField] Text backToMenuPause;
+    [SerializeField] Text pauseButtonText;
+
+    //Quit Warning
+    [SerializeField] Text quitWarningTitle;
+    [SerializeField] Text yesText;
+    [SerializeField] Text noText;
+
+    //Options Menu
+    [SerializeField] Text optionsTitle;
+    [SerializeField] Text privacyPoliciesText;
+    [SerializeField] Text muteText;
+    [SerializeField] Text backToMenuOM;
+    [SerializeField] Dropdown languagesDropdown;
+
+    SystemLanguage language;
+    int dropdownValue = 0;
 
     //----------------------------------------------------------------------------
     //Level Selection Variables
@@ -52,6 +100,22 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
         mainMenu = GameObject.Find(mainMenuName);
         gs = GameState.MainMenu;
+
+        switch (Application.systemLanguage)
+        {
+            case SystemLanguage.Spanish:
+                language = SystemLanguage.Spanish;
+                dropdownValue = 0;
+                break;
+            case SystemLanguage.English:
+                language = SystemLanguage.English;
+                dropdownValue = 1;
+                break;
+            default:
+                language = SystemLanguage.English;
+                dropdownValue = 1;
+                break;
+        }
     }
 
     private void Start()
@@ -69,6 +133,9 @@ public class GameManager : MonoBehaviour
 
         if (pauseGO)
             pauseGO.SetActive(false);
+
+        languagesDropdown.value = dropdownValue;
+        ChangeLanguge();
     }
 
     private void Update()
@@ -105,6 +172,147 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ChangeLanguge()
+    {
+        switch (language)
+        {
+            case SystemLanguage.English:
+                playText.text = english.GetPlayText();
+                optionsText.text = english.GetOptionsText();
+                exitTest.text = english.GetExitText();
+
+                winText.text = english.GetWinText();
+                nextLevel.text = english.GetNextLevelText();
+                playAgain.text = english.GetPlayAgainText();
+                backToMenu.text = english.GetBackToMenuText();
+                starText.text = english.GetStarsText() + stars;
+                maxStarsText.text = english.GetMaxStarsText() + recordStars;
+
+                starString = english.GetStarsText();
+                for (int i = 0; i < buttons.Count; i++)
+                    buttons[i].SetText(starString);
+
+                pauseTitle.text = english.GetPauseTitle();
+                continueText.text = english.GetContinueText();
+                restartText.text = english.GetRestartText();
+                backToMenuPause.text = english.GetBackToMenuText();
+                pauseButtonText.text = english.GetPauseTitle();
+
+                quitWarningTitle.text = english.GetQuitWarningTitle();
+                yesText.text = english.GetYes();
+                noText.text = english.GetNo();
+
+                optionsTitle.text = english.GetOptionsText();
+                privacyPoliciesText.text = english.GetPrivacyPoliciesText();
+                muteText.text = english.GetMuteText();
+                backToMenuOM.text = english.GetBackToMenuText();
+
+                for (int i = 0; i < languagesDropdown.options.Count; i++)
+                    languagesDropdown.options[i].text = english.GetLanguagesDropdownTxt()[i];
+
+                languagesDropdown.captionText.text = english.GetLanguagesDropdownTxt()[1];
+
+                break;
+
+            case SystemLanguage.Spanish:
+                playText.text = spanish.GetPlayText();
+                optionsText.text = spanish.GetOptionsText();
+                exitTest.text = spanish.GetExitText();
+
+                winText.text = spanish.GetWinText();
+                nextLevel.text = spanish.GetNextLevelText();
+                playAgain.text = spanish.GetPlayAgainText();
+                backToMenu.text = spanish.GetBackToMenuText();
+                starText.text = spanish.GetStarsText() + stars;
+                maxStarsText.text = spanish.GetMaxStarsText() + recordStars;
+
+                starString = spanish.GetStarsText();
+                for (int i = 0; i < buttons.Count; i++)
+                    buttons[i].SetText(starString);
+
+                pauseTitle.text = spanish.GetPauseTitle();
+                continueText.text = spanish.GetContinueText();
+                restartText.text = spanish.GetRestartText();
+                backToMenuPause.text = spanish.GetBackToMenuText();
+                pauseButtonText.text = spanish.GetPauseTitle();
+
+                quitWarningTitle.text = spanish.GetQuitWarningTitle();
+                yesText.text = spanish.GetYes();
+                noText.text = spanish.GetNo();
+
+                optionsTitle.text = spanish.GetOptionsText();
+                privacyPoliciesText.text = spanish.GetPrivacyPoliciesText();
+                muteText.text = spanish.GetMuteText();
+                backToMenuOM.text = spanish.GetBackToMenuText();
+
+                for (int i = 0; i < languagesDropdown.options.Count; i++)
+                    languagesDropdown.options[i].text = spanish.GetLanguagesDropdownTxt()[i];
+
+                languagesDropdown.captionText.text = spanish.GetLanguagesDropdownTxt()[0];
+
+                break;
+        }
+    }
+
+    public void HandleInputDataDropdown()
+    {
+        switch (languagesDropdown.value)
+        {
+            case 0:
+                language = SystemLanguage.Spanish;
+                break;
+            case 1:
+                language = SystemLanguage.English;
+                break;
+        }
+        ChangeLanguge();
+    }
+
+    public void ConnectPortals()
+    {
+        for (int i = 0; i < portalsActive.Count; i++)
+        {
+
+            for (int j = 0; j < portalsActive.Count; j++)
+            {
+                if (portalsActive[i] != portalsActive[j] && !portalsActive[i].GetConnection() && !portalsActive[j].GetConnection())
+                {
+                    portalsActive[i].SetConnection(portalsActive[j]);
+                    portalsActive[j].SetConnection(portalsActive[i]);
+                    portalsActive[j].SetMeshMaterialColor(portalsActive[i].GetActiveColor());
+                    portalsActive.Clear();
+                    return;
+                }
+            }
+        }
+    }
+
+    public void AddPortalActive(Portal portal)
+    {
+        portalsActive.Add(portal);
+    }
+
+    public bool IsPortalConnect()
+    {
+        if (portalsActive.Count >= 1)
+            return true;
+        else
+            return false;
+    }
+
+    public void RemovePortalActive(Portal portal)
+    {
+        portalsActive.Remove(portal);
+    }
+
+    public void ResetPortals()
+    {
+        portals = FindObjectsOfType<Portal>();
+
+        for (int i = 0; i < portals.Length; i++)
+            portals[i].SetActiveColor(portalColors[i]);
+    }
+
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         winObj = FindInactiveObjectByName("Win");
@@ -129,23 +337,12 @@ public class GameManager : MonoBehaviour
 
         UpdateLevelSelection();
 
-        //AdmobScript.singleton.RequestInterstitial();
         AdmobScript.singleton.ShowInterstitialAd();
     }
 
     public void StarsCount()
     {
         stars++;
-    }
-
-    public int GetStars()
-    {
-        return stars;
-    }
-
-    public int GetMaxStars()
-    {
-        return recordStars;
     }
 
     public GameObject GetPauseButton()
@@ -184,7 +381,10 @@ public class GameManager : MonoBehaviour
             bool won = (levelsWon != null && i < levelsWon.Count);
 
             if (won)
+            {
                 buttons[i].SetStars(levelsWon[i].GetStars());
+                buttons[i].SetText(starString);
+            }
 
             if (i > 0)
                 buttonScript.interactable = won;
@@ -203,11 +403,15 @@ public class GameManager : MonoBehaviour
     {
         mainMenu.SetActive(false);
         selectionPanel.gameObject.SetActive(true);
+        portalsActive.Clear();
+        SoundManager.singleton.Nyan();
         gs = GameState.SelectionLevel;
     }
 
     public void PlayLevel(int index)
     {
+        SoundManager.singleton.Nyan();
+
         selectionPanel.gameObject.SetActive(false);
         LevelCreator.singleton.CreateLevel(LevelsLoader.GetLevel(index));
 
@@ -224,43 +428,58 @@ public class GameManager : MonoBehaviour
         else
             recordStars = 0;
 
+        SoundManager.singleton.ChangeToGame();
         gs = GameState.Play;
     }
 
     public void PlayAgain()
     {
-        ContinueButton();
+        Time.timeScale = 1;
+        pauseGO.SetActive(false);
+        gs = GameState.Play;
+
         winObj.SetActive(false);
         pauseButton.SetActive(true);
+        portalsActive.Clear();
         PlayLevel(currentLevel);
     }
 
     public void NextLevelButton()
     {
         winObj.SetActive(false);
+        portalsActive.Clear();
         currentLevel++;
         PlayLevel(currentLevel);
     }
 
     public void BackToMenuButton()
     {
-        ContinueButton();
+        portalsActive.Clear();
+
+        Time.timeScale = 1;
+        pauseGO.SetActive(false);
+        gs = GameState.Play;
+
         winObj.SetActive(false);
         mainMenu.SetActive(true);
         pauseButton.SetActive(false);
         optionsGO.SetActive(false);
 
+        SoundManager.singleton.Nyan();
         LevelCreator.singleton.DestroyLevel();
+        SoundManager.singleton.ChangeToMenu();
         gs = GameState.MainMenu;
     }
 
     public void CloseGame()
     {
+        SoundManager.singleton.Nyan();
         Application.Quit();
     }
 
     public void QuitWarningSetOff()
     {
+        SoundManager.singleton.Nyan();
         quitWarning.SetActive(false);
         gs = GameState.MainMenu;
     }
@@ -269,19 +488,20 @@ public class GameManager : MonoBehaviour
     {
         optionsGO.SetActive(true);
         mainMenu.SetActive(false);
+        SoundManager.singleton.Nyan();
         gs = GameState.Options;
     }
 
     public void MuteButton()
     {
         AudioListener.pause = !AudioListener.pause;
-        Debug.Log(AudioListener.pause);
     }
 
     public void PauseButton()
     {
         Time.timeScale = 0;
         pauseGO.SetActive(true);
+        SoundManager.singleton.Nyan();
         gs = GameState.Pause;
     }
 
@@ -289,11 +509,13 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         pauseGO.SetActive(false);
+        SoundManager.singleton.Nyan();
         gs = GameState.Play;
     }
 
     public void PrivacyPlicies()
     {
+        SoundManager.singleton.Nyan();
         Application.OpenURL("https://www.google.com/");
     }
 
@@ -316,4 +538,6 @@ public class GameManager : MonoBehaviour
         return null;
     }
     //----------------------------------------------------------------------------
+
+    public bool PathFound { get; set; } = false;
 }

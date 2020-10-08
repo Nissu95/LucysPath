@@ -3,7 +3,6 @@ using System.Collections;
 using System;
 
 [RequireComponent(typeof(BoxCollider))]
-[RequireComponent(typeof(MeshRenderer))]
 
 
 public class MouseDrag : MonoBehaviour
@@ -18,25 +17,42 @@ public class MouseDrag : MonoBehaviour
     const float gridSize = 1f;
     const float minMovementSquare = 0.5f;
 
+    Path path;
     Vector2Int maxPosition;
 
     bool rotate = false;
 
     bool movementLock = false;
 
+    private void Start()
+    {
+        path = GetComponent<Path>();
+    }
+
     void OnMouseDown()
     {
+        if (GameManager.singleton.PathFound)
+            return;
+
         maxPosition = LevelCreator.singleton.GetMaxPosition();
 
         scanPos = gameObject.transform.position;
         screenPoint = Camera.main.WorldToScreenPoint(scanPos);
         offset = scanPos - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+
+        if (tag == Constants.PortalTag)
+            GetComponent<Portal>().PortalTouch();
+        else if (!movementLock)
+            SoundManager.singleton.PlayPickUpClip();
     }
 
 
 
     void OnMouseDrag()
     {
+        if (GameManager.singleton.PathFound)
+            return;
+
         curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
         curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
 
@@ -52,6 +68,9 @@ public class MouseDrag : MonoBehaviour
 
     private void OnMouseUp()
     {
+        if (GameManager.singleton.PathFound)
+            return;
+
         Vector3 diff = scanPos - curPosition;
 
         rotate = (diff.magnitude < minMovementSquare);
@@ -67,15 +86,16 @@ public class MouseDrag : MonoBehaviour
                 && curPosition.z >= 0)
             {
                 Vector2Int pathIndex = LevelCreator.singleton.GetPath(GetComponent<Path>());
-                Debug.Log(pathIndex);
-                Debug.Log(curPosition);
 
                 if (pathIndex != LevelCreator.singleton.nullPosition)
                 {
                     bool movementCorrect = LevelCreator.singleton.MovePath(pathIndex, new Vector2Int((int)curPosition.x, (int)curPosition.z));
 
                     if (movementCorrect)
+                    {
                         transform.position = curPosition;
+                        SoundManager.singleton.PlayPickUpClip();
+                    }
                     else transform.position = scanPos;
                 }
             }
@@ -83,8 +103,8 @@ public class MouseDrag : MonoBehaviour
 
             if (rotate)
             {
-                transform.Rotate(0, -90, 0, Space.Self);
-                GetComponent<Path>().RotatePath();
+                path.RotateSquare();
+                path.RotatePath();
             }
 
             LevelCreator.singleton.FindPath();

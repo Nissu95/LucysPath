@@ -7,7 +7,9 @@ public class Path : MonoBehaviour
     [SerializeField] bool[] nodesAvailable = new bool[Constants.nodesCount];
 #pragma warning disable 649
     [SerializeField] GameObject star;
+    [SerializeField] bool alwaysLocked;
 
+    [SerializeField] Transform square;
 
     Queue<uint> nodes = new Queue<uint>();
 
@@ -25,8 +27,16 @@ public class Path : MonoBehaviour
         for (int i = 0; i < rotation; i++)
         {
             RotatePath();
-            transform.rotation = Quaternion.Euler(0, -90 * rotation, 0);
+            RotateSquare();
         }
+
+        if (alwaysLocked)
+            GetComponent<MouseDrag>().Lock();
+    }
+
+    public void RotateSquare()
+    {
+        square.Rotate(0, -90, 0, Space.Self);
     }
 
     public uint[] GetNodes()

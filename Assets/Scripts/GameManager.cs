@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
 #pragma warning disable 649
     [SerializeField] string mainMenuName;
+    [SerializeField] string privacyPoliciesLink;
     [SerializeField] GameObject pauseGO;
     [SerializeField] GameObject pauseButton;
     [SerializeField] GameObject quitWarning;
@@ -516,7 +517,7 @@ public class GameManager : MonoBehaviour
     public void PrivacyPlicies()
     {
         SoundManager.singleton.Nyan();
-        Application.OpenURL("https://www.google.com/");
+        Application.OpenURL(privacyPoliciesLink);
     }
 
     //----------------------------------------------------------------------------

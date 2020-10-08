@@ -12,6 +12,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioClip onGameClip;
     [SerializeField] AudioClip portalClip;
     [SerializeField] AudioClip reversePortalClip;
+    [SerializeField] AudioClip pickUpClip;
 
     [SerializeField] AudioClip[] nyanClips;
 
@@ -58,5 +59,10 @@ public class SoundManager : MonoBehaviour
     public void PlayPortalReverseClip()
     {
         audioSource.PlayOneShot(reversePortalClip);
+    }
+
+    public void PlayPickUpClip()
+    {
+        audioSource.PlayOneShot(pickUpClip);
     }
 }

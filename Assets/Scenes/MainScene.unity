@@ -1481,6 +1481,8 @@ MonoBehaviour:
   audioSource: {fileID: 963194229}
   mainMenuClip: {fileID: 8300000, guid: 553423aef54212548a78a4361521debf, type: 3}
   onGameClip: {fileID: 8300000, guid: 44ae7071f760c9249b54579c54c1997d, type: 3}
+  portalClip: {fileID: 8300000, guid: af15d33032012f5498af9c2ef01f84cc, type: 3}
+  reversePortalClip: {fileID: 8300000, guid: 7515e134527b9604ba7321fb4285ed37, type: 3}
   nyanClips:
   - {fileID: 8300000, guid: efbf55d78978448428e7aa753d77372b, type: 3}
   - {fileID: 8300000, guid: 9f279b337958bb643befaedd6c9e8066, type: 3}

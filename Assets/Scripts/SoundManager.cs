@@ -10,6 +10,8 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] AudioClip mainMenuClip;
     [SerializeField] AudioClip onGameClip;
+    [SerializeField] AudioClip portalClip;
+    [SerializeField] AudioClip reversePortalClip;
 
     [SerializeField] AudioClip[] nyanClips;
 
@@ -46,5 +48,15 @@ public class SoundManager : MonoBehaviour
     public void Nyan()
     {
         audioSource.PlayOneShot(nyanClips[Random.Range(0, nyanClips.Length)]);
+    }
+
+    public void PlayPortalClip()
+    {
+        audioSource.PlayOneShot(portalClip);
+    }
+
+    public void PlayPortalReverseClip()
+    {
+        audioSource.PlayOneShot(reversePortalClip);
     }
 }

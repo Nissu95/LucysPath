@@ -667,6 +667,7 @@ MonoBehaviour:
   - {r: 0.12941177, g: 0.3529412, b: 0.30588236, a: 1}
   - {r: 0.9490197, g: 0.87843144, b: 0.7411765, a: 1}
   - {r: 0.9490197, g: 0.7960785, b: 0.027450982, a: 1}
+  objectGrabHeight: 1
   english: {fileID: 11400000, guid: c633c435a8779e047b7d72b157722f7d, type: 2}
   spanish: {fileID: 11400000, guid: 1ae761b2bd709a445bb8028c26517331, type: 2}
   playText: {fileID: 767629}
@@ -2326,7 +2327,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0.0390625, y: 0.1015625, z: 0.02734375, w: -0.03125}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0

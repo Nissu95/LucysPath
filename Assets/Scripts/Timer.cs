@@ -6,7 +6,7 @@ public class Timer
 {
 
     float timer = 0;
-    float time = 0;
+    float time;
 
 
     public void SetTime(float _time)
@@ -31,6 +31,6 @@ public class Timer
     public void Update()
     {
         if (timer > 0)
-            timer -= Time.deltaTime;
+            timer -= Time.fixedDeltaTime;
     }
 }

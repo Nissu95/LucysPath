@@ -552,4 +552,12 @@ public class GameManager : MonoBehaviour
     {
         return mouseDragTime;
     }
+
+    public bool IsPause()
+    {
+        if (pauseGO.activeInHierarchy)
+            return true;
+        else
+            return false;
+    }
 }

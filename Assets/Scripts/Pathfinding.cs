@@ -10,6 +10,7 @@ public class Pathfinding : MonoBehaviour
     FSM fsm = new FSM(3, 3);
     Animator animator;
     List<Vector3> nodes;
+    BoxCollider boxCollider;
 
     Vector3 diff;
     Vector3 dir;
@@ -25,6 +26,8 @@ public class Pathfinding : MonoBehaviour
         fsm.SetRelation(State.Win, Event.ToIdle, State.Idle);
 
         animator = GetComponentInChildren<Animator>();
+        boxCollider = GetComponent<BoxCollider>();
+        boxCollider.enabled = false;
     }
 
     private void Update()
@@ -35,7 +38,7 @@ public class Pathfinding : MonoBehaviour
                 animator.SetBool("isWalking", false);
                 break;
             case State.Walking:
-                
+
                 if (nodes.Count <= 0)
                     return;
 
@@ -72,6 +75,7 @@ public class Pathfinding : MonoBehaviour
     {
         nodeIndex = 0;
         nodes = _nodes;
+        boxCollider.enabled = true;
         fsm.SetEvent(Event.ToWalking);
     }
 

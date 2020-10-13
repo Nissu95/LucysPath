@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject quitWarning;
     [SerializeField] GameObject optionsGO;
     [SerializeField] Color[] portalColors;
+    [SerializeField] float objectGrabHeight;
+    [SerializeField] float mouseDragTime = 0.05f;
 
     GameObject winObj;
     int stars;
@@ -541,4 +543,22 @@ public class GameManager : MonoBehaviour
     //----------------------------------------------------------------------------
 
     public bool PathFound { get; set; } = false;
+
+    public float GetGrabHeight()
+    {
+        return objectGrabHeight;
+    }
+
+    public float GetMouseDragTime()
+    {
+        return mouseDragTime;
+    }
+
+    public bool IsPause()
+    {
+        if (pauseGO.activeInHierarchy)
+            return true;
+        else
+            return false;
+    }
 }

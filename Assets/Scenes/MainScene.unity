@@ -542,7 +542,6 @@ GameObject:
   - component: {fileID: 86209649}
   - component: {fileID: 86209651}
   - component: {fileID: 86209650}
-  - component: {fileID: 86209652}
   m_Layer: 5
   m_Name: Win
   m_TagString: Untagged
@@ -611,18 +610,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 86209648}
   m_CullTransparentMesh: 0
---- !u!114 &86209652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 86209648}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3803315bae714f7409fdc51a8a4cb64b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &93155107
 GameObject:
   m_ObjectHideFlags: 0
@@ -668,6 +655,8 @@ MonoBehaviour:
   - {r: 0.12941177, g: 0.3529412, b: 0.30588236, a: 1}
   - {r: 0.9490197, g: 0.87843144, b: 0.7411765, a: 1}
   - {r: 0.9490197, g: 0.7960785, b: 0.027450982, a: 1}
+  objectGrabHeight: 1
+  mouseDragTime: 0.1
   english: {fileID: 11400000, guid: c633c435a8779e047b7d72b157722f7d, type: 2}
   spanish: {fileID: 11400000, guid: 1ae761b2bd709a445bb8028c26517331, type: 2}
   playText: {fileID: 767629}
@@ -2327,7 +2316,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0.02734375, y: 0.109375, z: 0.03125, w: -0.03125}
+  m_BoundingSphereOverride: {x: 5.94e-42, y: 1.02e-43, z: 8.38e-43, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0

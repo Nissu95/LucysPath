@@ -13,11 +13,14 @@ public class GameManager : MonoBehaviour
 
 #pragma warning disable 649
     [SerializeField] string mainMenuName;
+    [SerializeField] string privacyPoliciesLink;
     [SerializeField] GameObject pauseGO;
     [SerializeField] GameObject pauseButton;
     [SerializeField] GameObject quitWarning;
     [SerializeField] GameObject optionsGO;
     [SerializeField] Color[] portalColors;
+    [SerializeField] float objectGrabHeight;
+    [SerializeField] float mouseDragTime = 0.05f;
 
     GameObject winObj;
     int stars;
@@ -516,7 +519,7 @@ public class GameManager : MonoBehaviour
     public void PrivacyPlicies()
     {
         SoundManager.singleton.Nyan();
-        Application.OpenURL("https://www.google.com/");
+        Application.OpenURL(privacyPoliciesLink);
     }
 
     //----------------------------------------------------------------------------
@@ -540,4 +543,22 @@ public class GameManager : MonoBehaviour
     //----------------------------------------------------------------------------
 
     public bool PathFound { get; set; } = false;
+
+    public float GetGrabHeight()
+    {
+        return objectGrabHeight;
+    }
+
+    public float GetMouseDragTime()
+    {
+        return mouseDragTime;
+    }
+
+    public bool IsPause()
+    {
+        if (pauseGO.activeInHierarchy)
+            return true;
+        else
+            return false;
+    }
 }

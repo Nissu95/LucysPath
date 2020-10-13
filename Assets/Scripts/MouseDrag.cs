@@ -24,14 +24,18 @@ public class MouseDrag : MonoBehaviour
 
     bool movementLock = false;
 
+    Timer timer;
+
     private void Start()
     {
         path = GetComponent<Path>();
+        timer = new Timer();
+        timer.SetTime(GameManager.singleton.GetMouseDragTime());
     }
 
     void OnMouseDown()
     {
-        if (GameManager.singleton.PathFound)
+        if (GameManager.singleton.PathFound || GameManager.singleton.IsPause())
             return;
 
         maxPosition = LevelCreator.singleton.GetMaxPosition();
@@ -46,67 +50,92 @@ public class MouseDrag : MonoBehaviour
             SoundManager.singleton.PlayPickUpClip();
     }
 
-
-
     void OnMouseDrag()
     {
-        if (GameManager.singleton.PathFound)
+        if (GameManager.singleton.PathFound || GameManager.singleton.IsPause())
             return;
-
-        curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
-        curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
-
-        curPosition.x = (float)((curPosition.x) / gridSize) * gridSize;
-        curPosition.z = (float)((curPosition.z) / gridSize) * gridSize;
-        curPosition.y = scanPos.y;
 
         if (movementLock)
             return;
 
-        transform.position = curPosition;
+        timer.Update();
+
+        if (timer.TimeUp())
+            rotate = false;
+        else
+            rotate = true;
+
+        if (!rotate)
+        {
+            if (scanPos.y <= GameManager.singleton.GetGrabHeight())
+                scanPos.y += GameManager.singleton.GetGrabHeight();
+
+            curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
+            curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
+
+            curPosition.x = (float)((curPosition.x) / gridSize) * gridSize;
+            curPosition.z = (float)((curPosition.z) / gridSize) * gridSize;
+            curPosition.y = scanPos.y;
+
+            transform.position = curPosition;
+        }
     }
 
     private void OnMouseUp()
     {
-        if (GameManager.singleton.PathFound)
+        if (GameManager.singleton.PathFound || GameManager.singleton.IsPause())
             return;
 
-        Vector3 diff = scanPos - curPosition;
+        //Vector3 diff = scanPos - curPosition;
 
-        rotate = (diff.magnitude < minMovementSquare);
+        //rotate = (diff.magnitude < minMovementSquare);
 
         if (!movementLock)
         {
-            curPosition.x = (float)Math.Round(curPosition.x);
-            curPosition.z = (float)Math.Round(curPosition.z);
-
-            if (curPosition.x < maxPosition.x
-                && curPosition.z < maxPosition.y
-                && curPosition.x >= 0
-                && curPosition.z >= 0)
+            if (!rotate)
             {
-                Vector2Int pathIndex = LevelCreator.singleton.GetPath(GetComponent<Path>());
+                scanPos.y -= GameManager.singleton.GetGrabHeight();
+                curPosition.y = scanPos.y;
 
-                if (pathIndex != LevelCreator.singleton.nullPosition)
+                curPosition.x = (float)Math.Round(curPosition.x);
+                curPosition.z = (float)Math.Round(curPosition.z);
+
+                if (curPosition.x < maxPosition.x
+                    && curPosition.z < maxPosition.y
+                    && curPosition.x >= 0
+                    && curPosition.z >= 0)
                 {
-                    bool movementCorrect = LevelCreator.singleton.MovePath(pathIndex, new Vector2Int((int)curPosition.x, (int)curPosition.z));
+                    Vector2Int pathIndex = LevelCreator.singleton.GetPath(GetComponent<Path>());
 
-                    if (movementCorrect)
+                    if (pathIndex != LevelCreator.singleton.nullPosition)
                     {
-                        transform.position = curPosition;
-                        SoundManager.singleton.PlayPickUpClip();
+                        bool movementCorrect = LevelCreator.singleton.MovePath(pathIndex, new Vector2Int((int)curPosition.x, (int)curPosition.z));
+
+                        if (movementCorrect)
+                        {
+                            transform.position = curPosition;
+                            SoundManager.singleton.PlayPickUpClip();
+                        }
+                        else
+                        {
+                            transform.position = scanPos;
+                            SoundManager.singleton.PlayPickUpClip();
+                        }
                     }
-                    else transform.position = scanPos;
+                }
+                else
+                {
+                    transform.position = scanPos;
+                    SoundManager.singleton.PlayPickUpClip();
                 }
             }
-            else transform.position = scanPos;
-
-            if (rotate)
+            else
             {
                 path.RotateSquare();
                 path.RotatePath();
             }
 
+            timer.Reset();
             LevelCreator.singleton.FindPath();
         }
     }

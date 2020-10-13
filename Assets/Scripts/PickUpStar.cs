@@ -13,6 +13,7 @@ public class PickUpStar : MonoBehaviour
         {
             other.gameObject.SetActive(false);
             GameManager.singleton.StarsCount();
+            SoundManager.singleton.PickUpStarClip();
         }
     }
 }

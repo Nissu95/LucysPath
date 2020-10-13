@@ -497,7 +497,7 @@ public class GameManager : MonoBehaviour
 
     public void MuteButton()
     {
-        AudioListener.pause = !AudioListener.pause;
+        SoundManager.singleton.Mute();
     }
 
     public void PauseButton()

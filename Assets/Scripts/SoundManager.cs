@@ -17,6 +17,8 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] AudioClip[] nyanClips;
 
+    bool mute = false;
+
     void Awake()
     {
         DontDestroyOnLoad(this);
@@ -70,5 +72,15 @@ public class SoundManager : MonoBehaviour
     public void PickUpStarClip()
     {
         audioSource.PlayOneShot(pickUpStarClip);
+    }
+
+    public void Mute()
+    {
+        mute = !mute;
+
+        if (mute)
+            audioSource.volume = 0;
+        else
+            audioSource.volume = 1;
     }
 }

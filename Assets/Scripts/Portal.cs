@@ -73,6 +73,7 @@ public class Portal : MonoBehaviour
                 selectPortal = SelectPortal.Deactive;
 
                 GameManager.singleton.RemovePortalActive(this);
+                SoundManager.singleton.PlayPortalReverseClip();
                 portalMesh.material.SetColor(materialColorReference, deactiveColor);
                 break;
             case SelectPortal.Deactive:
@@ -90,12 +91,15 @@ public class Portal : MonoBehaviour
                     selectPortal = SelectPortal.Active;
                     portalMesh.material.SetColor(materialColorReference, activeColor);
                 }
+
+                SoundManager.singleton.PlayPortalClip();
                 break;
             case SelectPortal.Connect:
                 if (!GameManager.singleton.IsPortalConnect())
                 {
                     connection.SetMeshMaterialColor(connection.GetActiveColor());
                     GameManager.singleton.AddPortalActive(connection);
+                    SoundManager.singleton.PlayPortalReverseClip();
                     connection.SetConnection(null);
                     connection.SetPortalSelect(SelectPortal.Active);
 

@@ -42,6 +42,8 @@ public class MouseDrag : MonoBehaviour
 
         if (tag == Constants.PortalTag)
             GetComponent<Portal>().PortalTouch();
+        else if (!movementLock)
+            SoundManager.singleton.PlayPickUpClip();
     }
 
 
@@ -90,7 +92,10 @@ public class MouseDrag : MonoBehaviour
                     bool movementCorrect = LevelCreator.singleton.MovePath(pathIndex, new Vector2Int((int)curPosition.x, (int)curPosition.z));
 
                     if (movementCorrect)
+                    {
                         transform.position = curPosition;
+                        SoundManager.singleton.PlayPickUpClip();
+                    }
                     else transform.position = scanPos;
                 }
             }

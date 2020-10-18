@@ -7,9 +7,13 @@ public class Pathfinding : MonoBehaviour
     [SerializeField] float speed = 5;
     [SerializeField] float distanceLimit = .01f;
 
-    FSM fsm = new FSM(3, 2);
-
+    FSM fsm = new FSM(3, 3);
+    Animator animator;
     List<Vector3> nodes;
+    BoxCollider boxCollider;
+
+    Vector3 diff;
+    Vector3 dir;
 
     int nodeIndex = 0;
     
@@ -19,6 +23,11 @@ public class Pathfinding : MonoBehaviour
 
         fsm.SetRelation(State.Idle, Event.ToWalking, State.Walking);
         fsm.SetRelation(State.Walking, Event.ToWin, State.Win);
+        fsm.SetRelation(State.Win, Event.ToIdle, State.Idle);
+
+        animator = GetComponentInChildren<Animator>();
+        boxCollider = GetComponent<BoxCollider>();
+        boxCollider.enabled = false;
     }
 
     private void Update()
@@ -26,20 +35,23 @@ public class Pathfinding : MonoBehaviour
         switch (fsm.GetState())
         {
             case State.Idle:
+                animator.SetBool("isWalking", false);
                 break;
             case State.Walking:
-                
+
                 if (nodes.Count <= 0)
                     return;
 
-                Debug.Log("Nodos: " + nodes.Count);
-
-                Vector3 diff = nodes[nodeIndex] - transform.position;
-                Vector3 dir = diff.normalized;
+                diff = nodes[nodeIndex] - transform.position;
+                dir = diff.normalized;
 
                 if (diff.magnitude > distanceLimit)
                 {
                     transform.position += dir * speed * Time.deltaTime;
+
+                    transform.rotation = Quaternion.Lerp(transform.rotation,
+                                                         Quaternion.LookRotation(dir),
+                                                         Time.deltaTime * speed * 4);
                 }
                 else
                 {
@@ -48,8 +60,12 @@ public class Pathfinding : MonoBehaviour
 
                 if (nodeIndex >= nodes.Count)
                     fsm.SetEvent(Event.ToWin);
+
+                animator.SetFloat("Rotation", Vector3.Cross(transform.TransformDirection(Vector3.forward), diff).y);
+                animator.SetBool("isWalking", true);
                 break;
             case State.Win:
+                animator.SetBool("isWalking", false);
                 GameManager.singleton.LevelWin();
                 break;
         }
@@ -59,6 +75,17 @@ public class Pathfinding : MonoBehaviour
     {
         nodeIndex = 0;
         nodes = _nodes;
+        boxCollider.enabled = true;
         fsm.SetEvent(Event.ToWalking);
+    }
+
+    public void NextNode()
+    {
+        nodeIndex++;
+    }
+
+    public FSM GetFSM()
+    {
+        return fsm;
     }
 }

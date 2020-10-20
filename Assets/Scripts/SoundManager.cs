@@ -52,7 +52,7 @@ public class SoundManager : MonoBehaviour
 
     public void Nyan()
     {
-        audioSource.PlayOneShot(nyanClips[Random.Range(0, nyanClips.Length)]);
+        audioSource.PlayOneShot(nyanClips[Random.Range(0, nyanClips.Length)], 0.5f);
     }
 
     public void PlayPortalClip()

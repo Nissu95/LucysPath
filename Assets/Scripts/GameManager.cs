@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject pauseButton;
     [SerializeField] GameObject quitWarning;
     [SerializeField] GameObject optionsGO;
+    [SerializeField] GameObject levelSelectionMenu;
     [SerializeField] Color[] portalColors;
     [SerializeField] float objectGrabHeight;
     [SerializeField] float mouseDragTime = 0.05f;
@@ -128,8 +129,8 @@ public class GameManager : MonoBehaviour
 
         LevelSelectionStart();
 
-        if (selectionPanel)
-            selectionPanel.gameObject.SetActive(false);
+        if (levelSelectionMenu)
+            levelSelectionMenu.SetActive(false);
 
         if (pauseButton)
             pauseButton.SetActive(false);
@@ -163,7 +164,7 @@ public class GameManager : MonoBehaviour
                     ContinueButton();
                     break;
                 case GameState.SelectionLevel:
-                    selectionPanel.gameObject.SetActive(false);
+                    levelSelectionMenu.SetActive(false);
                     mainMenu.SetActive(true);
                     gs = GameState.MainMenu;
                     break;
@@ -405,7 +406,7 @@ public class GameManager : MonoBehaviour
     public void PlayButton()
     {
         mainMenu.SetActive(false);
-        selectionPanel.gameObject.SetActive(true);
+        levelSelectionMenu.SetActive(true);
         portalsActive.Clear();
         SoundManager.singleton.Nyan();
         gs = GameState.SelectionLevel;
@@ -415,7 +416,7 @@ public class GameManager : MonoBehaviour
     {
         SoundManager.singleton.Nyan();
 
-        selectionPanel.gameObject.SetActive(false);
+        levelSelectionMenu.SetActive(false);
         LevelCreator.singleton.CreateLevel(LevelsLoader.GetLevel(index));
 
         currentLevel = index;
@@ -497,7 +498,7 @@ public class GameManager : MonoBehaviour
 
     public void MuteButton()
     {
-        AudioListener.pause = !AudioListener.pause;
+        SoundManager.singleton.Mute();
     }
 
     public void PauseButton()

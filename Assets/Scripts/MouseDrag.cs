@@ -47,7 +47,7 @@ public class MouseDrag : MonoBehaviour
         if (tag == Constants.PortalTag)
             GetComponent<Portal>().PortalTouch();
         else if (!movementLock)
-            SoundManager.singleton.PlayPickUpClip();
+            SoundManager.singleton.PickUpClip();
     }
 
     void OnMouseDrag()
@@ -114,19 +114,19 @@ public class MouseDrag : MonoBehaviour
                         if (movementCorrect)
                         {
                             transform.position = curPosition;
-                            SoundManager.singleton.PlayPickUpClip();
+                            SoundManager.singleton.PickUpClip();
                         }
                         else
                         {
                             transform.position = scanPos;
-                            SoundManager.singleton.PlayPickUpClip();
+                            SoundManager.singleton.PickUpClip();
                         }
                     }
                 }
                 else
                 {
                     transform.position = scanPos;
-                    SoundManager.singleton.PlayPickUpClip();
+                    SoundManager.singleton.PickUpClip();
                 }
             }
             else

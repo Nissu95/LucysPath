@@ -14,6 +14,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioClip reversePortalClip;
     [SerializeField] AudioClip pickUpClip;
     [SerializeField] AudioClip pickUpStarClip;
+    [SerializeField] AudioClip winClip;
 
     [SerializeField] AudioClip[] nyanClips;
 
@@ -57,12 +58,12 @@ public class SoundManager : MonoBehaviour
         audioSource.PlayOneShot(portalClip);
     }
 
-    public void PlayPortalReverseClip()
+    public void PortalReverseClip()
     {
         audioSource.PlayOneShot(reversePortalClip);
     }
 
-    public void PlayPickUpClip()
+    public void PickUpClip()
     {
         audioSource.PlayOneShot(pickUpClip);
     }
@@ -70,5 +71,11 @@ public class SoundManager : MonoBehaviour
     public void PickUpStarClip()
     {
         audioSource.PlayOneShot(pickUpStarClip);
+    }
+
+    public void WinClip()
+    {
+        audioSource.PlayOneShot(winClip);
+        ChangeToMenu();
     }
 }

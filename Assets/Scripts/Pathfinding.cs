@@ -30,7 +30,7 @@ public class Pathfinding : MonoBehaviour
         boxCollider.enabled = false;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         switch (fsm.GetState())
         {
@@ -60,12 +60,13 @@ public class Pathfinding : MonoBehaviour
 
                 if (nodeIndex >= nodes.Count)
                     fsm.SetEvent(Event.ToWin);
-
+                
                 animator.SetFloat("Rotation", Vector3.Cross(transform.TransformDirection(Vector3.forward), diff).y);
                 animator.SetBool("isWalking", true);
                 break;
             case State.Win:
                 animator.SetBool("isWalking", false);
+                SoundManager.singleton.WinClip();
                 GameManager.singleton.LevelWin();
                 break;
         }

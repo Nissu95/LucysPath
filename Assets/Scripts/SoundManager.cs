@@ -14,8 +14,11 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioClip reversePortalClip;
     [SerializeField] AudioClip pickUpClip;
     [SerializeField] AudioClip pickUpStarClip;
+    [SerializeField] AudioClip winClip;
 
     [SerializeField] AudioClip[] nyanClips;
+
+    bool mute = false;
 
     void Awake()
     {
@@ -49,7 +52,7 @@ public class SoundManager : MonoBehaviour
 
     public void Nyan()
     {
-        audioSource.PlayOneShot(nyanClips[Random.Range(0, nyanClips.Length)]);
+        audioSource.PlayOneShot(nyanClips[Random.Range(0, nyanClips.Length)], 0.5f);
     }
 
     public void PlayPortalClip()
@@ -57,12 +60,12 @@ public class SoundManager : MonoBehaviour
         audioSource.PlayOneShot(portalClip);
     }
 
-    public void PlayPortalReverseClip()
+    public void PortalReverseClip()
     {
         audioSource.PlayOneShot(reversePortalClip);
     }
 
-    public void PlayPickUpClip()
+    public void PickUpClip()
     {
         audioSource.PlayOneShot(pickUpClip);
     }
@@ -70,5 +73,21 @@ public class SoundManager : MonoBehaviour
     public void PickUpStarClip()
     {
         audioSource.PlayOneShot(pickUpStarClip);
+    }
+
+    public void Mute()
+    {
+        mute = !mute;
+
+        if (mute)
+            audioSource.volume = 0;
+        else
+            audioSource.volume = 1;
+    }
+
+    public void WinClip()
+    {
+        audioSource.PlayOneShot(winClip);
+        ChangeToMenu();
     }
 }

@@ -66,6 +66,7 @@ public class Pathfinding : MonoBehaviour
                 break;
             case State.Win:
                 animator.SetBool("isWalking", false);
+                SoundManager.singleton.WinClip();
                 GameManager.singleton.LevelWin();
                 break;
         }

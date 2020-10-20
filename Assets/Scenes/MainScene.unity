@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2300,6 +2300,7 @@ MonoBehaviour:
   reversePortalClip: {fileID: 8300000, guid: 7515e134527b9604ba7321fb4285ed37, type: 3}
   pickUpClip: {fileID: 8300000, guid: 8ca4b96e404a0f043bbdae0b7b1b3f46, type: 3}
   pickUpStarClip: {fileID: 8300000, guid: 74b76e16c61df8942a5dad6c3c458e28, type: 3}
+  winClip: {fileID: 8300000, guid: b07567a31122e424c886ee3d021f25bc, type: 3}
   nyanClips:
   - {fileID: 8300000, guid: efbf55d78978448428e7aa753d77372b, type: 3}
   - {fileID: 8300000, guid: 9f279b337958bb643befaedd6c9e8066, type: 3}
@@ -3987,7 +3988,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0.1875, z: 0.03125, w: -0.0390625}
+  m_BoundingSphereOverride: {x: 0, y: 0.49999994, z: 0, w: -0.38302216}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 2

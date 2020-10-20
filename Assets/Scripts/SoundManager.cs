@@ -76,5 +76,6 @@ public class SoundManager : MonoBehaviour
     public void WinClip()
     {
         audioSource.PlayOneShot(winClip);
+        ChangeToMenu();
     }
 }

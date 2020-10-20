@@ -219,7 +219,6 @@ public class GameManager : MonoBehaviour
                 break;
 
             case SystemLanguage.Spanish:
-                playText.text = spanish.GetPlayText();
                 optionsText.text = spanish.GetOptionsText();
                 exitTest.text = spanish.GetExitText();
 

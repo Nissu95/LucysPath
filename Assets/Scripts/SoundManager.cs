@@ -18,6 +18,8 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] AudioClip[] nyanClips;
 
+    bool mute = false;
+
     void Awake()
     {
         DontDestroyOnLoad(this);
@@ -50,7 +52,7 @@ public class SoundManager : MonoBehaviour
 
     public void Nyan()
     {
-        audioSource.PlayOneShot(nyanClips[Random.Range(0, nyanClips.Length)]);
+        audioSource.PlayOneShot(nyanClips[Random.Range(0, nyanClips.Length)], 0.5f);
     }
 
     public void PlayPortalClip()
@@ -71,6 +73,16 @@ public class SoundManager : MonoBehaviour
     public void PickUpStarClip()
     {
         audioSource.PlayOneShot(pickUpStarClip);
+    }
+
+    public void Mute()
+    {
+        mute = !mute;
+
+        if (mute)
+            audioSource.volume = 0;
+        else
+            audioSource.volume = 1;
     }
 
     public void WinClip()

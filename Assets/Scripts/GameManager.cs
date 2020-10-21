@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] Color[] portalColors;
     [SerializeField] float objectGrabHeight;
     [SerializeField] float mouseDragTime = 0.05f;
+    [SerializeField] Transform levelSelectionContainer;
+    [SerializeField] UIStars uIStars;
 
     GameObject winObj;
     int stars;
@@ -82,8 +84,6 @@ public class GameManager : MonoBehaviour
     //Level Selection Variables
 
     [SerializeField] GameObject levelSelectionButtonPrefab;
-#pragma warning disable 649
-    [SerializeField] private Transform selectionPanel;
 
     List<Level> levels;
     List<LevelWon> levelsWon;
@@ -219,7 +219,6 @@ public class GameManager : MonoBehaviour
                 break;
 
             case SystemLanguage.Spanish:
-                playText.text = spanish.GetPlayText();
                 optionsText.text = spanish.GetOptionsText();
                 exitTest.text = spanish.GetExitText();
 
@@ -325,11 +324,14 @@ public class GameManager : MonoBehaviour
 
     public void LevelWin()
     {
+        uIStars.UpdateUI(stars);
+
         if (stars > recordStars)
             recordStars = stars;
 
         if (winObj)
             winObj.SetActive(true);
+
 
         pauseButton.SetActive(false);
 
@@ -364,7 +366,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < levels.Count; i++)
         {
-            GameObject buttonInstance = Instantiate<GameObject>(levelSelectionButtonPrefab, selectionPanel);
+            GameObject buttonInstance = Instantiate<GameObject>(levelSelectionButtonPrefab, levelSelectionContainer);
             LevelSelectionButton button = buttonInstance.GetComponent<LevelSelectionButton>();
             buttons.Add(button);
 

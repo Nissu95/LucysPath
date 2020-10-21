@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Color[] portalColors;
     [SerializeField] float objectGrabHeight;
     [SerializeField] float mouseDragTime = 0.05f;
+    [SerializeField] Transform levelSelectionContainer;
 
     GameObject winObj;
     int stars;
@@ -363,7 +364,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < levels.Count; i++)
         {
-            GameObject buttonInstance = Instantiate<GameObject>(levelSelectionButtonPrefab, selectionPanel);
+            GameObject buttonInstance = Instantiate<GameObject>(levelSelectionButtonPrefab, levelSelectionContainer);
             LevelSelectionButton button = buttonInstance.GetComponent<LevelSelectionButton>();
             buttons.Add(button);
 

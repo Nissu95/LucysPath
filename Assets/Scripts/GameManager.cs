@@ -43,38 +43,22 @@ public class GameManager : MonoBehaviour
     [SerializeField] ScriptableLanguages spanish;
 
     //Main Menu
-    [SerializeField] Text playText;
     [SerializeField] Text optionsText;
     [SerializeField] Text exitTest;
 
     //Win
     [SerializeField] Text winText;
-    [SerializeField] Text nextLevel;
-    [SerializeField] Text playAgain;
-    [SerializeField] Text backToMenu;
-    [SerializeField] Text starText;
-    [SerializeField] Text maxStarsText;
-
-    //Level Selection Panel
-    string starString;
 
     //Pause
     [SerializeField] Text pauseTitle;
-    [SerializeField] Text continueText;
-    [SerializeField] Text restartText;
-    [SerializeField] Text backToMenuPause;
-    [SerializeField] Text pauseButtonText;
 
     //Quit Warning
     [SerializeField] Text quitWarningTitle;
-    [SerializeField] Text yesText;
-    [SerializeField] Text noText;
 
     //Options Menu
     [SerializeField] Text optionsTitle;
     [SerializeField] Text privacyPoliciesText;
     [SerializeField] Text muteText;
-    [SerializeField] Text backToMenuOM;
     [SerializeField] Dropdown languagesDropdown;
 
     SystemLanguage language;
@@ -181,35 +165,18 @@ public class GameManager : MonoBehaviour
         switch (language)
         {
             case SystemLanguage.English:
-                playText.text = english.GetPlayText();
                 optionsText.text = english.GetOptionsText();
                 exitTest.text = english.GetExitText();
 
                 winText.text = english.GetWinText();
-                nextLevel.text = english.GetNextLevelText();
-                playAgain.text = english.GetPlayAgainText();
-                backToMenu.text = english.GetBackToMenuText();
-                starText.text = english.GetStarsText() + stars;
-                maxStarsText.text = english.GetMaxStarsText() + recordStars;
-
-                starString = english.GetStarsText();
-                for (int i = 0; i < buttons.Count; i++)
-                    buttons[i].SetText(starString);
 
                 pauseTitle.text = english.GetPauseTitle();
-                continueText.text = english.GetContinueText();
-                restartText.text = english.GetRestartText();
-                backToMenuPause.text = english.GetBackToMenuText();
-                pauseButtonText.text = english.GetPauseTitle();
 
                 quitWarningTitle.text = english.GetQuitWarningTitle();
-                yesText.text = english.GetYes();
-                noText.text = english.GetNo();
 
                 optionsTitle.text = english.GetOptionsText();
                 privacyPoliciesText.text = english.GetPrivacyPoliciesText();
                 muteText.text = english.GetMuteText();
-                backToMenuOM.text = english.GetBackToMenuText();
 
                 for (int i = 0; i < languagesDropdown.options.Count; i++)
                     languagesDropdown.options[i].text = english.GetLanguagesDropdownTxt()[i];
@@ -223,30 +190,14 @@ public class GameManager : MonoBehaviour
                 exitTest.text = spanish.GetExitText();
 
                 winText.text = spanish.GetWinText();
-                nextLevel.text = spanish.GetNextLevelText();
-                playAgain.text = spanish.GetPlayAgainText();
-                backToMenu.text = spanish.GetBackToMenuText();
-                starText.text = spanish.GetStarsText() + stars;
-                maxStarsText.text = spanish.GetMaxStarsText() + recordStars;
-
-                starString = spanish.GetStarsText();
-                for (int i = 0; i < buttons.Count; i++)
-                    buttons[i].SetText(starString);
 
                 pauseTitle.text = spanish.GetPauseTitle();
-                continueText.text = spanish.GetContinueText();
-                restartText.text = spanish.GetRestartText();
-                backToMenuPause.text = spanish.GetBackToMenuText();
-                pauseButtonText.text = spanish.GetPauseTitle();
 
                 quitWarningTitle.text = spanish.GetQuitWarningTitle();
-                yesText.text = spanish.GetYes();
-                noText.text = spanish.GetNo();
 
                 optionsTitle.text = spanish.GetOptionsText();
                 privacyPoliciesText.text = spanish.GetPrivacyPoliciesText();
                 muteText.text = spanish.GetMuteText();
-                backToMenuOM.text = spanish.GetBackToMenuText();
 
                 for (int i = 0; i < languagesDropdown.options.Count; i++)
                     languagesDropdown.options[i].text = spanish.GetLanguagesDropdownTxt()[i];
@@ -387,10 +338,7 @@ public class GameManager : MonoBehaviour
             bool won = (levelsWon != null && i < levelsWon.Count);
 
             if (won)
-            {
                 buttons[i].SetStars(levelsWon[i].GetStars());
-                buttons[i].SetText(starString);
-            }
 
             if (i > 0)
                 buttonScript.interactable = won;

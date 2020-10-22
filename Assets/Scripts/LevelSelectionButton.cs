@@ -7,7 +7,6 @@ public class LevelSelectionButton : MonoBehaviour
 {
 #pragma warning disable 649
     [SerializeField] Text levelText;
-    [SerializeField] Text starsText;
     [SerializeField] Image[] starsUI;
     [SerializeField] Color unlockedStar;
     [SerializeField] Color lockedStar;
@@ -29,11 +28,6 @@ public class LevelSelectionButton : MonoBehaviour
                 starsUI[i].color = unlockedStar;
             else
                 starsUI[i].color = lockedStar;
-    }
-
-    public void SetText(string text)
-    {
-        starsText.text = text + stars;
     }
 
     private void Awake()

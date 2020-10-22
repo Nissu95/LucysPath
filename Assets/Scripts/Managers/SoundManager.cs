@@ -29,6 +29,8 @@ public class SoundManager : MonoBehaviour
             singleton = this;
 
         audioSource.clip = mainMenuClip;
+        mute = (PlayerPrefs.GetInt("Mute") != 0);
+        SetVolume();
         audioSource.Play();
     }
 
@@ -78,7 +80,12 @@ public class SoundManager : MonoBehaviour
     public void Mute()
     {
         mute = !mute;
+        PlayerPrefs.SetInt("Mute", (mute ? 1 : 0));
+        SetVolume();
+    }
 
+    void SetVolume()
+    {
         if (mute)
             audioSource.volume = 0;
         else

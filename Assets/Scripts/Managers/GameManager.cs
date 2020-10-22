@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public enum GameState { Play, MainMenu, Options, Pause, SelectionLevel, QuitWarning }
-//public enum Languages { Spanish, English }
 
 public class GameManager : MonoBehaviour
 {
@@ -88,22 +87,6 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
         mainMenu = GameObject.Find(mainMenuName);
         gs = GameState.MainMenu;
-
-        switch (Application.systemLanguage)
-        {
-            case SystemLanguage.Spanish:
-                language = SystemLanguage.Spanish;
-                dropdownValue = 0;
-                break;
-            case SystemLanguage.English:
-                language = SystemLanguage.English;
-                dropdownValue = 1;
-                break;
-            default:
-                language = SystemLanguage.English;
-                dropdownValue = 1;
-                break;
-        }
     }
 
     private void Start()
@@ -122,8 +105,7 @@ public class GameManager : MonoBehaviour
         if (pauseGO)
             pauseGO.SetActive(false);
 
-        languagesDropdown.value = dropdownValue;
-        ChangeLanguge();
+        StartLanguage();
     }
 
     private void Update()
@@ -160,7 +142,34 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ChangeLanguge()
+    void StartLanguage()
+    {
+        string languageSave = PlayerPrefs.GetString("Language");
+
+        if (!string.IsNullOrEmpty(languageSave))
+            language = (SystemLanguage)System.Enum.Parse(typeof(SystemLanguage), languageSave);
+        else
+            language = Application.systemLanguage;
+
+        switch (language)
+        {
+            case SystemLanguage.Spanish:
+                dropdownValue = 0;
+                break;
+            case SystemLanguage.English:
+                dropdownValue = 1;
+                break;
+            default:
+                language = SystemLanguage.English;
+                dropdownValue = 1;
+                break;
+        }
+
+        languagesDropdown.value = dropdownValue;
+        ChangeLanguge();
+    }
+
+    void ChangeLanguge()
     {
         switch (language)
         {
@@ -182,7 +191,6 @@ public class GameManager : MonoBehaviour
                     languagesDropdown.options[i].text = english.GetLanguagesDropdownTxt()[i];
 
                 languagesDropdown.captionText.text = english.GetLanguagesDropdownTxt()[1];
-
                 break;
 
             case SystemLanguage.Spanish:
@@ -206,6 +214,9 @@ public class GameManager : MonoBehaviour
 
                 break;
         }
+        
+        PlayerPrefs.SetString("Language", language.ToString());
+        PlayerPrefs.Save();
     }
 
     public void HandleInputDataDropdown()

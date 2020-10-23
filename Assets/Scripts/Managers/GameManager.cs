@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
 
     //Main Menu
     [SerializeField] Text optionsText;
-    [SerializeField] Text exitTest;
+    [SerializeField] Text exitText;
 
     //Win
     [SerializeField] Text winText;
@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
         {
             case SystemLanguage.English:
                 optionsText.text = english.GetOptionsText();
-                exitTest.text = english.GetExitText();
+                exitText.text = english.GetExitText();
 
                 winText.text = english.GetWinText();
 
@@ -195,7 +195,7 @@ public class GameManager : MonoBehaviour
 
             case SystemLanguage.Spanish:
                 optionsText.text = spanish.GetOptionsText();
-                exitTest.text = spanish.GetExitText();
+                exitText.text = spanish.GetExitText();
 
                 winText.text = spanish.GetWinText();
 
@@ -375,8 +375,6 @@ public class GameManager : MonoBehaviour
 
     public void PlayLevel(int index)
     {
-        SoundManager.singleton.Nyan();
-
         levelSelectionMenu.SetActive(false);
         LevelCreator.singleton.CreateLevel(LevelsLoader.GetLevel(index));
 
@@ -438,13 +436,12 @@ public class GameManager : MonoBehaviour
 
     public void CloseGame()
     {
-        SoundManager.singleton.Nyan();
         Application.Quit();
     }
 
     public void QuitWarningSetOff()
     {
-        SoundManager.singleton.Nyan();
+        //SoundManager.singleton.Nyan();
         quitWarning.SetActive(false);
         gs = GameState.MainMenu;
     }
@@ -466,6 +463,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         pauseGO.SetActive(true);
+        pauseButton.SetActive(false);
         SoundManager.singleton.Nyan();
         gs = GameState.Pause;
     }
@@ -474,13 +472,13 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         pauseGO.SetActive(false);
+        pauseButton.SetActive(true);
         SoundManager.singleton.Nyan();
         gs = GameState.Play;
     }
 
     public void PrivacyPlicies()
     {
-        SoundManager.singleton.Nyan();
         Application.OpenURL(privacyPoliciesLink);
     }
 

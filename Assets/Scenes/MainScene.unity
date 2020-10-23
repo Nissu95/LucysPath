@@ -931,7 +931,7 @@ MonoBehaviour:
   english: {fileID: 11400000, guid: c633c435a8779e047b7d72b157722f7d, type: 2}
   spanish: {fileID: 11400000, guid: 1ae761b2bd709a445bb8028c26517331, type: 2}
   optionsText: {fileID: 652455707}
-  exitTest: {fileID: 674141395}
+  exitText: {fileID: 674141395}
   winText: {fileID: 609782047}
   pauseTitle: {fileID: 1890809589}
   quitWarningTitle: {fileID: 1183923763}
@@ -2959,17 +2959,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1287826671}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &505371876
 MonoBehaviour:

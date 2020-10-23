@@ -42,7 +42,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] ScriptableLanguages spanish;
 
     //Main Menu
-    [SerializeField] Text optionsText;
     [SerializeField] Text exitTest;
 
     //Win
@@ -174,7 +173,6 @@ public class GameManager : MonoBehaviour
         switch (language)
         {
             case SystemLanguage.English:
-                optionsText.text = english.GetOptionsText();
                 exitTest.text = english.GetExitText();
 
                 winText.text = english.GetWinText();
@@ -194,7 +192,6 @@ public class GameManager : MonoBehaviour
                 break;
 
             case SystemLanguage.Spanish:
-                optionsText.text = spanish.GetOptionsText();
                 exitTest.text = spanish.GetExitText();
 
                 winText.text = spanish.GetWinText();

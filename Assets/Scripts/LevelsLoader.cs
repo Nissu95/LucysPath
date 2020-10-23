@@ -11,12 +11,13 @@ public class LevelsLoader
     static List<Level> levels;
     static List<LevelWon> levelsWon;
 
-    static string path = "Assets/Resources/levels";
+    static string editorPath = "Assets/StreamingAssets/resources/levels";
+    static string inGamePath = "resources/levels";
     static string levelsWonPath = Application.persistentDataPath + "/levelsWon";
 
     public static void SaveLevel(Level level, ref int index)
     {
-
+#if UNITY_EDITOR
         if (levels == null)
             levels = new List<Level>();
 
@@ -30,8 +31,8 @@ public class LevelsLoader
 
         FileStream file;
 
-        if (File.Exists(path)) file = File.OpenWrite(path);
-        else file = File.Create(path);
+        if (File.Exists(editorPath)) file = File.OpenWrite(editorPath);
+        else file = File.Create(editorPath);
 
 
         BinaryFormatter bf = new BinaryFormatter();
@@ -39,15 +40,18 @@ public class LevelsLoader
         file.Close();
 
         //Re-import the file to update the reference in the editor
-        AssetDatabase.ImportAsset(path);
+        AssetDatabase.ImportAsset(editorPath);
+#endif
     }
     public static void ReadLevels()
     {
-        FileStream file;
+        Stream file;
 
-        if (File.Exists(path))
+        BetterStreamingAssets.Initialize();
+
+        if (BetterStreamingAssets.FileExists(inGamePath))
         {
-            file = File.OpenRead(path);
+            file = BetterStreamingAssets.OpenRead(inGamePath);
             Debug.Log("File found");
         }
         else
@@ -132,7 +136,7 @@ public class LevelsLoader
 
     public static LevelWon GetLevelWon(int index)
     {
-        if (index < levelsWon.Count)
+        if (levelsWon != null && index < levelsWon.Count)
             return levelsWon[index];
 
         return null;
@@ -158,23 +162,26 @@ public class LevelsLoader
 [Serializable]
 public class Level
 {
-    int[,] items;
+    GridObject[,] grid;
     bool won = false;
-    int stars = 0;
     public Level(LevelButton[,] levelButtons, int colums, int rows)
     {
-        items = new int[colums, rows];
+        grid = new GridObject[colums, rows];
 
         for (int i = 0; i < colums; i++)
             for (int j = 0; j < rows; j++)
             {
-                items[i, j] = levelButtons[i, j].GetIndex();
+                grid[i, j] = new GridObject();
+                grid[i, j].Index = levelButtons[i, j].GetIndex();
+                grid[i, j].Locked = levelButtons[i, j].IsLocked();
+                grid[i, j].Star = levelButtons[i, j].HasStar();
+                grid[i, j].Rotation = levelButtons[i, j].GetRotation();
             }
     }
 
-    public int[,] GetItems()
+    public GridObject[,] GetGrid()
     {
-        return items;
+        return grid;
     }
 
     public bool GetWon()
@@ -188,19 +195,52 @@ public class Level
     }
     public int GetColumns()
     {
-        return items.GetLength(0);
+        return grid.GetLength(0);
     }
 
     public int GetRows()
     {
-        return items.GetLength(1);
+        return grid.GetLength(1);
+    }
+}
+
+[Serializable]
+public class GridObject
+{
+    int index;
+    int rotation;
+    bool locked;
+    bool star;
+
+    public int Index
+    {
+        get { return index; }
+        set { index = value; }
+    }
+
+    public bool Locked
+    {
+        get { return locked; }
+        set { locked = value; }
+    }
+
+    public bool Star
+    {
+        get { return star; }
+        set { star = value; }
+    }
+
+    public int Rotation
+    {
+        get { return rotation; }
+        set { rotation = value; }
     }
 }
 
 
 
 
-[Serializable]
+    [Serializable]
 public class LevelWon
 {
     int m_Stars;

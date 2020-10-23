@@ -46,4 +46,4 @@ public class FSM {
 
 public enum State { Idle, Walking, Win };
 
-public enum Event { ToWalking, ToWin };
+public enum Event { ToWalking, ToWin, ToIdle };

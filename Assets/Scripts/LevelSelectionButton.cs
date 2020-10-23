@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 public class LevelSelectionButton : MonoBehaviour
 {
+#pragma warning disable 649
     [SerializeField] Text levelText;
-    [SerializeField] Text starsText;
+    [SerializeField] Image[] starsUI;
+    [SerializeField] Color unlockedStar;
+    [SerializeField] Color lockedStar;
 
     int index = 0;
     int stars = 0;
@@ -19,8 +22,14 @@ public class LevelSelectionButton : MonoBehaviour
     public void SetStars(int _stars)
     {
         stars = _stars;
-        starsText.text = "Estrellas: " + stars;
+
+        for (int i = 0; i < starsUI.Length; i++)
+            if (i < stars)
+                starsUI[i].color = unlockedStar;
+            else
+                starsUI[i].color = lockedStar;
     }
+
     private void Awake()
     {
         GetComponent<Button>().onClick.AddListener(PlayLevel);
@@ -28,6 +37,8 @@ public class LevelSelectionButton : MonoBehaviour
 
     void PlayLevel()
     {
-        LevelSelectionManager.singleton.PlayLevel(index);
+        GameManager.singleton.PlayLevel(index);
+        GameManager.singleton.GetPauseButton().SetActive(true);
     }
+
 }

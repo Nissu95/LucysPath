@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
@@ -17,6 +18,11 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioClip winClip;
 
     [SerializeField] AudioClip[] nyanClips;
+
+    [SerializeField] Sprite muteIcon;
+    [SerializeField] Sprite unmuteIcon;
+
+    [SerializeField] Image[] allMuteIcons;
 
     bool mute = false;
 
@@ -87,9 +93,19 @@ public class SoundManager : MonoBehaviour
     void SetVolume()
     {
         if (mute)
+        {
             audioSource.volume = 0;
+
+            for (int i = 0; i < allMuteIcons.Length; i++)
+                allMuteIcons[i].sprite = muteIcon;
+        }
         else
+        {
             audioSource.volume = 1;
+
+            for (int i = 0; i < allMuteIcons.Length; i++)
+                allMuteIcons[i].sprite = unmuteIcon;
+        }
     }
 
     public void WinClip()

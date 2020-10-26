@@ -13,14 +13,21 @@ public class GameManager : MonoBehaviour
 #pragma warning disable 649
     [SerializeField] string mainMenuName;
     [SerializeField] string privacyPoliciesLink;
+
     [SerializeField] GameObject pauseGO;
     [SerializeField] GameObject pauseButton;
     [SerializeField] GameObject quitWarning;
     [SerializeField] GameObject optionsGO;
     [SerializeField] GameObject levelSelectionMenu;
+
+    [SerializeField] Button nextLevelButton;
+    [SerializeField] Button previousLevelButton;
+
     [SerializeField] Color[] portalColors;
+
     [SerializeField] float objectGrabHeight;
     [SerializeField] float mouseDragTime = 0.05f;
+
     [SerializeField] Transform levelSelectionContainer;
     [SerializeField] UIStars uIStars;
 
@@ -42,8 +49,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] ScriptableLanguages spanish;
 
     //Main Menu
-    [SerializeField] Text optionsText;
-    [SerializeField] Text exitText;
+    [SerializeField] Text exitTest;
 
     //Win
     [SerializeField] Text winText;
@@ -57,7 +63,6 @@ public class GameManager : MonoBehaviour
     //Options Menu
     [SerializeField] Text optionsTitle;
     [SerializeField] Text privacyPoliciesText;
-    [SerializeField] Text muteText;
     [SerializeField] Dropdown languagesDropdown;
 
     SystemLanguage language;
@@ -174,8 +179,7 @@ public class GameManager : MonoBehaviour
         switch (language)
         {
             case SystemLanguage.English:
-                optionsText.text = english.GetOptionsText();
-                exitText.text = english.GetExitText();
+                exitTest.text = english.GetExitText();
 
                 winText.text = english.GetWinText();
 
@@ -185,7 +189,6 @@ public class GameManager : MonoBehaviour
 
                 optionsTitle.text = english.GetOptionsText();
                 privacyPoliciesText.text = english.GetPrivacyPoliciesText();
-                muteText.text = english.GetMuteText();
 
                 for (int i = 0; i < languagesDropdown.options.Count; i++)
                     languagesDropdown.options[i].text = english.GetLanguagesDropdownTxt()[i];
@@ -194,8 +197,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case SystemLanguage.Spanish:
-                optionsText.text = spanish.GetOptionsText();
-                exitText.text = spanish.GetExitText();
+                exitTest.text = spanish.GetExitText();
 
                 winText.text = spanish.GetWinText();
 
@@ -205,7 +207,6 @@ public class GameManager : MonoBehaviour
 
                 optionsTitle.text = spanish.GetOptionsText();
                 privacyPoliciesText.text = spanish.GetPrivacyPoliciesText();
-                muteText.text = spanish.GetMuteText();
 
                 for (int i = 0; i < languagesDropdown.options.Count; i++)
                     languagesDropdown.options[i].text = spanish.GetLanguagesDropdownTxt()[i];
@@ -294,6 +295,8 @@ public class GameManager : MonoBehaviour
         if (winObj)
             winObj.SetActive(true);
 
+        nextLevelButton.interactable = IsNextLevel();
+        previousLevelButton.interactable = IsPreviousLevel();
 
         pauseButton.SetActive(false);
 
@@ -306,6 +309,26 @@ public class GameManager : MonoBehaviour
         UpdateLevelSelection();
 
         AdmobScript.singleton.ShowInterstitialAd();
+    }
+
+    bool IsNextLevel()
+    {
+        int aux = currentLevel + 1;
+
+        if (LevelsLoader.GetLevel(aux) == null)
+            return false;
+        else
+            return true;
+    }
+
+    bool IsPreviousLevel()
+    {
+        int aux = currentLevel - 1;
+
+        if (LevelsLoader.GetLevel(aux) == null)
+            return false;
+        else
+            return true;
     }
 
     public void StarsCount()
@@ -409,9 +432,17 @@ public class GameManager : MonoBehaviour
 
     public void NextLevelButton()
     {
-        winObj.SetActive(false);
         portalsActive.Clear();
         currentLevel++;
+        winObj.SetActive(false);
+        PlayLevel(currentLevel);
+    }
+
+    public void PreviousLevelButton()
+    {
+        portalsActive.Clear();
+        currentLevel--;
+        winObj.SetActive(false);
         PlayLevel(currentLevel);
     }
 

@@ -15,7 +15,6 @@ public class ScriptableLanguages : ScriptableObject
     [SerializeField] string quitWarningTitle;
     
     [SerializeField] string privacyPoliciesText;
-    [SerializeField] string muteText;
     [SerializeField] string[] languagesDropdownTxt;
 
     public string[] GetLanguagesDropdownTxt()
@@ -26,11 +25,6 @@ public class ScriptableLanguages : ScriptableObject
     public string GetPrivacyPoliciesText()
     {
         return privacyPoliciesText;
-    }
-
-    public string GetMuteText()
-    {
-        return muteText;
     }
 
     public string GetQuitWarningTitle()

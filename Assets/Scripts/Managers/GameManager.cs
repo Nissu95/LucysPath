@@ -13,14 +13,21 @@ public class GameManager : MonoBehaviour
 #pragma warning disable 649
     [SerializeField] string mainMenuName;
     [SerializeField] string privacyPoliciesLink;
+
     [SerializeField] GameObject pauseGO;
     [SerializeField] GameObject pauseButton;
     [SerializeField] GameObject quitWarning;
     [SerializeField] GameObject optionsGO;
     [SerializeField] GameObject levelSelectionMenu;
+
+    [SerializeField] Button nextLevelButton;
+    [SerializeField] Button previousLevelButton;
+
     [SerializeField] Color[] portalColors;
+
     [SerializeField] float objectGrabHeight;
     [SerializeField] float mouseDragTime = 0.05f;
+
     [SerializeField] Transform levelSelectionContainer;
     [SerializeField] UIStars uIStars;
 
@@ -294,6 +301,8 @@ public class GameManager : MonoBehaviour
         if (winObj)
             winObj.SetActive(true);
 
+        nextLevelButton.interactable = IsNextLevel();
+        previousLevelButton.interactable = IsPreviousLevel();
 
         pauseButton.SetActive(false);
 
@@ -306,6 +315,26 @@ public class GameManager : MonoBehaviour
         UpdateLevelSelection();
 
         AdmobScript.singleton.ShowInterstitialAd();
+    }
+
+    bool IsNextLevel()
+    {
+        int aux = currentLevel + 1;
+
+        if (LevelsLoader.GetLevel(aux) == null)
+            return false;
+        else
+            return true;
+    }
+
+    bool IsPreviousLevel()
+    {
+        int aux = currentLevel - 1;
+
+        if (LevelsLoader.GetLevel(aux) == null)
+            return false;
+        else
+            return true;
     }
 
     public void StarsCount()
@@ -411,9 +440,17 @@ public class GameManager : MonoBehaviour
 
     public void NextLevelButton()
     {
-        winObj.SetActive(false);
         portalsActive.Clear();
         currentLevel++;
+        winObj.SetActive(false);
+        PlayLevel(currentLevel);
+    }
+
+    public void PreviousLevelButton()
+    {
+        portalsActive.Clear();
+        currentLevel--;
+        winObj.SetActive(false);
         PlayLevel(currentLevel);
     }
 

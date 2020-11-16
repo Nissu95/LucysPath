@@ -11,6 +11,8 @@ public class LevelSelectionButton : MonoBehaviour
     [SerializeField] Color unlockedStar;
     [SerializeField] Color lockedStar;
 
+    Button button;
+
     int index = 0;
     int stars = 0;
 
@@ -33,11 +35,14 @@ public class LevelSelectionButton : MonoBehaviour
 
     private void Awake()
     {
-        Button button = GetComponent<Button>();
+        button = GetComponent<Button>();
         button.onClick.AddListener(PlayLevel);
+    }
 
-        if ((index + 1) % GameManager.singleton.GetMultipleOf() == 0)
-            button.interactable = GameManager.singleton.GetStarsToPlay();
+    private void OnEnable()
+    {
+        if ((index + 1) % GameManager.singleton.GetMultipleOf() == 0 && GameManager.singleton.GetIsButtonInteractable(index))
+            button.interactable = GameManager.singleton.GetHaveStarsToPlay();
     }
 
     void PlayLevel()

@@ -316,7 +316,12 @@ public class GameManager : MonoBehaviour
         if (LevelsLoader.GetLevel(aux) == null)
             return false;
         else
-            return true;
+        {
+            if ((aux + 1) % multipleOf == 0)
+                return GetHaveStarsToPlay();
+            else
+                return true;
+        }
     }
 
     bool IsPreviousLevel()
@@ -381,6 +386,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public bool GetIsButtonInteractable(int index)
+    {
+        return buttons[index].GetComponent<Button>().interactable;
+    }
+
     //----------------------------------------------------------------------------
     //Buttons
 
@@ -406,6 +416,8 @@ public class GameManager : MonoBehaviour
 
         LevelWon levelWon = LevelsLoader.GetLevelWon(index);
 
+        pauseButton.SetActive(true);
+
         if (levelWon != null)
             recordStars = levelWon.GetStars();
         else
@@ -422,7 +434,6 @@ public class GameManager : MonoBehaviour
         gs = GameState.Play;
 
         winObj.SetActive(false);
-        pauseButton.SetActive(true);
         portalsActive.Clear();
         PlayLevel(currentLevel);
     }
@@ -555,7 +566,7 @@ public class GameManager : MonoBehaviour
         return multipleOf;
     }
 
-    public bool GetStarsToPlay()
+    public bool GetHaveStarsToPlay()
     {
         int totalStarsCollected = 0;
         int totalStars = 0;

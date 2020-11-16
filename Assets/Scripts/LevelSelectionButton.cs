@@ -13,6 +13,7 @@ public class LevelSelectionButton : MonoBehaviour
 
     int index = 0;
     int stars = 0;
+
     public void SetNumber(int _index)
     {
         levelText.text = (_index + 1).ToString();
@@ -32,7 +33,11 @@ public class LevelSelectionButton : MonoBehaviour
 
     private void Awake()
     {
-        GetComponent<Button>().onClick.AddListener(PlayLevel);
+        Button button = GetComponent<Button>();
+        button.onClick.AddListener(PlayLevel);
+
+        if ((index + 1) % GameManager.singleton.GetMultipleOf() == 0)
+            button.interactable = GameManager.singleton.GetStarsToPlay();
     }
 
     void PlayLevel()

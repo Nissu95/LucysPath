@@ -316,7 +316,12 @@ public class GameManager : MonoBehaviour
         if (LevelsLoader.GetLevel(aux) == null)
             return false;
         else
-            return true;
+        {
+            if ((aux + 1) % multipleOf == 0)
+                return GetHaveStarsToPlay();
+            else
+                return true;
+        }
     }
 
     bool IsPreviousLevel()
@@ -556,7 +561,7 @@ public class GameManager : MonoBehaviour
         return multipleOf;
     }
 
-    public bool GetStarsToPlay()
+    public bool GetHaveStarsToPlay()
     {
         int totalStarsCollected = 0;
         int totalStars = 0;

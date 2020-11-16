@@ -37,7 +37,7 @@ public class LevelSelectionButton : MonoBehaviour
         button.onClick.AddListener(PlayLevel);
 
         if ((index + 1) % GameManager.singleton.GetMultipleOf() == 0)
-            button.interactable = GameManager.singleton.GetStarsToPlay();
+            button.interactable = GameManager.singleton.GetHaveStarsToPlay();
     }
 
     void PlayLevel()

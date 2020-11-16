@@ -406,6 +406,8 @@ public class GameManager : MonoBehaviour
 
         LevelWon levelWon = LevelsLoader.GetLevelWon(index);
 
+        pauseButton.SetActive(true);
+
         if (levelWon != null)
             recordStars = levelWon.GetStars();
         else
@@ -422,7 +424,6 @@ public class GameManager : MonoBehaviour
         gs = GameState.Play;
 
         winObj.SetActive(false);
-        pauseButton.SetActive(true);
         portalsActive.Clear();
         PlayLevel(currentLevel);
     }

@@ -49,7 +49,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] ScriptableLanguages spanish;
 
     //Main Menu
-    [SerializeField] Text optionsText;
     [SerializeField] Text exitTest;
 
     //Win
@@ -64,7 +63,6 @@ public class GameManager : MonoBehaviour
     //Options Menu
     [SerializeField] Text optionsTitle;
     [SerializeField] Text privacyPoliciesText;
-    [SerializeField] Text muteText;
     [SerializeField] Dropdown languagesDropdown;
 
     SystemLanguage language;
@@ -181,7 +179,6 @@ public class GameManager : MonoBehaviour
         switch (language)
         {
             case SystemLanguage.English:
-                optionsText.text = english.GetOptionsText();
                 exitTest.text = english.GetExitText();
 
                 winText.text = english.GetWinText();
@@ -192,7 +189,6 @@ public class GameManager : MonoBehaviour
 
                 optionsTitle.text = english.GetOptionsText();
                 privacyPoliciesText.text = english.GetPrivacyPoliciesText();
-                muteText.text = english.GetMuteText();
 
                 for (int i = 0; i < languagesDropdown.options.Count; i++)
                     languagesDropdown.options[i].text = english.GetLanguagesDropdownTxt()[i];
@@ -201,7 +197,6 @@ public class GameManager : MonoBehaviour
                 break;
 
             case SystemLanguage.Spanish:
-                optionsText.text = spanish.GetOptionsText();
                 exitTest.text = spanish.GetExitText();
 
                 winText.text = spanish.GetWinText();
@@ -212,7 +207,6 @@ public class GameManager : MonoBehaviour
 
                 optionsTitle.text = spanish.GetOptionsText();
                 privacyPoliciesText.text = spanish.GetPrivacyPoliciesText();
-                muteText.text = spanish.GetMuteText();
 
                 for (int i = 0; i < languagesDropdown.options.Count; i++)
                     languagesDropdown.options[i].text = spanish.GetLanguagesDropdownTxt()[i];
@@ -404,8 +398,6 @@ public class GameManager : MonoBehaviour
 
     public void PlayLevel(int index)
     {
-        SoundManager.singleton.Nyan();
-
         levelSelectionMenu.SetActive(false);
         LevelCreator.singleton.CreateLevel(LevelsLoader.GetLevel(index));
 
@@ -475,13 +467,12 @@ public class GameManager : MonoBehaviour
 
     public void CloseGame()
     {
-        SoundManager.singleton.Nyan();
         Application.Quit();
     }
 
     public void QuitWarningSetOff()
     {
-        SoundManager.singleton.Nyan();
+        //SoundManager.singleton.Nyan();
         quitWarning.SetActive(false);
         gs = GameState.MainMenu;
     }
@@ -503,6 +494,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         pauseGO.SetActive(true);
+        pauseButton.SetActive(false);
         SoundManager.singleton.Nyan();
         gs = GameState.Pause;
     }
@@ -511,13 +503,13 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         pauseGO.SetActive(false);
+        pauseButton.SetActive(true);
         SoundManager.singleton.Nyan();
         gs = GameState.Play;
     }
 
     public void PrivacyPlicies()
     {
-        SoundManager.singleton.Nyan();
         Application.OpenURL(privacyPoliciesLink);
     }
 

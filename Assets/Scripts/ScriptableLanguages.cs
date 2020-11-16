@@ -6,7 +6,6 @@ using UnityEngine;
 public class ScriptableLanguages : ScriptableObject
 {
     [SerializeField] string optionsText;
-    [SerializeField] string exitText;
 
     [SerializeField] string winText;
 
@@ -40,11 +39,6 @@ public class ScriptableLanguages : ScriptableObject
     public string GetOptionsText()
     {
         return optionsText;
-    }
-
-    public string GetExitText()
-    {
-        return exitText;
     }
 
     public string GetWinText()

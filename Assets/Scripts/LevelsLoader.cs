@@ -163,7 +163,7 @@ public class LevelsLoader
 public class Level
 {
     GridObject[,] grid;
-    bool won = false;
+    //bool won = false;
     public Level(LevelButton[,] levelButtons, int colums, int rows)
     {
         grid = new GridObject[colums, rows];
@@ -184,15 +184,11 @@ public class Level
         return grid;
     }
 
-    public bool GetWon()
-    {
-        return won;
-    }
-
-    public void SetWon(bool _won)
+   /* public void SetWon(bool _won)
     {
         won = _won;
-    }
+    }*/
+
     public int GetColumns()
     {
         return grid.GetLength(0);

@@ -386,6 +386,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public bool GetIsButtonInteractable(int index)
+    {
+        return buttons[index].GetComponent<Button>().interactable;
+    }
+
     //----------------------------------------------------------------------------
     //Buttons
 

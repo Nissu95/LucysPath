@@ -41,7 +41,7 @@ public class LevelSelectionButton : MonoBehaviour
 
     private void OnEnable()
     {
-        if ((index + 1) % GameManager.singleton.GetMultipleOf() == 0)
+        if ((index + 1) % GameManager.singleton.GetMultipleOf() == 0 && GameManager.singleton.GetIsButtonInteractable(index))
             button.interactable = GameManager.singleton.GetHaveStarsToPlay();
     }
 

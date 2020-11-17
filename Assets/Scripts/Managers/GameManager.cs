@@ -68,6 +68,9 @@ public class GameManager : MonoBehaviour
     SystemLanguage language;
     int dropdownValue = 0;
 
+    string needStarsString;
+    string haveStarsString;
+
     //----------------------------------------------------------------------------
     //Level Selection Variables
 
@@ -193,6 +196,9 @@ public class GameManager : MonoBehaviour
                     languagesDropdown.options[i].text = english.GetLanguagesDropdownTxt()[i];
 
                 languagesDropdown.captionText.text = english.GetLanguagesDropdownTxt()[1];
+
+                needStarsString = english.GetNeedStarsString();
+                haveStarsString = english.GetHaveStarsString();
                 break;
 
             case SystemLanguage.Spanish:
@@ -211,6 +217,8 @@ public class GameManager : MonoBehaviour
 
                 languagesDropdown.captionText.text = spanish.GetLanguagesDropdownTxt()[0];
 
+                needStarsString = spanish.GetNeedStarsString();
+                haveStarsString = spanish.GetHaveStarsString();
                 break;
         }
         
@@ -570,13 +578,36 @@ public class GameManager : MonoBehaviour
     {
         int totalStarsCollected = 0;
         int totalStars = 0;
+        int needStars = 0;
 
         for (int i = 0; i < levelsWon.Count; i++)
             totalStarsCollected += levelsWon[i].GetStars();
 
         totalStars = levelsWon.Count * 3;
+        needStars = starsPercentage * totalStars / 100;
 
-        if (totalStarsCollected < starsPercentage * totalStars / 100)
+        if (totalStarsCollected < needStars)
+            return false;
+        else
+            return true;
+    }
+
+    public bool GetHaveStarsToPlay(Text needStarsTxt, Text haveStarsTxt)
+    {
+        int totalStarsCollected = 0;
+        int totalStars = 0;
+        int needStars = 0;
+
+        for (int i = 0; i < levelsWon.Count; i++)
+            totalStarsCollected += levelsWon[i].GetStars();
+
+        totalStars = levelsWon.Count * 3;
+        needStars = starsPercentage * totalStars / 100;
+        
+        needStarsTxt.text = needStarsString + needStars;
+        haveStarsTxt.text = haveStarsString + totalStarsCollected;
+
+        if (totalStarsCollected < needStars)
             return false;
         else
             return true;

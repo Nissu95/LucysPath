@@ -16,6 +16,9 @@ public class ScriptableLanguages : ScriptableObject
     [SerializeField] string privacyPoliciesText;
     [SerializeField] string[] languagesDropdownTxt;
 
+    [SerializeField] string needStarsString;
+    [SerializeField] string haveStarsString;
+
     public string[] GetLanguagesDropdownTxt()
     {
         return languagesDropdownTxt;
@@ -44,5 +47,15 @@ public class ScriptableLanguages : ScriptableObject
     public string GetWinText()
     {
         return winText;
+    }
+
+    public string GetNeedStarsString()
+    {
+        return needStarsString;
+    }
+
+    public string GetHaveStarsString()
+    {
+        return haveStarsString;
     }
 }

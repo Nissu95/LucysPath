@@ -7,9 +7,12 @@ public class LevelSelectionButton : MonoBehaviour
 {
 #pragma warning disable 649
     [SerializeField] Text levelText;
+    [SerializeField] Text needStarsText;
+    [SerializeField] Text haveStarsText;
     [SerializeField] Image[] starsUI;
     [SerializeField] Color unlockedStar;
     [SerializeField] Color lockedStar;
+    [SerializeField] GameObject starsToPlay;
 
     Button button;
 
@@ -41,8 +44,13 @@ public class LevelSelectionButton : MonoBehaviour
 
     private void OnEnable()
     {
+        bool isButtonOn = GameManager.singleton.GetHaveStarsToPlay(needStarsText, haveStarsText);
+
         if ((index + 1) % GameManager.singleton.GetMultipleOf() == 0 && GameManager.singleton.GetIsButtonInteractable(index))
-            button.interactable = GameManager.singleton.GetHaveStarsToPlay();
+        {
+            button.interactable = isButtonOn;
+            starsToPlay.SetActive(!button.interactable);
+        }
     }
 
     void PlayLevel()

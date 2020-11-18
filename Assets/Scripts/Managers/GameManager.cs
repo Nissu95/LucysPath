@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] Transform levelSelectionContainer;
     [SerializeField] UIStars uIStars;
 
+    [SerializeField] int multipleOf;
+    [SerializeField] int starsPercentage;
+
     GameObject winObj;
     int stars;
     int recordStars = 0;
@@ -48,9 +51,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] ScriptableLanguages english;
     [SerializeField] ScriptableLanguages spanish;
 
-    //Main Menu
-    [SerializeField] Text exitTest;
-
     //Win
     [SerializeField] Text winText;
 
@@ -67,6 +67,9 @@ public class GameManager : MonoBehaviour
 
     SystemLanguage language;
     int dropdownValue = 0;
+
+    string needStarsString;
+    string haveStarsString;
 
     //----------------------------------------------------------------------------
     //Level Selection Variables
@@ -179,7 +182,6 @@ public class GameManager : MonoBehaviour
         switch (language)
         {
             case SystemLanguage.English:
-                exitTest.text = english.GetExitText();
 
                 winText.text = english.GetWinText();
 
@@ -194,10 +196,12 @@ public class GameManager : MonoBehaviour
                     languagesDropdown.options[i].text = english.GetLanguagesDropdownTxt()[i];
 
                 languagesDropdown.captionText.text = english.GetLanguagesDropdownTxt()[1];
+
+                needStarsString = english.GetNeedStarsString();
+                haveStarsString = english.GetHaveStarsString();
                 break;
 
             case SystemLanguage.Spanish:
-                exitTest.text = spanish.GetExitText();
 
                 winText.text = spanish.GetWinText();
 
@@ -213,6 +217,8 @@ public class GameManager : MonoBehaviour
 
                 languagesDropdown.captionText.text = spanish.GetLanguagesDropdownTxt()[0];
 
+                needStarsString = spanish.GetNeedStarsString();
+                haveStarsString = spanish.GetHaveStarsString();
                 break;
         }
         
@@ -302,7 +308,7 @@ public class GameManager : MonoBehaviour
 
         LevelsLoader.SaveLevelWon(recordStars, currentLevel);
         Level level = LevelsLoader.GetLevel(currentLevel);
-        level.SetWon(true);
+        //level.SetWon(true);
 
         playerPath.GetFSM().SetEvent(Event.ToIdle);
 
@@ -318,7 +324,12 @@ public class GameManager : MonoBehaviour
         if (LevelsLoader.GetLevel(aux) == null)
             return false;
         else
-            return true;
+        {
+            if ((aux + 1) % multipleOf == 0)
+                return GetHaveStarsToPlay();
+            else
+                return true;
+        }
     }
 
     bool IsPreviousLevel()
@@ -347,7 +358,6 @@ public class GameManager : MonoBehaviour
     void LevelSelectionStart()
     {
         levels = LevelsLoader.GetLevels();
-        levelsWon = LevelsLoader.GetLevelsWon();
 
         for (int i = 0; i < levels.Count; i++)
         {
@@ -384,6 +394,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public bool GetIsButtonInteractable(int index)
+    {
+        return buttons[index].GetComponent<Button>().interactable;
+    }
+
     //----------------------------------------------------------------------------
     //Buttons
 
@@ -409,6 +424,8 @@ public class GameManager : MonoBehaviour
 
         LevelWon levelWon = LevelsLoader.GetLevelWon(index);
 
+        pauseButton.SetActive(true);
+
         if (levelWon != null)
             recordStars = levelWon.GetStars();
         else
@@ -425,7 +442,6 @@ public class GameManager : MonoBehaviour
         gs = GameState.Play;
 
         winObj.SetActive(false);
-        pauseButton.SetActive(true);
         portalsActive.Clear();
         PlayLevel(currentLevel);
     }
@@ -552,4 +568,49 @@ public class GameManager : MonoBehaviour
         else
             return false;
     }
+
+    public int GetMultipleOf()
+    {
+        return multipleOf;
+    }
+
+    public bool GetHaveStarsToPlay()
+    {
+        int totalStarsCollected = 0;
+        int totalStars = 0;
+        int needStars = 0;
+
+        for (int i = 0; i < levelsWon.Count; i++)
+            totalStarsCollected += levelsWon[i].GetStars();
+
+        totalStars = levelsWon.Count * 3;
+        needStars = starsPercentage * totalStars / 100;
+
+        if (totalStarsCollected < needStars)
+            return false;
+        else
+            return true;
+    }
+
+    public bool GetHaveStarsToPlay(Text needStarsTxt, Text haveStarsTxt)
+    {
+        int totalStarsCollected = 0;
+        int totalStars = 0;
+        int needStars = 0;
+
+        for (int i = 0; i < levelsWon.Count; i++)
+            totalStarsCollected += levelsWon[i].GetStars();
+
+        totalStars = levelsWon.Count * 3;
+        needStars = starsPercentage * totalStars / 100;
+        
+        needStarsTxt.text = needStarsString + needStars;
+        haveStarsTxt.text = haveStarsString + totalStarsCollected;
+
+        if (totalStarsCollected < needStars)
+            return false;
+        else
+            return true;
+    }
+
 }

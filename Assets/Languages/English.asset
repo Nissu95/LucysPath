@@ -12,23 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13834d808b518ce489df91b4c70926c3, type: 3}
   m_Name: English
   m_EditorClassIdentifier: 
-  playText: Play
   optionsText: Options
-  exitText: Quit
   winText: You win!
-  nextLevel: Next level
-  playAgain: Play again
-  backToMenu: Back to menu
-  starText: 'Stars: '
-  maxStarsText: 'Max Stars: '
   pauseTitle: Pause
-  continueText: Continue
-  restartText: Restart
   quitWarningTitle: Want to quit?
-  yesText: yes
-  noText: no
   privacyPoliciesText: Privacy policies
-  muteText: Mute
   languagesDropdownTxt:
   - Spanish
   - English
+  needStarsString: 'Need: '
+  haveStarsString: 'Have: '

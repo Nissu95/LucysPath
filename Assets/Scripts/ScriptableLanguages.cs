@@ -6,7 +6,6 @@ using UnityEngine;
 public class ScriptableLanguages : ScriptableObject
 {
     [SerializeField] string optionsText;
-    [SerializeField] string exitText;
 
     [SerializeField] string winText;
 
@@ -16,6 +15,9 @@ public class ScriptableLanguages : ScriptableObject
     
     [SerializeField] string privacyPoliciesText;
     [SerializeField] string[] languagesDropdownTxt;
+
+    [SerializeField] string needStarsString;
+    [SerializeField] string haveStarsString;
 
     public string[] GetLanguagesDropdownTxt()
     {
@@ -42,13 +44,18 @@ public class ScriptableLanguages : ScriptableObject
         return optionsText;
     }
 
-    public string GetExitText()
-    {
-        return exitText;
-    }
-
     public string GetWinText()
     {
         return winText;
+    }
+
+    public string GetNeedStarsString()
+    {
+        return needStarsString;
+    }
+
+    public string GetHaveStarsString()
+    {
+        return haveStarsString;
     }
 }

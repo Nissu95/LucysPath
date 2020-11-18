@@ -2370,8 +2370,16 @@ MonoBehaviour:
   pickUpStarClip: {fileID: 8300000, guid: 74b76e16c61df8942a5dad6c3c458e28, type: 3}
   winClip: {fileID: 8300000, guid: b07567a31122e424c886ee3d021f25bc, type: 3}
   nyanClips:
+  - {fileID: 8300000, guid: 7f88cedf11a4eb24897172037a4e28ea, type: 3}
+  - {fileID: 8300000, guid: eb490842c428180489831ec64abb498c, type: 3}
   - {fileID: 8300000, guid: efbf55d78978448428e7aa753d77372b, type: 3}
   - {fileID: 8300000, guid: 9f279b337958bb643befaedd6c9e8066, type: 3}
+  - {fileID: 8300000, guid: 435997096d861c14b8bd80bd80212b39, type: 3}
+  - {fileID: 8300000, guid: 3e258a6bb58123742947fcc32d9eb6f6, type: 3}
+  - {fileID: 8300000, guid: 8a7d314306ab4b848b6d02427f5b3a54, type: 3}
+  - {fileID: 8300000, guid: d8052f120bf871b4da17a758066846ec, type: 3}
+  - {fileID: 8300000, guid: 8174bf17842f35740a3d40233363c8e1, type: 3}
+  - {fileID: 8300000, guid: a7769f1042cf643498bde4b13c20303e, type: 3}
   muteIcon: {fileID: 21300000, guid: 7972520fbd6566e4aba78126f8b2532f, type: 3}
   unmuteIcon: {fileID: 21300000, guid: 964bc366b94510c44bf42d83a0231044, type: 3}
   allMuteIcons:

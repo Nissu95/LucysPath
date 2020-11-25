@@ -34,6 +34,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] int multipleOf;
     [SerializeField] int starsPercentage;
 
+    [SerializeField] ImageSequencePlayer tutorialPlayer;
+    [SerializeField] TutorialContainer[] tutorials;
+
+
     GameObject winObj;
     int stars;
     int recordStars = 0;
@@ -418,6 +422,10 @@ public class GameManager : MonoBehaviour
 
         currentLevel = index;
 
+        for (int i = 0; i < tutorials.Length; i++)
+            if (currentLevel == tutorials[i].GetLevel())
+                PlayTutorial(tutorials[i]);
+
         playerPath = FindObjectOfType<Pathfinding>();
 
         stars = 0;
@@ -433,6 +441,12 @@ public class GameManager : MonoBehaviour
 
         SoundManager.singleton.ChangeToGame();
         gs = GameState.Play;
+    }
+
+    void PlayTutorial(TutorialContainer tutorial)
+    {
+        tutorialPlayer.gameObject.SetActive(true);
+        tutorialPlayer.SetTutorial(tutorial);
     }
 
     public void PlayAgain()
@@ -591,6 +605,8 @@ public class GameManager : MonoBehaviour
         else
             return true;
     }
+
+    
 
     public bool GetHaveStarsToPlay(Text needStarsTxt, Text haveStarsTxt)
     {

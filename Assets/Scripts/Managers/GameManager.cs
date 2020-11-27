@@ -423,7 +423,7 @@ public class GameManager : MonoBehaviour
         currentLevel = index;
 
         for (int i = 0; i < tutorials.Length; i++)
-            if (currentLevel == tutorials[i].GetLevel())
+            if (currentLevel == tutorials[i].GetLevel() && LevelsLoader.GetLevelsWon().Count < currentLevel+1)
                 PlayTutorial(tutorials[i]);
 
         playerPath = FindObjectOfType<Pathfinding>();

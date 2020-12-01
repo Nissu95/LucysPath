@@ -52,10 +52,7 @@ public class MouseDrag : MonoBehaviour
 
     void OnMouseDrag()
     {
-        if (GameManager.singleton.PathFound || GameManager.singleton.IsPause())
-            return;
-
-        if (movementLock)
+        if (GameManager.singleton.PathFound || GameManager.singleton.IsPause() || movementLock)
             return;
 
         timer.Update();
@@ -86,15 +83,13 @@ public class MouseDrag : MonoBehaviour
         if (GameManager.singleton.PathFound || GameManager.singleton.IsPause())
             return;
 
-        //Vector3 diff = scanPos - curPosition;
-
-        //rotate = (diff.magnitude < minMovementSquare);
-
         if (!movementLock)
         {
             if (!rotate)
             {
-                scanPos.y -= GameManager.singleton.GetGrabHeight();
+                if (scanPos.y >= GameManager.singleton.GetGrabHeight())
+                    scanPos.y -= GameManager.singleton.GetGrabHeight();
+
                 curPosition.y = scanPos.y;
 
                 curPosition.x = (float)Math.Round(curPosition.x);

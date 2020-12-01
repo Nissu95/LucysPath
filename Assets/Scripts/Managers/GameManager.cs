@@ -606,9 +606,7 @@ public class GameManager : MonoBehaviour
             return true;
     }
 
-    
-
-    public bool GetHaveStarsToPlay(Text needStarsTxt, Text haveStarsTxt)
+    public bool GetHaveStarsToPlay(Text needStarsTxt, Text haveStarsTxt, int index)
     {
         int totalStarsCollected = 0;
         int totalStars = 0;
@@ -617,7 +615,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < levelsWon.Count; i++)
             totalStarsCollected += levelsWon[i].GetStars();
 
-        totalStars = levelsWon.Count * 3;
+        totalStars = index * 3;
         needStars = starsPercentage * totalStars / 100;
         
         needStarsTxt.text = needStarsString + needStars;
@@ -628,5 +626,4 @@ public class GameManager : MonoBehaviour
         else
             return true;
     }
-
 }

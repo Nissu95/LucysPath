@@ -312,9 +312,6 @@ public class GameManager : MonoBehaviour
 
         LevelsLoader.SaveLevelWon(recordStars, currentLevel);
         Level level = LevelsLoader.GetLevel(currentLevel);
-        //level.SetWon(true);
-
-        playerPath.GetFSM().SetEvent(Event.ToIdle);
 
         UpdateLevelSelection();
 

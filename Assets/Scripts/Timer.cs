@@ -7,7 +7,7 @@ public class Timer
 
     float timer = 0;
     float time;
-
+    bool active = true;
 
     public void SetTime(float _time)
     {
@@ -20,6 +20,11 @@ public class Timer
         timer = time;
     }
 
+    public void SetActive(bool _active)
+    {
+        active = _active;
+    }
+
     public bool TimeUp()
     {
         if (timer <= 0)
@@ -30,7 +35,7 @@ public class Timer
 
     public void Update()
     {
-        if (timer > 0)
+        if (timer > 0 && active)
             timer -= Time.fixedDeltaTime;
     }
 }

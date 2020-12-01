@@ -16,6 +16,7 @@ public class Pathfinding : MonoBehaviour
     Vector3 dir;
 
     int nodeIndex = 0;
+    Timer winTimer = new Timer();
     
     void Start()
     {
@@ -28,10 +29,15 @@ public class Pathfinding : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         boxCollider = GetComponent<BoxCollider>();
         boxCollider.enabled = false;
+
+        winTimer.SetTime(SoundManager.singleton.GetWinClipDuration());
+        winTimer.SetActive(false);
     }
 
     private void FixedUpdate()
     {
+        winTimer.Update();
+
         switch (fsm.GetState())
         {
             case State.Idle:
@@ -67,8 +73,17 @@ public class Pathfinding : MonoBehaviour
             case State.Win:
                 animator.SetBool("isWalking", false);
                 SoundManager.singleton.WinClip();
-                GameManager.singleton.LevelWin();
+                winTimer.SetActive(true);
+                fsm.SetEvent(Event.ToIdle);
                 break;
+        }
+
+        if (winTimer.TimeUp())
+        {
+            SoundManager.singleton.ChangeToMenu();
+            GameManager.singleton.LevelWin();
+            winTimer.SetActive(false);
+            winTimer.Reset();
         }
     }
 
@@ -83,10 +98,5 @@ public class Pathfinding : MonoBehaviour
     public void NextNode()
     {
         nodeIndex++;
-    }
-
-    public FSM GetFSM()
-    {
-        return fsm;
     }
 }

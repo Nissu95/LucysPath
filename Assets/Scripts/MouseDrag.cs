@@ -35,7 +35,7 @@ public class MouseDrag : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (GameManager.singleton.PathFound || GameManager.singleton.IsPause())
+        if (GameManager.singleton.PathFound || GameManager.singleton.IsPause() || movementLock)
             return;
 
         maxPosition = LevelCreator.singleton.GetMaxPosition();
@@ -80,59 +80,56 @@ public class MouseDrag : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (GameManager.singleton.PathFound || GameManager.singleton.IsPause())
+        if (GameManager.singleton.PathFound || GameManager.singleton.IsPause() || movementLock)
             return;
 
-        if (!movementLock)
+        if (!rotate)
         {
-            if (!rotate)
+            if (scanPos.y > GameManager.singleton.GetGrabHeight())
+                scanPos.y -= GameManager.singleton.GetGrabHeight();
+
+            curPosition.y = scanPos.y;
+
+            curPosition.x = (float)Math.Round(curPosition.x);
+            curPosition.z = (float)Math.Round(curPosition.z);
+
+            if (curPosition.x < maxPosition.x
+                && curPosition.z < maxPosition.y
+                && curPosition.x >= 0
+                && curPosition.z >= 0)
             {
-                if (scanPos.y >= GameManager.singleton.GetGrabHeight())
-                    scanPos.y -= GameManager.singleton.GetGrabHeight();
+                Vector2Int pathIndex = LevelCreator.singleton.GetPath(GetComponent<Path>());
 
-                curPosition.y = scanPos.y;
-
-                curPosition.x = (float)Math.Round(curPosition.x);
-                curPosition.z = (float)Math.Round(curPosition.z);
-
-                if (curPosition.x < maxPosition.x
-                    && curPosition.z < maxPosition.y
-                    && curPosition.x >= 0
-                    && curPosition.z >= 0)
+                if (pathIndex != LevelCreator.singleton.nullPosition)
                 {
-                    Vector2Int pathIndex = LevelCreator.singleton.GetPath(GetComponent<Path>());
+                    bool movementCorrect = LevelCreator.singleton.MovePath(pathIndex, new Vector2Int((int)curPosition.x, (int)curPosition.z));
 
-                    if (pathIndex != LevelCreator.singleton.nullPosition)
+                    if (movementCorrect)
                     {
-                        bool movementCorrect = LevelCreator.singleton.MovePath(pathIndex, new Vector2Int((int)curPosition.x, (int)curPosition.z));
-
-                        if (movementCorrect)
-                        {
-                            transform.position = curPosition;
-                            SoundManager.singleton.PickUpClip();
-                        }
-                        else
-                        {
-                            transform.position = scanPos;
-                            SoundManager.singleton.PickUpClip();
-                        }
+                        transform.position = curPosition;
+                        SoundManager.singleton.PickUpClip();
                     }
-                }
-                else
-                {
-                    transform.position = scanPos;
-                    SoundManager.singleton.PickUpClip();
+                    else
+                    {
+                        transform.position = scanPos;
+                        SoundManager.singleton.PickUpClip();
+                    }
                 }
             }
             else
             {
-                path.RotateSquare();
-                path.RotatePath();
+                transform.position = scanPos;
+                SoundManager.singleton.PickUpClip();
             }
-
-            timer.Reset();
-            LevelCreator.singleton.FindPath();
         }
+        else
+        {
+            path.RotateSquare();
+            path.RotatePath();
+        }
+
+        timer.Reset();
+        LevelCreator.singleton.FindPath();
     }
 
     public void Lock()

@@ -35,7 +35,7 @@ public class MouseDrag : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (GameManager.singleton.PathFound || GameManager.singleton.IsPause() || movementLock)
+        if (GameManager.singleton.PathFound || GameManager.singleton.IsPause())
             return;
 
         maxPosition = LevelCreator.singleton.GetMaxPosition();

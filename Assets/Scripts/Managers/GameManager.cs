@@ -326,10 +326,7 @@ public class GameManager : MonoBehaviour
             return false;
         else
         {
-            if ((aux + 1) % multipleOf == 0)
-                return GetHaveStarsToPlay();
-            else
-                return true;
+            return buttons[aux].GetIsButtonOn();
         }
     }
 

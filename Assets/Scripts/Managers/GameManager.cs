@@ -326,8 +326,13 @@ public class GameManager : MonoBehaviour
             return false;
         else
         {
-            return buttons[aux].GetIsButtonOn();
+            if ((aux + 1) % multipleOf == 0)
+            {
+                return GetHaveStarsToPlay();
+            }
         }
+
+        return true;
     }
 
     bool IsPreviousLevel()
@@ -591,7 +596,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < levelsWon.Count; i++)
             totalStarsCollected += levelsWon[i].GetStars();
 
-        totalStars = levelsWon.Count * 3;
+        totalStars = (currentLevel + 1) * 3;
         needStars = starsPercentage * totalStars / 100;
 
         if (totalStarsCollected < needStars)

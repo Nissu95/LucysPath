@@ -15,7 +15,7 @@ public class LevelSelectionButton : MonoBehaviour
     [SerializeField] GameObject starsToPlay;
 
     Button button;
-    bool isButtonOn = true;
+    
     int index = 0;
     int stars = 0;
 
@@ -44,18 +44,13 @@ public class LevelSelectionButton : MonoBehaviour
 
     private void OnEnable()
     {
-        isButtonOn = GameManager.singleton.GetHaveStarsToPlay(needStarsText, haveStarsText, index);
+        bool isButtonOn = GameManager.singleton.GetHaveStarsToPlay(needStarsText, haveStarsText, index);
 
         if ((index + 1) % GameManager.singleton.GetMultipleOf() == 0 && GameManager.singleton.GetIsButtonInteractable(index))
         {
             button.interactable = isButtonOn;
             starsToPlay.SetActive(!button.interactable);
         }
-    }
-
-    public bool GetIsButtonOn()
-    {
-        return isButtonOn;
     }
 
     void PlayLevel()

@@ -302,16 +302,16 @@ public class GameManager : MonoBehaviour
         if (stars > recordStars)
             recordStars = stars;
 
+        pauseButton.SetActive(false);
+
+        LevelsLoader.SaveLevelWon(recordStars, currentLevel);
+        Level level = LevelsLoader.GetLevel(currentLevel);
+
         if (winObj)
             winObj.SetActive(true);
 
         nextLevelButton.interactable = IsNextLevel();
         previousLevelButton.interactable = IsPreviousLevel();
-
-        pauseButton.SetActive(false);
-
-        LevelsLoader.SaveLevelWon(recordStars, currentLevel);
-        Level level = LevelsLoader.GetLevel(currentLevel);
 
         UpdateLevelSelection();
 
@@ -323,7 +323,9 @@ public class GameManager : MonoBehaviour
         int aux = currentLevel + 1;
 
         if (LevelsLoader.GetLevel(aux) == null)
+        {
             return false;
+        }
         else
         {
             if ((aux + 1) % multipleOf == 0)

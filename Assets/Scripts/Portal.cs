@@ -22,12 +22,6 @@ public class Portal : MonoBehaviour
 
     private bool active = true;
 
-    private void Start()
-    {
-        Time.timeScale = 0.5f;
-
-        //connectionTransform = connection.transform;
-    }
 
     private void OnTriggerEnter(Collider other)
     {

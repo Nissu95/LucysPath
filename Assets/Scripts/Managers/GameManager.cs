@@ -302,19 +302,16 @@ public class GameManager : MonoBehaviour
         if (stars > recordStars)
             recordStars = stars;
 
+        pauseButton.SetActive(false);
+
+        LevelsLoader.SaveLevelWon(recordStars, currentLevel);
+        Level level = LevelsLoader.GetLevel(currentLevel);
+
         if (winObj)
             winObj.SetActive(true);
 
         nextLevelButton.interactable = IsNextLevel();
         previousLevelButton.interactable = IsPreviousLevel();
-
-        pauseButton.SetActive(false);
-
-        LevelsLoader.SaveLevelWon(recordStars, currentLevel);
-        Level level = LevelsLoader.GetLevel(currentLevel);
-        //level.SetWon(true);
-
-        playerPath.GetFSM().SetEvent(Event.ToIdle);
 
         UpdateLevelSelection();
 
@@ -326,14 +323,18 @@ public class GameManager : MonoBehaviour
         int aux = currentLevel + 1;
 
         if (LevelsLoader.GetLevel(aux) == null)
+        {
             return false;
+        }
         else
         {
             if ((aux + 1) % multipleOf == 0)
+            {
                 return GetHaveStarsToPlay();
-            else
-                return true;
+            }
         }
+
+        return true;
     }
 
     bool IsPreviousLevel()
@@ -423,7 +424,7 @@ public class GameManager : MonoBehaviour
         currentLevel = index;
 
         for (int i = 0; i < tutorials.Length; i++)
-            if (currentLevel == tutorials[i].GetLevel())
+            if (currentLevel == tutorials[i].GetLevel() && LevelsLoader.GetLevelsWon().Count < currentLevel+1)
                 PlayTutorial(tutorials[i]);
 
         playerPath = FindObjectOfType<Pathfinding>();
@@ -597,7 +598,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < levelsWon.Count; i++)
             totalStarsCollected += levelsWon[i].GetStars();
 
-        totalStars = levelsWon.Count * 3;
+        totalStars = (currentLevel + 1) * 3;
         needStars = starsPercentage * totalStars / 100;
 
         if (totalStarsCollected < needStars)
@@ -606,9 +607,7 @@ public class GameManager : MonoBehaviour
             return true;
     }
 
-    
-
-    public bool GetHaveStarsToPlay(Text needStarsTxt, Text haveStarsTxt)
+    public bool GetHaveStarsToPlay(Text needStarsTxt, Text haveStarsTxt, int index)
     {
         int totalStarsCollected = 0;
         int totalStars = 0;
@@ -617,7 +616,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < levelsWon.Count; i++)
             totalStarsCollected += levelsWon[i].GetStars();
 
-        totalStars = levelsWon.Count * 3;
+        totalStars = index * 3;
         needStars = starsPercentage * totalStars / 100;
         
         needStarsTxt.text = needStarsString + needStars;
@@ -628,5 +627,4 @@ public class GameManager : MonoBehaviour
         else
             return true;
     }
-
 }

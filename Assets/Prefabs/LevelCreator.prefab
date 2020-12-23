@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7115821754679164171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7115821754679164169}
+  - component: {fileID: 630501286}
+  m_Layer: 0
+  m_Name: LevelCreator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7115821754679164169
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7115821754679164171}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.426092, y: 20.49318, z: -0.62237525}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &630501286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7115821754679164171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71122ecf07edb7d4290ab7f7cb272736, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathPrefabs:
+  - {fileID: 11400000, guid: 2e781a112b483e14f8f78ba2c29b48de, type: 2}
+  - {fileID: 11400000, guid: 67481d703e301e14082688f731a95ffd, type: 2}
+  - {fileID: 11400000, guid: 1a632bffdf2c1ec48b4f46550269b193, type: 2}
+  - {fileID: 11400000, guid: 35d070808a2af11458aaf116dd9f66a7, type: 2}
+  - {fileID: 11400000, guid: 6416545d7c2fc04448fcb366c8fcd8e3, type: 2}
+  - {fileID: 11400000, guid: 67cabcf22fa6251499f90ceb1d732730, type: 2}
+  - {fileID: 11400000, guid: f397d98764b330141bc11b68f8eec180, type: 2}
+  - {fileID: 11400000, guid: 85c182fc74894ab42ae7eeefbc70d714, type: 2}
+  - {fileID: 11400000, guid: 925445b46787253498e582c27e177406, type: 2}
+  firstPathPosition: {x: 0, y: 0}
+  itemsSpacing: 0
+  firstPathColor: {r: 0.43115234, g: 1, b: 0, a: 0.50980395}
+  lastPathColor: {r: 1, g: 0, b: 0.11599016, a: 0.5019608}
+  intermidiatePathColor: {r: 0, g: 0, b: 0, a: 0.27450982}

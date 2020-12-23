@@ -8,7 +8,7 @@ public class AdmobScript : MonoBehaviour
 {
     public static AdmobScript singleton;
 
-    string adUnitId = "ca-app-pub-3940256099942544/1033173712";
+    string adUnitId = "ca-app-pub-7605693134218621/9933217889";
 
     InterstitialAd interstitial;
 

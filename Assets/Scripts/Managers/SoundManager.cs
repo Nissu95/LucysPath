@@ -110,7 +110,12 @@ public class SoundManager : MonoBehaviour
 
     public void WinClip()
     {
+        audioSource.Stop();
         audioSource.PlayOneShot(winClip);
-        ChangeToMenu();
+    }
+
+    public float GetWinClipDuration()
+    {
+        return winClip.length;
     }
 }

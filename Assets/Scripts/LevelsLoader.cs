@@ -126,6 +126,7 @@ public class LevelsLoader
         else
         {
             Debug.LogError("File not found");
+            levelsWon = new List<LevelWon>();
             return;
         }
 
